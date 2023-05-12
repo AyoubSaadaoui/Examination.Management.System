@@ -8,8 +8,9 @@
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <title>Home</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets/all.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="<?=ROOT?>/assets/all.min.css"> -->
 </head>
 <body>
     <div style="min-whidth:350;">
