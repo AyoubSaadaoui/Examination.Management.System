@@ -7,16 +7,16 @@ class Database {
 
     private function connect() {
 
-        $string = "mysql:host=localhost;dbname=school_management";
+        $string = DBDRIVER.":host=".DBHOST.";dbname=".DBNAME;
 
-        if(!$con = new PDO($string,'root','')) {
+        if(!$con = new PDO($string,DBUSER,DBPASSWORD)) {
             die("cloud not connect to database");
         }
 
         return $con;
     }
 
-    private function run($query, $data, $data_type = "object") {
+    public function query($query, $data = array(), $data_type = "object") {
 
         $con = $this->connect();
         $stm = $con->prepare($query);
@@ -44,9 +44,7 @@ class Database {
         return false;
     }
 
-    public function query() {
 
-    }
 }
 
 
