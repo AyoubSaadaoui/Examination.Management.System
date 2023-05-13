@@ -1,12 +1,18 @@
 <style>
     nav ul li a:hover{
+        wisth: 110px;
+        text-align: center;
+        border-left: solid thin #eee;
+        border-right: solid thin #fff;
+    }
+    nav ul li a:hover{
         background-color: grey;
         color: white !important;
     }
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light px-4 pb-4">
   <a class="navbar-brand " href="#">
-    <img  style="width: 60px;" src="<?=ROOT?>/assets/logo.png" alt="logo">
+    <img  style="width: 60px;" class="my-auto" src="<?=ROOT?>/assets/logo.png" alt="logo">
     My School
   </a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,11 +32,13 @@
       <li class="nav-item">
         <a class="nav-link" href="<?=ROOT?>/tests">TESTS</a>
       </li>
+    </ul>
+    <ul class="navbar-nav ms-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           USER
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="<?=ROOT?>/profile">Profile</a>
           <a class="dropdown-item" href="<?=ROOT?>">Dashboard</a>
           <div class="dropdown-divider"></div>
