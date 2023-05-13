@@ -77,10 +77,18 @@ class User extends Model{
 
     public function make_user_id($data) {
 
+        // type : varchar(60)
+        $data['user_id'] = $this->random_string(60);
+
         return $data;
     }
 
     public function make_school_id($data) {
+
+        if(isset($_SESSION['USER']->school_id)) {
+
+            $data['school_id'] = $_SESSION['USER']->school_id;
+        }
 
         return $data;
     }
@@ -88,7 +96,21 @@ class User extends Model{
     public function hash_password($data) {
 
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
         return $data;
+    }
+
+    private function random_string($length) {
+
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $id = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $random = rand(0, strlen($characters) - 1);
+            $id .= $characters[$random];
+        }
+
+        return $id;
     }
 
 
