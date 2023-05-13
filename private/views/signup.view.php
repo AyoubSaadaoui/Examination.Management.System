@@ -1,5 +1,4 @@
 <?php $this->view('includes/header'); ?>
-<?php print_r($errors) ?>
 
         <div class="container-fluid ">
             <form action="" method="post">
@@ -12,24 +11,36 @@
                     alt="logo"
                 >
                 <h3>Add User</h3>
-                <input class="form-control my-2"type="text" name="firstname" placeholder="Firstname" >
-                <input class="form-control my-2"  type="text" name="lastname" placeholder="Lastname" >
-                <input class="form-control my-2" type="email" name="email" placeholder="Email" >
+                <?php if(count($errors) > 0) :?>
+                    <div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
+                        <strong>Holy guacamole!</strong>
+                        <?php foreach($errors as $error) : ?>
+                            <br><?=$error." !"?>
+                        <?php endforeach; ?>
+                        <span type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </span>
+                    </div>
+                <?php endif; ?>
+                <input class="form-control my-2" value="<?=get_var('firstname')?>" type="text" name="firstname" placeholder="Firstname" >
+                <input class="form-control my-2" value="<?=get_var('lastname')?>" type="text" name="lastname" placeholder="Lastname" >
+                <input class="form-control my-2" value="<?=get_var('email')?>" type="email" name="email" placeholder="Email" >
                 <select class="form-control my-2" name="gender" >
-                    <option value="">--Select a Gender--</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                    <option <?=get_selected('gender', '')?> value="">--Select a Gender--</option>
+                    <option <?=get_selected('gender', 'male')?> value="male">Male</option>
+                    <option <?=get_selected('gender', 'female')?> value="female">Female</option>
                 </select>
                 <select class="form-control my-2" name="rank" >
-                    <option value="">--Select a Rank--</option>
-                    <option value="student">Student</option>
-                    <option value="reception">Reception</option>
-                    <option value="teacher">Teacher</option>
-                    <option value="admin">Admin</option>
-                    <option value="super_admin">Super Admin</option>
+
+                    <option <?=get_selected('rank', '')?> value="">--Select a Rank--</option>
+                    <option <?=get_selected('rank', 'student')?> value="student">Student</option>
+                    <option <?=get_selected('rank', 'reception')?> value="reception">Reception</option>
+                    <option <?=get_selected('rank', 'teacher')?> value="teacher">Teacher</option>
+                    <option <?=get_selected('rank', 'admin')?> value="admin">Admin</option>
+                    <option <?=get_selected('rank', 'super_admin')?> value="super_admin">Super Admin</option>
                 </select>
-                <input class="form-control my-2" type="password" name="password" placeholder="Password" >
-                <input class="form-control my-2" type="password" name="password2" placeholder="Retype Password">
+                <input class="form-control my-2" value="<?=get_var('password')?>" type="password" name="password" placeholder="Password" >
+                <input class="form-control my-2" value="<?=get_var('password2')?>" type="password" name="password2" placeholder="Retype Password">
                 <br>
                 <button class="btn mybtn btn-success col-4 me-4 d-flex justify-content-center float-end">Add User</button>
                 <button type="button" class="btn mybtn btn-danger text-white col-4 ms-4  d-flex justify-content-center ">Cancel</button>
