@@ -5,6 +5,8 @@
  */
 class Model extends Database {
 
+    public $errors = array();
+    
     function __construct() {
         // automatically set a default table name for modelss
         if(!property_exists($this, 'table')) {
