@@ -22,13 +22,12 @@ class Login extends Controller
                     Auth::authenticate($row);
                     $this->redirect('/home');
                 }
-                    
-            }
 
+            }
+            $errors['email'] = "Wrong email or password";
         }
-        $errors['email'] = "Wrong email or password";
 
         // controller views
-        echo $this->view("login", ['errors'=>$errors]);
+        $this->view("login", ['errors'=>$errors]);
     }
 }
