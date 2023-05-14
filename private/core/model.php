@@ -8,7 +8,7 @@ class Model extends Database {
     public $errors = array();
 
     function __construct() {
-        // automatically set a default table name for modelss
+        //
         if(!property_exists($this, 'table')) {
 
             $this->table = strtolower($this::class) . "s";
@@ -18,13 +18,38 @@ class Model extends Database {
     public function where($column, $value) {
 
         $query = "SELECT * FROM $this->table WHERE $column = :value";
-        return $this->query($query, ['value'=>$value]);
+        $data =  $this->query($query, ['value'=>$value]);
+
+        if(is_array($data)) {
+            if(property_exists($this, 'afterSelect')) {
+
+                foreach($this->afterSelect as $function) {
+
+                    $data = $this->$function($data);
+                }
+            }
+        }
+
+        return $data;
     }
 
     public function findAll() {
 
         $query = "SELECT * FROM $this->table";
-        return $this->query($query);
+        $data = $this->query($query);
+
+        // run functions after select
+        if(is_array($data)) {
+            if(property_exists($this, 'afterSelect')) {
+
+                foreach($this->afterSelect as $function) {
+
+                    $data = $this->$function($data);
+                }
+            }
+        }
+
+        return $data;
     }
 
     public function insert($data) {

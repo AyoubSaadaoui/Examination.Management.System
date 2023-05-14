@@ -20,8 +20,8 @@
         <?php foreach($rows as $row):?>
           <tr>
             <th><?=$row->school?></th>
-            <th><?=$row->user_id?></th>
-            <th><?=$row->date?></th>
+            <th><?=$row->user->firstname?> <?=$row->user->lastname?></th>
+            <th><?=get_date($row->date)?></th>
             <th>
               <button class="btn btn-sm btn-warning text-white"><i class="fa fa-edit"></i></button>
               <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>

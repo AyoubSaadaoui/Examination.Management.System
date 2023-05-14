@@ -40,3 +40,8 @@ function random_string($length) {
 
     return $id;
 }
+
+function get_date($date) {
+
+    return date("jS M, Y", strtotime($date));
+}
