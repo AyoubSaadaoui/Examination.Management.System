@@ -42,8 +42,40 @@ class Schools extends Controller
             }
 
         }
-        
+
 
         $this->view('schools.add', ['errors'=>$errors]);
+    }
+
+    function edit($id = null) {
+
+        if(!Auth::logged_in()) {
+
+            $this->redirect('/login');
+        }
+
+        $errors = array();
+        $school = new School();
+
+        if(count($_POST) >0) {
+            if($school->validate($_POST)) {
+
+                $_POST['date'] = date("Y-m-d H:i:s");
+
+                $school->update($id, $_POST);
+                $this->redirect("schools");
+            }else {
+                $errors = $school->errors;
+            }
+
+        }
+
+        $row = $school->where('id', $id);
+
+        $this->view('schools.edit', [
+            'row'=>$row,
+            'errors'=>$errors,
+
+        ]);
     }
 }

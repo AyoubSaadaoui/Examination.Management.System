@@ -1,13 +1,13 @@
 <?php
 
-function get_var($key) {
+function get_var($key, $default = "") {
 
     if(isset($_POST[$key])) {
 
         return $_POST[$key];
     }
 
-    return "";
+    return $default;
 }
 
 function get_selected($key, $value) {

@@ -25,7 +25,7 @@ class School extends Model{
         $this->errors = array();
 
         // Check for school name
-        if(empty($DATA['school']) || !preg_match('/^[a-zA-Z]+$/', $DATA['school']) ) {
+        if(empty($DATA['school']) || !preg_match('/^[a-zA-Z\s]+$/', $DATA['school']) ) {
 
             $this->errors['school'] = "Only letters allowed in school name";
         }
