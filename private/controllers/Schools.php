@@ -16,7 +16,13 @@ class Schools extends Controller
 
         $data = $school->findAll();
 
-        $this->view('Schools', ['rows'=>$data]);
+        $crumbs[] = ['Dashboard', ''];
+        $crumbs[] = ['Schools', 'schools'];
+
+        $this->view('Schools', [
+            'rows'=>$data,
+            'crumbs'=>$crumbs,
+        ]);
     }
 
     function add() {
@@ -43,8 +49,14 @@ class Schools extends Controller
 
         }
 
+        $crumbs[] = ['Dashboard', ''];
+        $crumbs[] = ['Schools', 'schools'];
+        $crumbs[] = ['Add', 'schools/add'];
 
-        $this->view('schools.add', ['errors'=>$errors]);
+        $this->view('schools.add', [
+            'errors'=>$errors,
+            'crumbs'=>$crumbs,
+        ]);
     }
 
     function edit($id = null) {
@@ -60,8 +72,6 @@ class Schools extends Controller
         if(count($_POST) >0) {
             if($school->validate($_POST)) {
 
-                $_POST['date'] = date("Y-m-d H:i:s");
-
                 $school->update($id, $_POST);
                 $this->redirect("schools");
             }else {
@@ -72,9 +82,44 @@ class Schools extends Controller
 
         $row = $school->where('id', $id);
 
+        $crumbs[] = ['Dashboard', ''];
+        $crumbs[] = ['Schools', 'schools'];
+        $crumbs[] = ['Edit', 'schools/edit'];
+
         $this->view('schools.edit', [
             'row'=>$row,
             'errors'=>$errors,
+            'crumbs'=>$crumbs,
+
+        ]);
+    }
+
+    function delete($id = null) {
+
+        if(!Auth::logged_in()) {
+
+            $this->redirect('/login');
+        }
+
+        $errors = array();
+        $school = new School();
+
+        if(count($_POST) >0) {
+
+            $school->delete($id, $_POST);
+            $this->redirect("schools");
+
+        }
+
+        $row = $school->where('id', $id);
+
+        $crumbs[] = ['Dashboard', ''];
+        $crumbs[] = ['Schools', 'schools'];
+        $crumbs[] = ['Delete', 'schools/delete'];
+        $this->view('schools.delete', [
+            'row'=>$row,
+            'errors'=>$errors,
+            'crumbs'=>$crumbs,
 
         ]);
     }

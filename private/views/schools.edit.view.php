@@ -2,13 +2,13 @@
 <?php $this->view('includes/navbar'); ?>
 
   <div class="container-fluid w-75 p-4 mx-auto shadow" >
-  <?php $this->view('includes/breadcrumb'); ?>
+  <?php $this->view('includes/breadcrumb', ['crumbs'=>$crumbs]); ?>
 
     <?php if($row) : ?>
     <div class="card-group justify-content-center">
 
-      <form class="form-inline" method="post">
-        <h5 class="mt-2 text-center">Edit School</h5>
+      <form  method="post">
+        <h5 class=" text-center">Edit School</h5>
         <?php if(count($errors) > 0) :?>
             <div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
                 <strong>Error:</strong>
@@ -20,8 +20,8 @@
                 </span>
             </div>
         <?php endif; ?>
-        <input class="form-control mr-sm-2 mb-4" type="text" name="school" value="<?=get_var('school', $row[0]->school)?>" placeholder="School Name">
-        <input class="btn btn-success col-4 me-2 d-flex justify-content-center float-end" type="submit" value="save">
+        <input class="text-center form-control mr-sm-2 mb-4" type="text" name="school" value="<?=get_var('school', $row[0]->school)?>" placeholder="School Name">
+        <input class="btn btn-success col-4 me-2 d-flex justify-content-center float-end" type="submit" value="Save">
         <a class="btn mybtn btn-danger text-white col-4 ms-2  d-flex justify-content-center" href="<?=ROOT?>/schools">
           Cancel
         </a>
