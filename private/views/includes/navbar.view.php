@@ -27,7 +27,7 @@
         <a class="nav-link" href="<?=ROOT?>/schools">SCHOOLS</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?=ROOT?>/staff">STAFF</a>
+        <a class="nav-link" href="<?=ROOT?>/users">STAFF</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?=ROOT?>/classes">CLASSES</a>

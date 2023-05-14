@@ -84,7 +84,7 @@ class User extends Model{
     public function make_user_id($data) {
 
         // type : varchar(60)
-        $data['user_id'] = $this->random_string(60);
+        $data['user_id'] = random_string(60);
 
         return $data;
     }
@@ -106,18 +106,7 @@ class User extends Model{
         return $data;
     }
 
-    private function random_string($length) {
 
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $id = '';
-
-        for ($i = 0; $i < $length; $i++) {
-            $random = rand(0, strlen($characters) - 1);
-            $id .= $characters[$random];
-        }
-
-        return $id;
-    }
 
 
 }
