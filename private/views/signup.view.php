@@ -13,7 +13,7 @@
                 <h3>Add User</h3>
                 <?php if(count($errors) > 0) :?>
                     <div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
-                        <strong>Holy guacamole!</strong>
+                        <strong>Errors:</strong>
                         <?php foreach($errors as $error) : ?>
                             <br><?=$error." !"?>
                         <?php endforeach; ?>
@@ -43,7 +43,7 @@
                 <input class="form-control my-2" value="<?=get_var('password2')?>" type="password" name="password2" placeholder="Retype Password">
                 <br>
                 <button class="btn mybtn btn-success col-4 me-4 d-flex justify-content-center float-end">Add User</button>
-                <button type="button" class="btn mybtn btn-danger text-white col-4 ms-4  d-flex justify-content-center ">Cancel</button>
+                <button type="button" class="btn btn-danger text-white col-4 ms-4  d-flex justify-content-center ">Cancel</button>
             </div>
             </form>
         </div>

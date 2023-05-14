@@ -4,6 +4,18 @@
   <div class="container-fluid w-75 p-4 mx-auto shadow" >
   <?php $this->view('includes/breadcrumb'); ?>
     <div class="card-group justify-content-center">
+      <table class="table table-striped table-hover">
+        <tr>
+          <th>School</th>
+          <th>Created by</th>
+          <th>Date</th>
+          <th>
+            <a href="<?=ROOT?>/schools/add">
+             <button class="btn btn-sm btn-primary"><i class="fa fa-plus">Add New</i></button>
+            </a>
+          </th>
+        </tr>
+      </table>
       <?php if($rows):?>
         <?php foreach($rows as $row):?>
 

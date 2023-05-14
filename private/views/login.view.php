@@ -9,7 +9,7 @@
 
                 <?php if(count($errors) > 0) :?>
                     <div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
-                        <strong>Holy guacamole!</strong>
+                        <strong>Errors:</strong>
                         <?php foreach($errors as $error) : ?>
                             <br><?=$error." !"?>
                         <?php endforeach; ?>
@@ -18,7 +18,7 @@
                         </span>
                     </div>
                 <?php endif; ?>
-                
+
                 <input class="form-control mb-4" type="email" name="email" value="<?=get_var('email')?>"  placeholder="Email" autofocus >
                 <input class="form-control" type="password" name="password" value="<?=get_var('password')?>"  placeholder="Password" autofocus>
                 <br>
