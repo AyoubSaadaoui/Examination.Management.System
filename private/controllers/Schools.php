@@ -26,12 +26,24 @@ class Schools extends Controller
             $this->redirect('/login');
         }
 
-
-        $school = new School();
         $errors = array();
 
-        $data = $school->findAll();
+        if(count($_POST) >0) {
 
-        $this->view('Schools.add', ['errors'=>$errors]);
+            $school = new School();
+            if($school->validate($_POST)) {
+
+                $_POST['date'] = date("Y-m-d H:i:s");
+
+                $school->insert($_POST);
+                $this->redirect("schools");
+            }else {
+                $errors = $school->errors;
+            }
+
+        }
+        
+
+        $this->view('schools.add', ['errors'=>$errors]);
     }
 }

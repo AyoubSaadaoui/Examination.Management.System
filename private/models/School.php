@@ -26,6 +26,12 @@ class School extends Model{
             $this->errors['school'] = "Only letters allowed in school name";
         }
 
+        // Check if school exists
+        if($this->where('school', $DATA['school'])) {
+
+            $this->errors['school'] = "This school already exists";
+        }
+
         if(count($this->errors) == 0) {
             return true;
         }
@@ -35,7 +41,10 @@ class School extends Model{
     public function make_user_id($data) {
 
         // type : varchar(60)
-        $data['user_id'] = random_string(60);
+        if(isset($_SESSION['USER']->school_id)) {
+
+            $data['user_id'] = $_SESSION['USER']->user_id;
+        }
 
         return $data;
     }
@@ -48,7 +57,7 @@ class School extends Model{
         return $data;
     }
 
-    
+
 
 
 

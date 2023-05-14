@@ -15,15 +15,23 @@
             </a>
           </th>
         </tr>
-      </table>
+
       <?php if($rows):?>
         <?php foreach($rows as $row):?>
-
+          <tr>
+            <th><?=$row->school?></th>
+            <th><?=$row->user_id?></th>
+            <th><?=$row->date?></th>
+            <th>
+              <button class="btn btn-sm btn-warning text-white"><i class="fa fa-edit"></i></button>
+              <button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+            </th>
+          </tr>
         <?php endforeach ;?>
       <?php else :?>
         <h4 >No schools were found at this time</h4>
       <?php endif ;?>
-
+      </table>
     </div>
   </div>
 
