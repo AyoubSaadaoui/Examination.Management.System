@@ -53,3 +53,15 @@ function schow($data) {
     print_r($data);
     echo "</pre>";
 }
+
+function get_image($image, $gender = 'male') {
+
+    if(!file_exists($image)) {
+        $image = ASSETS."/user_male.png";
+        if($gender == 'female') {
+          $image = ASSETS."/user_female.png";
+        }
+    }
+
+    return $image;
+}

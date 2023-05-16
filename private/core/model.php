@@ -106,4 +106,27 @@ class Model extends Database {
         return $this->query($query, $data);
     }
 
+    public function whereOne($column, $value) {
+
+        $query = "SELECT * FROM $this->table WHERE $column = :value";
+        $data =  $this->query($query, ['value'=>$value]);
+
+        if(is_array($data)) {
+            if(property_exists($this, 'afterSelect')) {
+
+                foreach($this->afterSelect as $function) {
+
+                    $data = $this->$function($data);
+                }
+            }
+        }
+
+        if(is_array($data)) {
+
+            $data = $data[0];
+        }
+
+        return $data;
+    }
+
 }
