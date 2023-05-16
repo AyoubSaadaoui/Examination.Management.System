@@ -37,13 +37,19 @@
                     <option <?=get_selected('rank', 'reception')?> value="reception">Reception</option>
                     <option <?=get_selected('rank', 'teacher')?> value="teacher">Teacher</option>
                     <option <?=get_selected('rank', 'admin')?> value="admin">Admin</option>
+                    <?php if(Auth::getRank() == 'super_admin'): ?>
                     <option <?=get_selected('rank', 'super_admin')?> value="super_admin">Super Admin</option>
+                    <?php endif ;?>
+
                 </select>
                 <input class="form-control my-2" value="<?=get_var('password')?>" type="password" name="password" placeholder="Password" >
                 <input class="form-control my-2" value="<?=get_var('password2')?>" type="password" name="password2" placeholder="Retype Password">
                 <br>
                 <button class="btn mybtn btn-success col-4 me-4 d-flex justify-content-center float-end">Add User</button>
-                <button type="button" class="btn btn-danger text-white col-4 ms-4  d-flex justify-content-center ">Cancel</button>
+                <a style="text-decoration: none;" href="<?=ROOT?>/users">
+                    <button type="button" class="btn btn-danger text-white col-4 ms-4  d-flex justify-content-center ">Cancel</button>
+                </a>
+
             </div>
             </form>
         </div>

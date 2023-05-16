@@ -14,9 +14,8 @@ class Users extends Controller
 
         $user = new User();
 
-        // $data = $user->where('firstname', 'Ayoub');
-
-        $data = $user->findAll();
+        $school_id = Auth::getSchool_id();
+        $data = $user->query("SELECT * FROM users WHERE school_id = :school_id ", ['school_id'=>$school_id]);
 
         $this->view('users', ['rows'=>$data]);
     }

@@ -3,7 +3,12 @@
 
   <div class="container-fluid w-75 p-4 mx-auto shadow" >
   <?php $this->view('includes/breadcrumb'); ?>
-    <div class="card-group justify-content-left">
+
+  <a href="<?=ROOT?>/signup">
+    <button class="btn btn-sm btn-primary"><i class="fa fa-plus ">Add New</i></button>
+  </a>
+
+    <div class="card-group justify-content-center">
       <?php if($rows):?>
         <?php foreach($rows as $row):?>
           <div class="card m-2 shadow-sm" style="max-width: 14rem; min-width: 14rem;">
@@ -15,6 +20,8 @@
             </div>
           </div>
         <?php endforeach ;?>
+      <?php else :?>
+        <h4 >No staff members were found at this time</h4>
       <?php endif ;?>
 
     </div>

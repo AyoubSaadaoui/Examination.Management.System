@@ -45,3 +45,11 @@ function get_date($date) {
 
     return date("jS M, Y", strtotime($date));
 }
+
+// for testing
+function schow($data) {
+
+    echo "<pre>";
+    print_r($data);
+    echo "</pre>";
+}
