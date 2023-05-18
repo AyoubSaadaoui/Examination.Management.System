@@ -33,9 +33,9 @@ class Model extends Database {
         return $data;
     }
 
-    public function findAll() {
+    public function findAll($order = 'DESC') {
 
-        $query = "SELECT * FROM $this->table";
+        $query = "SELECT * FROM $this->table ORDER BY id $order";
         $data = $this->query($query);
 
         // run functions after select
