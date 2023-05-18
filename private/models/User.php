@@ -83,8 +83,12 @@ class User extends Model{
 
     public function make_user_id($data) {
 
-        // type : varchar(60)
-        $data['user_id'] = random_string(60);
+        $data['user_id'] = strtolower($data['firstname'] . "." . $data['lastname']);
+        
+        while($this->where('user_id',$data['user_id']))
+        {
+            $data['user_id'] .= rand(10,9999);
+        }
 
         return $data;
     }

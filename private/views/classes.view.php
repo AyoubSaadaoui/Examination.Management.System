@@ -24,7 +24,11 @@
         <tbody>
         <?php foreach($rows as $row):?>
           <tr>
-            <th><button class="btn btn-sm btn-primary">Details </Details><i class="fa fa-chevron-right"></i></button></th>
+            <th>
+                <a href="<?=ROOT?>/single_class/<?=$row->class_id?>" style="text-decoration: none;">
+                    <button class="btn btn-sm btn-primary">Details </Details><i class="fa fa-chevron-right"></i></button>
+                </a>
+            </th>
             <th class="font-weight-normal"><?=$row->class?></th>
             <th class="font-weight-normal"><?=$row->user->firstname?> <?=$row->user->lastname?></th>
             <th class="font-weight-normal"><?=get_date($row->date)?></th>
