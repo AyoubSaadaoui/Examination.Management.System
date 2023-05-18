@@ -9,6 +9,9 @@ class Signup extends Controller
 
         $errors = array();
 
+        // for rank select
+        $mode = isset($_GET['mode']) ? $_GET['mode'] : '';
+
         if(count($_POST) >0) {
             $user = new User();
 
@@ -18,12 +21,16 @@ class Signup extends Controller
                 $_POST['date'] = date("Y-m-d H:i:s");
 
                 $user->insert($_POST);
-                $this->redirect("users");
+                $redirect = $mode == 'student' ? 'students' : 'users';
+                $this->redirect($redirect);
             }else {
                 $errors = $user->errors;
             }
         }
 
-        $this->view("signup", ['errors'=>$errors]);
+        $this->view("signup", [
+            'errors'=>$errors,
+            'mode'=>$mode,
+        ]);
     }
 }

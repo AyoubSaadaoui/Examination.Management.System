@@ -26,7 +26,7 @@
             <div class="container-fluid">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link " href="#">Basic Info</a>
+                        <a class="nav-link active"  href="#">Basic Info</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Classes</a>

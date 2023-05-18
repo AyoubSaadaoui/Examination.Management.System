@@ -10,7 +10,7 @@
                     src="<?=ROOT?>/assets/logo.png"
                     alt="logo"
                 >
-                <h3>Add User</h3>
+                <h3>Add <?=ucfirst($mode)?></h3>
                 <?php if(count($errors) > 0) :?>
                     <div class="alert alert-warning alert-dismissible fade show p-2" role="alert">
                         <strong>Errors:</strong>
@@ -30,25 +30,36 @@
                     <option <?=get_selected('gender', 'male')?> value="male">Male</option>
                     <option <?=get_selected('gender', 'female')?> value="female">Female</option>
                 </select>
-                <select class="form-control my-2" name="rank" >
 
-                    <option <?=get_selected('rank', '')?> value="">--Select a Rank--</option>
-                    <option <?=get_selected('rank', 'student')?> value="student">Student</option>
-                    <option <?=get_selected('rank', 'reception')?> value="reception">Reception</option>
-                    <option <?=get_selected('rank', 'teacher')?> value="teacher">Teacher</option>
-                    <option <?=get_selected('rank', 'admin')?> value="admin">Admin</option>
-                    <?php if(Auth::getRank() == 'super_admin'): ?>
-                    <option <?=get_selected('rank', 'super_admin')?> value="super_admin">Super Admin</option>
-                    <?php endif ;?>
+                <?php if($mode != 'student') :?>
+                    <select class="form-control my-2" name="rank" >
+                        <option <?=get_selected('rank', '')?> value="">--Select a Rank--</option>
+                        <option <?=get_selected('rank', 'student')?> value="student">Student</option>
+                        <option <?=get_selected('rank', 'reception')?> value="reception">Reception</option>
+                        <option <?=get_selected('rank', 'teacher')?> value="teacher">Teacher</option>
+                        <option <?=get_selected('rank', 'admin')?> value="admin">Admin</option>
+                        <?php if(Auth::getRank() == 'super_admin'): ?>
+                        <option <?=get_selected('rank', 'super_admin')?> value="super_admin">Super Admin</option>
+                        <?php endif ;?>
+                    </select>
+                <?php else :?>
+                    <input  class="form-control my-2" value="student" type="hidden" name="rank">
+                <?php endif ;?>
 
-                </select>
                 <input class="form-control my-2" value="<?=get_var('password')?>" type="password" name="password" placeholder="Password" >
                 <input class="form-control my-2" value="<?=get_var('password2')?>" type="password" name="password2" placeholder="Retype Password">
                 <br>
                 <button class="btn mybtn btn-success col-4 me-4 d-flex justify-content-center float-end">Add User</button>
+
+                <?php if($mode == 'student') :?>
+                <a style="text-decoration: none;" href="<?=ROOT?>/students">
+                    <button type="button" class="btn btn-danger text-white col-4 ms-4  d-flex justify-content-center ">Cancel</button>
+                </a>
+                <?php else :?>
                 <a style="text-decoration: none;" href="<?=ROOT?>/users">
                     <button type="button" class="btn btn-danger text-white col-4 ms-4  d-flex justify-content-center ">Cancel</button>
                 </a>
+                <?php endif ;?>
 
             </div>
             </form>
