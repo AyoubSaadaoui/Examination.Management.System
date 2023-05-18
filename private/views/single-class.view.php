@@ -28,17 +28,55 @@
                         <a class="nav-link <?=$page_tab=='tests'?'active':'';?> " href="<?=ROOT?>/single_class/<?=$row->class_id?>?tab=tests">Tests</a>
                     </li>
                 </ul>
+                <?php
 
-                <nav class="navbar navbar-light bg-light">
-                    <form class="form-inline">
-                        <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i>&nbsp</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
-                        </div>
-                    </form>
-                </nav>
+                switch ($page_tab) {
+                    case 'lecturers':
+                        // code...
+                        include(views_path('class-tab-lecturers'));
+                        break;
+
+                    case 'students':
+                        // code...
+                        include(views_path('class-tab-students'));
+                        break;
+
+                    case 'tests':
+                        // code...
+                        include(views_path('class-tab-tests'));
+
+                        break;
+                    case 'lecturer-add':
+                        // code...
+                        include(views_path('class-tab-lecturers-add'));
+
+                        break;
+                    // case 'lecturer-remove':
+                    //     // code...
+                    //     include(views_path('class-tab-lecturers-remove'));
+
+                    //     break;
+
+                    case 'students-add':
+                        // code...
+                        include(views_path('class-tab-students-add'));
+
+                        break;
+                    case 'tests-add':
+                        // code...
+                        include(views_path('class-tab-tests-add'));
+
+                        break;
+
+                    default:
+                        // code...
+                        break;
+		 			}
+
+
+		 		?>
+
+
 
         <?php else :?>
             <h4 class="text-center">That class was not found!</h4>
