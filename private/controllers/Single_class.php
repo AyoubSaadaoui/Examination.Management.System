@@ -53,13 +53,22 @@ class Single_class extends Controller
             }
 
 
-        }
+        }else
+		if($page_tab == 'teachers'){
 
-        $this->view("single-class", [
-            'row' => $row,
-            'crumbs'=>$crumbs,
-            'page_tab'=>$page_tab,
-            'results'=>$results,
-        ]);
+			//display teachers
+			$query = "select * from class_teachers where class_id = :class_id && disabled = 0";
+			$teachers = $teach->where('class_id', $id);
+
+			$data['teachers'] 		= $teachers;
+		}
+
+        $data['row'] 		= $row;
+ 		$data['crumbs'] 	= $crumbs;
+		$data['page_tab'] 	= $page_tab;
+		$data['results'] 	= $results;
+		// $data['errors'] 	= $errors;
+
+		$this->view('single-class',$data);
     }
 }

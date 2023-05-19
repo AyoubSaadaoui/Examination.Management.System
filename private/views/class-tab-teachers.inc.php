@@ -12,3 +12,18 @@
         <button class="btn btn-sm btn-primary"><i class="fa fa-plus ">Add New Teacher</i></button>
     </a>
 </nav>
+
+<div class="card-group justify-content-center">
+	<?php if(is_array($teachers)):?>
+		<?php foreach($teachers as $teacher):?>
+
+			<?php
+				$row = $teacher->user;
+				include(views_path('user'));
+
+			?>
+		<?php endforeach;?>
+	<?php else:?>
+		<center><h4>No teachers were found in this class</h4></center>
+	<?php endif;?>
+ </div>
