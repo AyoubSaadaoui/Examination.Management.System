@@ -32,13 +32,19 @@ class Single_class extends Controller
         $results = false;
         if($page_tab == 'teacher-add' && count($_POST) > 0) {
 
-           if(isset($_POST['search'])) {
+            if(isset($_POST['search'])) {
 
-                // find teacher
-                $user = new User();
-                $name = "%".trim($_POST['name'])."%";
-                $query = "SELECT * FROM users WHERE (firstname LIKE :fname || lastname LIKE :lname) && rank = 'teacher' LIMIT 10";
-                $results = $user->query($query, ['fname'=>$name, 'lname'=>$name]);
+                if(trim($_POST['name']) != ""){
+
+                    //find teacher
+                    $user = new User();
+                    $name = "%".trim($_POST['name'])."%";
+                    $query = "select * from users where (firstname like :fname || lastname like :lname) && rank = 'Teacher' limit 10";
+                    $results = $user->query($query,['fname'=>$name,'lname'=>$name,]);
+                }else{
+                    $errors[] = "please type a name to find";
+                }
+
             }else
             if(isset($_POST['selected'])){
 
