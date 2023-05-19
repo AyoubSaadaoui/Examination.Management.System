@@ -1,6 +1,10 @@
 <form method="post" class="form mx-auto" style="width:100%;max-width: 400px;">
     <h4>Add Lecturer</h4>
     <input class="form-control" autofocus type="text" name="name" placeholder="Lecturer Name"><br>
+
+    <a href="<?=ROOT?>/single_class/<?=$row->class_id?>?tab=lecturers">
+		<button type="button" class="btn btn-danger">Cancel</button>
+	</a>
     <button class="btn btn-primary float-end" name="search">Search</button><br>
     <div class="clearfix"></div>
 </form>
