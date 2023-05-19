@@ -16,33 +16,39 @@ class Database {
         return $con;
     }
 
-    public function query($query, $data = array(), $data_type = "object") {
+    public function query($query,$data = array(),$data_type = "object") {
 
-        $con = $this->connect();
-        $stm = $con->prepare($query);
+		$con = $this->connect();
+		$stm = $con->prepare($query);
 
-        if($stm) {
+		$result = false;
+		if($stm) {
+			$check = $stm->execute($data);
+			if($check){
+				if($data_type == "object") {
+					$result = $stm->fetchAll(PDO::FETCH_OBJ);
+				}else {
+					$result = $stm->fetchAll(PDO::FETCH_ASSOC);
+				}
 
-            $check = $stm->execute($data);
+ 			}
+		}
 
-            if($check) {
-                // Fetch results based on data type
-                if($data_type == "object") {
-                    $data = $stm->fetchAll(PDO::FETCH_OBJ);
-                }else {
-                    $data = $stm->fetchAll(PDO::FETCH_ASSOC);
-                }
-                // Return results if not empty
-                if(is_array($data) && count($data) >0) {
+		//run functions after select
+		if(is_array($result)) {
+			if(property_exists($this, 'afterSelect')) {
+				foreach($this->afterSelect as $func) {
+					$result = $this->$func($result);
+				}
+			}
+		}
 
-                    return $data;
+		if(is_array($result) && count($result) >0) {
+			return $result;
+		}
 
-                }
-            }
-        }
-
-        return false;
-    }
+		return false;
+	}
 
 
 }

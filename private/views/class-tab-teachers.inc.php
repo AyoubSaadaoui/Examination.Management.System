@@ -9,7 +9,7 @@
         </div>
     </form>
     <div>
-        
+
         <a href="<?=ROOT?>/single_class/<?=$row->class_id?>?tab=teacher-remove&select=true">
             <button class="btn btn-sm btn-primary"><i class="fa fa-minus"></i>Remove</button>
         </a>
@@ -31,6 +31,6 @@
 			?>
 		<?php endforeach;?>
 	<?php else:?>
-		<center><h4>No teachers were found in this class</h4></center>
+		<center><h4 class="pt-4">No teachers were found in this class</h4></center>
 	<?php endif;?>
  </div>

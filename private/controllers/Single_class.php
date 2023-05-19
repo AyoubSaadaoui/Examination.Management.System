@@ -30,7 +30,7 @@ class Single_class extends Controller
         $teach = new Teachers_model();
 
         $results = false;
-        if($page_tab == 'teacher-add' && count($_POST) > 0) {
+        if(($page_tab == 'teacher-add' || $page_tab == 'teacher-remove') && count($_POST) > 0) {
 
             if(isset($_POST['search'])) {
 
@@ -71,6 +71,24 @@ class Single_class extends Controller
 					}else{
 						$errors[] = "That teacher already belongs to this class";
 					}
+				}else
+				if($page_tab == 'teacher-remove'){
+
+					if($row = $teach->query($query,[
+						'user_id' => $_POST['selected'],
+						'class_id' => $id,
+					])){
+
+						$arr = array();
+ 						$arr['disabled'] 	= 1;
+
+						$teach->update($row[0]->id,$arr);
+
+						$this->redirect('single_class/'.$id.'?tab=teachers');
+
+					}else{
+						$errors[] = "That teacher was not found in this class";
+					}
 				}
             }
 
@@ -80,7 +98,7 @@ class Single_class extends Controller
 
 			//display teachers
 			$query = "select * from class_teachers where class_id = :class_id && disabled = 0";
-			$teachers = $teach->where('class_id', $id);
+			$teachers = $teach->query($query,['class_id'=>$id]);
 
 			$data['teachers'] 		= $teachers;
 		}

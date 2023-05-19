@@ -9,14 +9,13 @@
             <div class="row">
                 <center><h4><?=esc(ucwords($row->class))?></h4></center>
                 <table class="table table-hover table-striped table-porder">
-                    <tr><th>Class Name:</th><th class="font-weight-normal"><?=esc($row->class)?></th></tr>
-                    <tr><th>Create By:</th><th class="font-weight-normal"><?=esc($row->user->firstname)?> <?=esc($row->user->lastname)?></th></tr>
-                    <tr><th>Date Create:</th><th class="font-weight-normal"><?=esc(get_date($row->date))?></th></tr>
+                    <tr>
+                        <th>Create By:</th><th class="font-weight-normal"><?=esc($row->user->firstname)?> <?=esc($row->user->lastname)?></th>
+                        <th>Date Create:</th><th class="font-weight-normal"><?=esc(get_date($row->date))?></th>
+                    </tr>
                 </table>
 
             </div>
-            <br>
-
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a class="nav-link <?=$page_tab=='teachers'?'active':'';?> " href="<?=ROOT?>/single_class/<?=$row->class_id?>?tab=teachers">Teachers</a>
@@ -51,12 +50,11 @@
                         include(views_path('class-tab-teachers-add'));
 
                         break;
-                    // case 'teacher-remove':
-                    //     // code...
-                    //     include(views_path('class-tab-lecturers-remove'));
+                    case 'teacher-remove':
+                        // code...
+                        include(views_path('class-tab-teachers-remove'));
 
-                    //     break;
-
+                        break;
                     case 'students-add':
                         // code...
                         include(views_path('class-tab-students-add'));
