@@ -12,6 +12,8 @@ class Single_class extends Controller
             $this->redirect('/login');
         }
 
+        $errors = array();
+
         $user = new User();
         $classes = new Classes_model();
 
@@ -40,16 +42,30 @@ class Single_class extends Controller
             }else
             if(isset($_POST['selected'])){
 
-                // add teacher
-                $arr = array();
-                // $arr['user_id'] 	= $_SESSION['user']->user_id;
-                $arr['class_id'] 	= $id;
-                $arr['disabled'] 	= 0;
-                $arr['date'] 		= date("Y-m-d H:i:s");
+                //add teacher
+				$query = "select id from class_teachers where user_id = :user_id && class_id = :class_id && disabled = 0 limit 1";
 
-                $teach->insert($arr);
+				if($page_tab == 'teacher-add'){
 
-                $this->redirect('single_class/'.$id.'?tab=teachers');
+					if(!$teach->query($query,[
+						'user_id' => $_POST['selected'],
+						'class_id' => $id,
+					])){
+
+						$arr = array();
+		 				$arr['user_id'] 	= $_POST['selected'];
+		 				$arr['class_id'] 	= $id;
+						$arr['disabled'] 	= 0;
+						$arr['date'] 		= date("Y-m-d H:i:s");
+
+						$teach->insert($arr);
+
+						$this->redirect('single_class/'.$id.'?tab=teachers');
+
+					}else{
+						$errors[] = "That teacher already belongs to this class";
+					}
+				}
             }
 
 
@@ -67,7 +83,7 @@ class Single_class extends Controller
  		$data['crumbs'] 	= $crumbs;
 		$data['page_tab'] 	= $page_tab;
 		$data['results'] 	= $results;
-		// $data['errors'] 	= $errors;
+        $data['errors'] 	= $errors;
 
 		$this->view('single-class',$data);
     }

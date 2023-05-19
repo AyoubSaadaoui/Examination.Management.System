@@ -15,9 +15,9 @@ class Model extends Database {
         }
     }
 
-    public function where($column, $value) {
+    public function where($column, $value, $order = 'DESC') {
 
-        $query = "SELECT * FROM $this->table WHERE $column = :value";
+        $query = "SELECT * FROM $this->table WHERE $column = :value ORDER BY id $order";
         $data =  $this->query($query, ['value'=>$value]);
 
         if(is_array($data)) {
@@ -106,9 +106,9 @@ class Model extends Database {
         return $this->query($query, $data);
     }
 
-    public function whereOne($column, $value) {
+    public function whereOne($column, $value, $order = 'DESC') {
 
-        $query = "SELECT * FROM $this->table WHERE $column = :value";
+        $query = "SELECT * FROM $this->table WHERE $column = :value  ORDER BY id $order";
         $data =  $this->query($query, ['value'=>$value]);
 
         if(is_array($data)) {

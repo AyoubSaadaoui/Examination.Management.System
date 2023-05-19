@@ -17,7 +17,6 @@ class Teachers_model extends Model
 
     protected $beforeInsert = [
         'make_school_id',
-        'make_user_id',
     ];
 
     protected $afterSelect = [
@@ -29,16 +28,6 @@ class Teachers_model extends Model
         if(isset($_SESSION['USER']->school_id)){
             $data['school_id'] = $_SESSION['USER']->school_id;
         }
-        return $data;
-    }
-
-    public function make_user_id($data) {
-
-        if(isset($_SESSION['USER']->school_id)) {
-
-            $data['user_id'] = $_SESSION['USER']->user_id;
-        }
-
         return $data;
     }
 
