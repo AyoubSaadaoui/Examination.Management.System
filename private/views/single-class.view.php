@@ -19,7 +19,7 @@
 
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link <?=$page_tab=='lecturers'?'active':'';?> " href="<?=ROOT?>/single_class/<?=$row->class_id?>?tab=lecturers">Lecturers</a>
+                        <a class="nav-link <?=$page_tab=='teachers'?'active':'';?> " href="<?=ROOT?>/single_class/<?=$row->class_id?>?tab=teachers">Teachers</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?=$page_tab=='students'?'active':'';?> " href="<?=ROOT?>/single_class/<?=$row->class_id?>?tab=students">Students</a>
@@ -31,9 +31,9 @@
                 <?php
 
                 switch ($page_tab) {
-                    case 'lecturers':
+                    case 'teachers':
                         // code...
-                        include(views_path('class-tab-lecturers'));
+                        include(views_path('class-tab-teachers'));
                         break;
 
                     case 'students':
@@ -46,12 +46,12 @@
                         include(views_path('class-tab-tests'));
 
                         break;
-                    case 'lecturer-add':
+                    case 'teacher-add':
                         // code...
-                        include(views_path('class-tab-lecturers-add'));
+                        include(views_path('class-tab-teachers-add'));
 
                         break;
-                    // case 'lecturer-remove':
+                    // case 'teacher-remove':
                     //     // code...
                     //     include(views_path('class-tab-lecturers-remove'));
 

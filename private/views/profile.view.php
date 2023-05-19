@@ -13,12 +13,12 @@
                 </div>
                 <div class="col-sm-7 col-md-8 bg-light p-2 me-md-2">
                     <table class="table table-hover table-striped table-porder">
-                        <tr><th>First Name:</th><th class="font-weight-normal"><?=esc($row->firstname)?></th></tr>
-                        <tr><th>Last Name:</th><th class="font-weight-normal"><?=esc($row->lastname)?></th></tr>
-                        <tr><th>Email:</th><th class="font-weight-normal"><?=esc($row->email)?></th></tr>
-                        <tr><th>Gender:</th><th class="font-weight-normal"><?=esc($row->gender)?></th></tr>
-                        <tr><th>Rank:</th><th class="font-weight-normal"><?=esc(ucwords(str_replace("_"," ", $row->rank)))?></th></tr>
-                        <tr><th>Date Create:</th><th class="font-weight-normal"><?=esc(get_date($row->date))?></th></tr>
+                        <tr><th>First Name:</th> <td><?=esc($row->firstname)?></td></tr>
+                        <tr><th>Last Name:</th> <td><?=esc($row->lastname)?></td></tr>
+                        <tr><th>Email:</th> <td><?=esc($row->email)?></td></tr>
+                        <tr><th>Gender:</th> <td><?=esc($row->gender)?></td></tr>
+                        <tr><th>Rank:</th> <td><?=esc(ucwords(str_replace("_"," ", $row->rank)))?></td></tr>
+                        <tr><th>Date Create:</th> <td><?=esc(get_date($row->date))?></td></tr>
                     </table>
                 </div>
             </div>

@@ -24,12 +24,42 @@ class Single_class extends Controller
             $crumbs[] = [$row->class, "single-class/?$row->class_id"];
         }
 
-        $page_tab = isset($_GET['tab']) ? $_GET['tab'] : 'lecturers';
+        $page_tab = isset($_GET['tab']) ? $_GET['tab'] : 'teachers';
+        $teach = new Teachers_model();
+
+        $results = false;
+        if($page_tab == 'teacher-add' && count($_POST) > 0) {
+
+           if(isset($_POST['search'])) {
+
+                // find teacher
+                $user = new User();
+                $name = "%".trim($_POST['name'])."%";
+                $query = "SELECT * FROM users WHERE (firstname LIKE :fname || lastname LIKE :lname) && rank = 'teacher' LIMIT 10";
+                $results = $user->query($query, ['fname'=>$name, 'lname'=>$name]);
+            }else
+            if(isset($_POST['selected'])){
+
+                // add teacher
+                $arr = array();
+                // $arr['user_id'] 	= $_SESSION['user']->user_id;
+                $arr['class_id'] 	= $id;
+                $arr['disabled'] 	= 0;
+                $arr['date'] 		= date("Y-m-d H:i:s");
+
+                $teach->insert($arr);
+
+                $this->redirect('single_class/'.$id.'?tab=teachers');
+            }
+
+
+        }
 
         $this->view("single-class", [
             'row' => $row,
             'crumbs'=>$crumbs,
             'page_tab'=>$page_tab,
+            'results'=>$results,
         ]);
     }
 }
