@@ -1,127 +1,174 @@
 <?php
 
+
 /**
  * classes controller
  */
 class Classes extends Controller
 {
-    function index() {
 
-        if(!Auth::logged_in()) {
+	public function index()
+	{
+		// code...
+		if(!Auth::logged_in())
+		{
+			$this->redirect('login');
+		}
 
-            $this->redirect('/login');
-        }
+		$classes = new Classes_model();
 
-        $classes = new Classes_model();
+		$school_id = Auth::getSchool_id();
 
-        $school_id = Auth::getSchool_id();
-		$data = $classes->query("select * from classes where school_id = :school_id order by id desc",['school_id'=>$school_id]);
+		if(Auth::access('admin')){
+			$data = $classes->query("select * from classes where school_id = :school_id order by id desc",['school_id'=>$school_id]);
+ 		}else{
 
-        $crumbs[] = ['Dashboard', ''];
-        $crumbs[] = ['Classes', 'classes'];
+ 			$class = new Classes_model();
+ 			$mytable = "class_students";
+ 			if(Auth::getRank() == "teacher"){
+ 				$mytable = "class_teachers";
+ 			}
 
-        $this->view('classes', [
-            'rows'=>$data,
-            'crumbs'=>$crumbs,
-        ]);
-    }
+			$query = "select * from $mytable where user_id = :user_id && disabled = 0";
+			$arr['stud_classes'] = $class->query($query,['user_id'=>Auth::getUser_id()]);
 
-    function add() {
+			$data = array();
+			if($arr['stud_classes']){
+				foreach ($arr['stud_classes'] as $key => $arow) {
+					// code...
+					$data[] = $class->first('class_id',$arow->class_id);
+				}
+			}
 
-        if(!Auth::logged_in()) {
+ 		}
 
-            $this->redirect('/login');
-        }
+		$crumbs[] = ['Dashboard',''];
+		$crumbs[] = ['Classes','classes'];
 
-        $errors = array();
+		$this->view('classes',[
+			'crumbs'=>$crumbs,
+			'rows'=>$data
+		]);
+	}
 
-        if(count($_POST) >0) {
+	public function add()
+	{
+		// code...
+		if(!Auth::logged_in())
+		{
+			$this->redirect('login');
+		}
 
-            $classes = new Classes_model();
-            if($classes->validate($_POST)) {
+		$errors = array();
+		if(count($_POST) > 0)
+ 		{
 
-                $_POST['date'] = date("Y-m-d H:i:s");
+			$classes = new Classes_model();
+			if($classes->validate($_POST))
+ 			{
 
-                $classes->insert($_POST);
-                $this->redirect("classes");
-            }else {
-                $errors = $classes->errors;
-            }
+ 				$_POST['date'] = date("Y-m-d H:i:s");
 
-        }
+ 				$classes->insert($_POST);
+ 				$this->redirect('classes');
+ 			}else
+ 			{
+ 				//errors
+ 				$errors = $classes->errors;
+ 			}
+ 		}
 
-        $crumbs[] = ['Dashboard', ''];
-        $crumbs[] = ['Classes', 'classes'];
-        $crumbs[] = ['Add', 'classes/add'];
+ 		$crumbs[] = ['Dashboard',''];
+		$crumbs[] = ['Classes','classes'];
+		$crumbs[] = ['Add','classes/add'];
 
-        $this->view('classes.add', [
-            'errors'=>$errors,
-            'crumbs'=>$crumbs,
-        ]);
-    }
+		$this->view('classes.add',[
+			'errors'=>$errors,
+			'crumbs'=>$crumbs,
 
-    function edit($id = null) {
+		]);
+	}
 
-        if(!Auth::logged_in()) {
+	public function edit($id = null)
+	{
+		// code...
+		if(!Auth::logged_in())
+		{
+			$this->redirect('login');
+		}
 
-            $this->redirect('/login');
-        }
+		$classes = new Classes_model();
 
-        $errors = array();
-        $classes = new Classes_model();
+		$errors = array();
+		if(count($_POST) > 0 && Auth::access('teacher') && Auth::i_own_content($row))
+ 		{
 
-        if(count($_POST) >0) {
-            if($classes->validate($_POST)) {
+			if($classes->validate($_POST))
+ 			{
 
-                $classes->update($id, $_POST);
-                $this->redirect("classes");
-            }else {
-                $errors = $classes->errors;
-            }
+ 				$classes->update($id,$_POST);
+ 				$this->redirect('classes');
+ 			}else
+ 			{
+ 				//errors
+ 				$errors = $classes->errors;
+ 			}
+ 		}
 
-        }
+ 		$row = $classes->where('id',$id);
 
-        $row = $classes->where('id', $id);
+ 		$crumbs[] = ['Dashboard',''];
+		$crumbs[] = ['Classes','classes'];
+		$crumbs[] = ['Edit','classes/edit'];
 
-        $crumbs[] = ['Dashboard', ''];
-        $crumbs[] = ['Classes', 'classes'];
-        $crumbs[] = ['Edit', 'classes/edit'];
+		if(Auth::access('teacher') && Auth::i_own_content($row)){
 
-        $this->view('classes.edit', [
-            'row'=>$row,
-            'errors'=>$errors,
-            'crumbs'=>$crumbs,
+			$this->view('classes.edit',[
+				'row'=>$row,
+				'errors'=>$errors,
+				'crumbs'=>$crumbs,
+			]);
+		}else{
+			$this->view('access-denied');
+		}
+	}
 
-        ]);
-    }
+	public function delete($id = null)
+	{
+		// code...
+		if(!Auth::logged_in())
+		{
+			$this->redirect('login');
+		}
 
-    function delete($id = null) {
 
-        if(!Auth::logged_in()) {
+		$classes = new Classes_model();
 
-            $this->redirect('/login');
-        }
+		$errors = array();
 
-        $errors = array();
-        $classes = new Classes_model();
+		if(count($_POST) > 0 && Auth::access('teacher') && Auth::i_own_content($row))
+ 		{
 
-        if(count($_POST) >0) {
+ 			$classes->delete($id);
+ 			$this->redirect('classes');
 
-            $classes->delete($id, $_POST);
-            $this->redirect("classes");
+ 		}
 
-        }
+ 		$row = $classes->where('id',$id);
 
-        $row = $classes->where('id', $id);
+ 		$crumbs[] = ['Dashboard',''];
+		$crumbs[] = ['Classes','classes'];
+		$crumbs[] = ['Delete','classes/delete'];
 
-        $crumbs[] = ['Dashboard', ''];
-        $crumbs[] = ['Classes', 'classes'];
-        $crumbs[] = ['Delete', 'classes/delete'];
-        $this->view('classes.delete', [
-            'row'=>$row,
-            'errors'=>$errors,
-            'crumbs'=>$crumbs,
+		if(Auth::access('teacher') && Auth::i_own_content($row)){
 
-        ]);
-    }
+			$this->view('classes.delete',[
+				'row'=>$row,
+	 			'crumbs'=>$crumbs,
+			]);
+		}else{
+			$this->view('access-denied');
+		}
+	}
+
 }
