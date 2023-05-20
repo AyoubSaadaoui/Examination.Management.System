@@ -11,45 +11,64 @@
                     <img src="<?=get_image($row->image, $row->gender)?>" alt="<?=$row->gender?>"  class="d-block mx-auto border rounded-circle bg-light" style="width: 130px;">
                     <h5 class="text-center "><?=esc($row->firstname)?> <?=esc($row->lastname)?></h5>
                 </div>
-                <div class="col-sm-7 col-md-8 bg-light p-2 me-md-2">
-                    <table class="table table-hover table-striped table-porder">
-                        <tr><th>First Name:</th> <td><?=esc($row->firstname)?></td></tr>
-                        <tr><th>Last Name:</th> <td><?=esc($row->lastname)?></td></tr>
-                        <tr><th>Email:</th> <td><?=esc($row->email)?></td></tr>
-                        <tr><th>Gender:</th> <td><?=esc($row->gender)?></td></tr>
-                        <tr><th>Rank:</th> <td><?=esc(ucwords(str_replace("_"," ", $row->rank)))?></td></tr>
-                        <tr><th>Date Create:</th> <td><?=esc(get_date($row->date))?></td></tr>
+                <div class="col-sm-8 col-md-9 bg-light p-2">
+                    <table class="table table-hover table-striped table-bordered">
+                        <tr><th>First Name:</th><td><?=esc($row->firstname)?></td></tr>
+                        <tr><th>Last Name:</th><td><?=esc($row->lastname)?></td></tr>
+                        <tr><th>Email:</th><td><?=esc($row->email)?></td></tr>
+                        <tr><th>Gender:</th><td><?=esc($row->gender)?></td></tr>
+                        <tr><th>Rank:</th><td><?=ucwords(str_replace("_"," ",$row->rank))?></td></tr>
+                        <tr><th>Date Created:</th><td><?=get_date($row->date)?></td></tr>
+
                     </table>
                 </div>
             </div>
             <br>
             <div class="container-fluid">
                 <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active"  href="#">Basic Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Classes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="#">Tests</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link <?=$page_tab=='info' ? 'active':'';?>" href="<?=ROOT?>/profile/<?=$row->user_id?>">Basic Info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?=$page_tab=='classes' ? 'active':'';?>" href="<?=ROOT?>/profile/<?=$row->user_id?>?tab=classes">Classes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?=$page_tab=='tests' ? 'active':'';?>" href="<?=ROOT?>/profile/<?=$row->user_id?>?tab=tests">Tests</a>
+                </li>
+
                 </ul>
 
-                <nav class="navbar navbar-light bg-light">
-                    <form class="form-inline">
-                        <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i>&nbsp</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
-                        </div>
-                    </form>
-                </nav>
+                <?php
+
+                    switch ($page_tab) {
+
+                        case 'info':
+                            // code...
+                            include(views_path('profile-tab-info'));
+                            break;
+
+                        case 'classes':
+                            // code...
+                            include(views_path('profile-tab-classes'));
+                            break;
+
+                        case 'tests':
+                            // code...
+                            include(views_path('profile-tab-tests'));
+                            break;
+
+                        default:
+                            // code...
+                            break;
+                    }
+
+                ?>
+
             </div>
-        <?php else :?>
-            <h4 class="text-center">That profile was not found!</h4>
-        <?php endif ;?>
+            <?php else:?>
+                <center><h4>That profile was not found!</h4></center>
+            <?php endif;?>
+
         </div>
 
 <?php $this->view('includes/footer'); ?>

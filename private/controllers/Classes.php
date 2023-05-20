@@ -14,7 +14,8 @@ class Classes extends Controller
 
         $classes = new Classes_model();
 
-        $data = $classes->findAll();
+        $school_id = Auth::getSchool_id();
+		$data = $classes->query("select * from classes where school_id = :school_id order by id desc",['school_id'=>$school_id]);
 
         $crumbs[] = ['Dashboard', ''];
         $crumbs[] = ['Classes', 'classes'];
