@@ -50,9 +50,16 @@
                         include(views_path('class-tab-teachers-add'));
 
                         break;
-                    case 'teacher-remove':
+
+                    case 'student-add':
                         // code...
-                        include(views_path('class-tab-teachers-remove'));
+                        include(views_path('class-tab-students-add'));
+
+                        break;
+
+                    case 'student-remove':
+                        // code...
+                        include(views_path('class-tab-students-remove'));
 
                         break;
                     case 'students-add':
