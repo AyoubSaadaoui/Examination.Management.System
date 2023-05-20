@@ -11,7 +11,7 @@
     }
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light px-4 pb-4">
-  <a class="navbar-brand " href="#">
+  <a class="navbar-brand " href="<?=ROOT?>">
     <img  style="width: 60px;" class="my-auto" src="<?=ROOT?>/assets/logo.png" alt="logo">
     <?=Auth::getSchool_name()?>
   </a>

@@ -13,6 +13,8 @@ class Profile extends Controller
         }
 
         $user = new User();
+        $id = trim($id == '') ? Auth::getUser_id() : $id;
+        
         $row = $user->whereOne('user_id', $id);
 
         $crumbs[] = ['Dashboard', ''];

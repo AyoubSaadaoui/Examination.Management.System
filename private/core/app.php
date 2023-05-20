@@ -14,7 +14,11 @@ class App {
         if(file_exists("../private/controllers/".$URL[0].".php")){
             $this->controller = ucfirst($URL[0]);
             unset($URL[0]);
-        }
+        }else
+		{
+			echo "<center><h1>controller not found</h1></center>";
+			die;
+		}
 
         require "../private/controllers/".$this->controller.".php";
         // Call object
@@ -29,7 +33,7 @@ class App {
         }
 
         $URL = array_values($URL);
-        $this->params = $URL; 
+        $this->params = $URL;
         call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
