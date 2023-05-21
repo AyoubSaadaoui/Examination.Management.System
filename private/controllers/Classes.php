@@ -36,7 +36,7 @@ class Classes extends Controller
 			if($arr['stud_classes']){
 				foreach ($arr['stud_classes'] as $key => $arow) {
 					// code...
-					$data[] = $class->first('class_id',$arow->class_id);
+					$data[] = $class->whereOne('class_id',$arow->class_id);
 				}
 			}
 

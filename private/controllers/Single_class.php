@@ -41,7 +41,7 @@ class Single_class extends Controller
 		}else
 		if($page_tab == 'students'){
 
-			//display lecturers
+			//display teachers
 			$query = "select * from class_students where class_id = :class_id && disabled = 0 order by id desc";
 			$students = $teach->query($query,['class_id'=>$id]);
 

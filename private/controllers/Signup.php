@@ -20,7 +20,16 @@ class Signup extends Controller
 
                 $_POST['date'] = date("Y-m-d H:i:s");
 
-                $user->insert($_POST);
+                if(Auth::access('reception')) {
+
+                    if($_POST['rank'] == 'super_admin' && $_SESSION['USER']->rank != 'super_admin') {
+
+                        $_POST['rank'] = 'admin';
+                    }
+
+                    $user->insert($_POST);
+                }
+
                 $redirect = $mode == 'student' ? 'students' : 'users';
                 $this->redirect($redirect);
             }else {
@@ -28,9 +37,14 @@ class Signup extends Controller
             }
         }
 
-        $this->view("signup", [
-            'errors'=>$errors,
-            'mode'=>$mode,
-        ]);
+        if(Auth::access('reception')) {
+
+			$this->view('signup',[
+				'errors'=>$errors,
+				'mode'=>$mode,
+			]);
+		}else{
+			$this->view('access-denied');
+		}
     }
 }

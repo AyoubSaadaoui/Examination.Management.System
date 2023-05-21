@@ -1,5 +1,5 @@
 <?php $this->view('includes/header')?>
-<?php $this->view('includes/nav')?>
+<?php $this->view('includes/navbar')?>
 
 	<div class="container-fluid p-4 shadow mx-auto" style="max-width: 1000px;">
 		<?php $this->view('includes/crumbs',['crumbs'=>$crumbs])?>
@@ -10,7 +10,7 @@
  			$image = get_image($row->image,$row->gender);
  		?>
 
-		<div class="row">
+		<div class="row"></div>
 			<div class="col-sm-4 col-md-3">
 				<img src="<?=$image?>" class="border border-primary d-block mx-auto rounded-circle " style="width:150px;">
 				<h3 class="text-center"><?=esc($row->firstname)?> <?=esc($row->lastname)?></h3>

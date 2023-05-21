@@ -1,14 +1,17 @@
 <?php
 
 /**
- * switch_school controller
+ * change school controller
  */
-class Switch_school extends Controller
-{
-    function index($id = '') {
+class Switch_school extends Controller {
 
-        Auth::switch_school($id);
-        $this->redirect('/schools');
+	function index($id = '') {
+		
+		if(Auth::access('super_admin')){
+			Auth::switch_school($id);
+		}
 
-    }
+ 		$this->redirect('schools');
+
+	}
 }
