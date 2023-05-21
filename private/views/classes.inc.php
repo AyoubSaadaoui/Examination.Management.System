@@ -3,11 +3,7 @@
 	<table class="table table-striped table-hover">
 		<tr><th></th><th>Class Name</th><th>Created by</th><th>Date</th>
 			<th>
-				<?php if(Auth::access('teacher')):?>
-				<a href="<?=ROOT?>/classes/add">
-					<button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>Add New</button>
-				</a>
-				<?php endif;?>
+				
 			</th>
 		</tr>
 		<?php if(isset($rows) && $rows):?>

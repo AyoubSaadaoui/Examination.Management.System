@@ -20,22 +20,47 @@ class Classes extends Controller
 		$school_id = Auth::getSchool_id();
 
 		if(Auth::access('admin')){
-			$data = $classes->query("select * from classes where school_id = :school_id order by id desc",['school_id'=>$school_id]);
- 		}else{
+
+			$query = "select * from classes where school_id = :school_id order by id desc";
+			$arr['school_id'] = $school_id;
+
+			if(isset($_GET['find'])) {
+
+	 			$find = '%' . $_GET['find'] . '%';
+	 			$query = "select * from classes where school_id = :school_id && (class like :find) order by id desc";
+	 			$arr['find'] = $find;
+	 		}
+
+			$data = $classes->query($query,$arr);
+
+		}else{
 
  			$class = new Classes_model();
  			$mytable = "class_students";
- 			if(Auth::getRank() == "teacher"){
+
+ 			if(Auth::getRank() == "teacher") {
+
  				$mytable = "class_teachers";
  			}
 
-			$query = "select * from $mytable where user_id = :user_id && disabled = 0";
-			$arr['stud_classes'] = $class->query($query,['user_id'=>Auth::getUser_id()]);
+			 $query = "select * from $mytable where user_id = :user_id && disabled = 0";
+ 			$arr['user_id'] = Auth::getUser_id();
+
+			if(isset($_GET['find']))
+	 		{
+	 			$find = '%' . $_GET['find'] . '%';
+	 			$query = "select classes.class, {$mytable}.* from $mytable join classes on classes.class_id = {$mytable}.class_id where {$mytable}.user_id = :user_id && {$mytable}.disabled = 0 && classes.class like :find ";
+	 			$arr['find'] = $find;
+	 		}
+
+			$arr['stud_classes'] = $class->query($query,$arr);
 
 			$data = array();
+
 			if($arr['stud_classes']){
+
 				foreach ($arr['stud_classes'] as $key => $arow) {
-					// code...
+
 					$data[] = $class->whereOne('class_id',$arow->class_id);
 				}
 			}
