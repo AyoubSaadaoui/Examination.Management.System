@@ -21,6 +21,10 @@ class User extends Model{
         'hash_password'
     ];
 
+    protected $beforeUpdate = [
+        'hash_password'
+    ];
+
 
     function validate($DATA, $id = '') {
 
@@ -75,7 +79,7 @@ class User extends Model{
         if(isset($DATA['password'])) {
 
             if(empty($DATA['password']) || $DATA['password'] !== $DATA['password2']) {
-                
+
                 $this->errors['password'] = "Passwords do not match";
             }
 
@@ -116,8 +120,10 @@ class User extends Model{
 
     public function hash_password($data) {
 
-        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        if(isset($data['password'])) {
 
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
         return $data;
     }
 
