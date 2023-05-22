@@ -2,7 +2,7 @@
 <?php $this->view('includes/navbar'); ?>
 
   <div class="container-fluid w-75 p-4 mx-auto shadow" >
-  <?php $this->view('includes/breadcrumb', ['crumbs'=>$crumbs]); ?>
+  <?php $this->view('includes/crumbs', ['crumbs'=>$crumbs]); ?>
     <div class="card-group justify-content-center ">
 
     <h5>Schools</h5><br>

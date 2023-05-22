@@ -4694,36 +4694,36 @@ textarea.form-control-lg {
   --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236ea8fe'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
-.breadcrumb {
-  --bs-breadcrumb-padding-x: 0;
-  --bs-breadcrumb-padding-y: 0;
-  --bs-breadcrumb-margin-bottom: 1rem;
-  --bs-breadcrumb-bg: ;
-  --bs-breadcrumb-border-radius: ;
-  --bs-breadcrumb-divider-color: var(--bs-secondary-color);
-  --bs-breadcrumb-item-padding-x: 0.5rem;
-  --bs-breadcrumb-item-active-color: var(--bs-secondary-color);
+.crumbs {
+  --bs-crumbs-padding-x: 0;
+  --bs-crumbs-padding-y: 0;
+  --bs-crumbs-margin-bottom: 1rem;
+  --bs-crumbs-bg: ;
+  --bs-crumbs-border-radius: ;
+  --bs-crumbs-divider-color: var(--bs-secondary-color);
+  --bs-crumbs-item-padding-x: 0.5rem;
+  --bs-crumbs-item-active-color: var(--bs-secondary-color);
   display: flex;
   flex-wrap: wrap;
-  padding: var(--bs-breadcrumb-padding-y) var(--bs-breadcrumb-padding-x);
-  margin-bottom: var(--bs-breadcrumb-margin-bottom);
-  font-size: var(--bs-breadcrumb-font-size);
+  padding: var(--bs-crumbs-padding-y) var(--bs-crumbs-padding-x);
+  margin-bottom: var(--bs-crumbs-margin-bottom);
+  font-size: var(--bs-crumbs-font-size);
   list-style: none;
-  background-color: var(--bs-breadcrumb-bg);
-  border-radius: var(--bs-breadcrumb-border-radius);
+  background-color: var(--bs-crumbs-bg);
+  border-radius: var(--bs-crumbs-border-radius);
 }
 
-.breadcrumb-item + .breadcrumb-item {
-  padding-right: var(--bs-breadcrumb-item-padding-x);
+.crumbs-item + .crumbs-item {
+  padding-right: var(--bs-crumbs-item-padding-x);
 }
-.breadcrumb-item + .breadcrumb-item::before {
+.crumbs-item + .crumbs-item::before {
   float: right;
-  padding-left: var(--bs-breadcrumb-item-padding-x);
-  color: var(--bs-breadcrumb-divider-color);
-  content:  var(--bs-breadcrumb-divider, "/") ;
+  padding-left: var(--bs-crumbs-item-padding-x);
+  color: var(--bs-crumbs-divider-color);
+  content:  var(--bs-crumbs-divider, "/") ;
 }
-.breadcrumb-item.active {
-  color: var(--bs-breadcrumb-item-active-color);
+.crumbs-item.active {
+  color: var(--bs-crumbs-item-active-color);
 }
 
 .pagination {

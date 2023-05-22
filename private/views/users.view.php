@@ -2,7 +2,7 @@
 <?php $this->view('includes/navbar'); ?>
 
   <div class="container-fluid w-75 p-4 mx-auto shadow" >
-  <?php $this->view('includes/breadcrumb', ['crumbs'=>$crumbs]); ?>
+  <?php $this->view('includes/crumbs', ['crumbs'=>$crumbs]); ?>
   <nav class="navbar navbar-light bg-light">
       <form class="form-inline">
           <div class="input-group">
@@ -31,6 +31,9 @@
       <?php endif ;?>
 
     </div>
+
+    <?php $pager->display()?>
+
   </div>
 
 

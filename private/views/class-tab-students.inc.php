@@ -34,3 +34,4 @@
 		<center><h4 class="pt-4">No students were found in this class</h4></center>
 	<?php endif;?>
  </div>
+ <?php $pager->display()?>

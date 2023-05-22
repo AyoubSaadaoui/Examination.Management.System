@@ -2,7 +2,7 @@
 <?php $this->view('includes/navbar'); ?>
 
   <div class="container-fluid w-75 p-4 mx-auto shadow" >
-  <?php $this->view('includes/breadcrumb', ['crumbs'=>$crumbs]); ?>
+  <?php $this->view('includes/crumbs', ['crumbs'=>$crumbs]); ?>
     <div class="card-group justify-content-center">
       <form method="post">
         <h5 class="mt-2 text-center">Add New School</h5>
