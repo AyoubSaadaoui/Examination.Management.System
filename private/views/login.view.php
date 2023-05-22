@@ -4,7 +4,7 @@
         <div class="container-fluid ">
             <div class="p-4 mt-5 mx-auto shadow rounded" style="width: 100%; max-width: 340px">
                 <h2 class="text-center">My School</h2>
-                <img class="d-block mx-auto rounded-circle border border-primary pb-3" style="width: 100px;" src="<?=ROOT?>/assets/logo.png" alt="logo">
+                <img class="d-block mx-auto rounded-circle border border-primary py-3" style="width: 140px;" src="<?=ROOT?>/assets/logo.png" alt="logo">
                 <h3>Login</h3>
 
                 <?php if(count($errors) > 0) :?>

@@ -12,15 +12,15 @@
 
 		<div class="row">
 			<div class="col-sm-4 col-md-3">
-				<img src="<?=$image?>" class="border border-primary d-block mx-auto rounded-circle " style="width:150px;">
+				<img src="<?=$image?>" class="border border-primary d-block mx-auto rounded-circle  " style="width:150px;">
 				<h3 class="text-center"><?=esc($row->firstname)?> <?=esc($row->lastname)?></h3>
 				<br>
 				<?php if(Auth::access('reception') || Auth::i_own_content($row)):?>
-				<div class="text-center">
-					<a href="<?=ROOT?>/profile/edit/<?=$row->user_id?>">
-						<button class="btn-sm btn btn-success">Edit</button>
+				<div class="text-center" >
+					<a href="<?=ROOT?>/profile/edit/<?=$row->user_id?>" style="text-decoration: none;">
+						<button class="btn-sm btn btn-success px-3" >Edit</button>
 					</a>
-					<a href="<?=ROOT?>/profile/delete/<?=$row->user_id?>">
+					<a href="<?=ROOT?>/profile/delete/<?=$row->user_id?>" style="text-decoration: none;">
 						<button class="btn-sm btn btn-danger">Delete</button>
 					</a>
 				</div>

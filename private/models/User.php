@@ -22,7 +22,7 @@ class User extends Model{
     ];
 
 
-    function validate($DATA) {
+    function validate($DATA, $id = '') {
 
         $this->errors = array();
 
@@ -45,9 +45,16 @@ class User extends Model{
         }
 
         // Check if email exists
-        if($this->where('email', $DATA['email'])) {
-
-            $this->errors['email'] = "Email is already in use";
+        if(trim($id) == ""){
+            if($this->where('email',$DATA['email']))
+            {
+                $this->errors['email'] = "That email is already in use";
+            }
+        }else{
+            if($this->query("select email from $this->table where email = :email && user_id != :id",['email'=>$DATA['email'],'id'=>$id]))
+            {
+                $this->errors['email'] = "That email is already in use";
+            }
         }
 
         // Check for gender
@@ -65,14 +72,18 @@ class User extends Model{
         }
 
         // Check for password
-        if(empty($DATA['password']) || $DATA['password'] != $DATA['password2']) {
+        if(isset($DATA['password'])) {
 
-            $this->errors['password'] = "The password do not match";
-        }
-        // Check for password length
-        if(strlen($DATA['password']) < 8) {
+            if(empty($DATA['password']) || $DATA['password'] !== $DATA['password2']) {
+                
+                $this->errors['password'] = "Passwords do not match";
+            }
 
-            $this->errors['password'] = "Password must be at least 8 characters long";
+            //check for password length
+            if(strlen($DATA['password']) < 8) {
+
+                $this->errors['password'] = "Password must be at least 8 characters long";
+            }
         }
 
         if(count($this->errors) == 0) {
