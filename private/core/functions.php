@@ -61,6 +61,10 @@ function get_image($image, $gender = 'male') {
         if($gender == 'female') {
           $image = ASSETS."/user_female.png";
         }
+    }else
+    {
+        $class = new Image();
+ 		$image = ROOT . "/" . $class->profile_thumb($image);
     }
 
     return $image;

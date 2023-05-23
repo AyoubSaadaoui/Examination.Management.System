@@ -13,6 +13,7 @@ class User extends Model{
         'gender',
         'rank',
         'date',
+        'image',
     ];
 
     protected $beforeInsert = [

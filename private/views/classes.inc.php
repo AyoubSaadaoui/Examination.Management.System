@@ -3,7 +3,7 @@
 	<table class="table table-striped table-hover">
 		<tr><th></th><th>Class Name</th><th>Created by</th><th>Date</th>
 			<th>
-				
+
 			</th>
 		</tr>
 		<?php if(isset($rows) && $rows):?>
@@ -34,7 +34,7 @@
 
  			<?php endforeach;?>
 			<?php else:?>
-				<h4>No classes were found at this time</h4>
+				<tr><td colspan="5"><center>No classes were found at this time</center></td></tr>
 			<?php endif;?>
 
 	</table>
