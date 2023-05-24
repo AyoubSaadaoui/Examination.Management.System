@@ -41,6 +41,7 @@ class Single_class extends Controller
 			$teachers = $teach->query($query,['class_id'=>$id]);
 
 			$data['teachers'] 		= $teachers;
+
 		}else
 		if($page_tab == 'students'){
 
@@ -49,6 +50,16 @@ class Single_class extends Controller
 			$students = $teach->query($query,['class_id'=>$id]);
 
 			$data['students'] 		= $students;
+
+		}else
+		if($page_tab == 'tests'){
+
+			//display tests
+			$query = "select * from tests where class_id = :class_id order by id desc limit $limit offset $offset";
+			$tests = $teach->query($query,['class_id'=>$id]);
+
+			$data['tests'] 		   = $tests;
+
 		}
 
 		$data['row'] 		= $row;
