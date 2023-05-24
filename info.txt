@@ -1,13 +1,13 @@
 multiple schools
 super admin
 admin for each school
-lecturers
+teachers
 students
 
 reception will add students
-lecturers will add students to classes
-lecturers will give assignments
+teachers will add students to classes
+teachers will give assignments
 students will submit assignments
-lecturer will download assignment files
-lecturer will give marks for each assignment for each students
+teacher will download assignment files
+teacher will give marks for each assignment for each students
 display student marks for each subject
