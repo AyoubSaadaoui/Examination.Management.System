@@ -33,11 +33,11 @@
 
 			 	<td>
 			 		<?php if(Auth::access('teacher')):?>
-				 		<a href="<?=ROOT?>/single_class/testedit/<?=$row->class_id?>/<?=$row->test_id?>?tab=tests">
+				 		<a href="<?=ROOT?>/single_class/testedit/<?=$row->class_id?>/<?=$row->test_id?>?tab=tests" style="text-decoration: none;">
 				 			<button class="btn-sm btn btn-info text-white"><i class="fa fa-edit"></i></button>
 				 		</a>
 
-				 		<a href="<?=ROOT?>/single_class/testdelete/<?=$row->class_id?>/<?=$row->test_id?>?tab=tests">
+				 		<a href="<?=ROOT?>/single_class/testdelete/<?=$row->class_id?>/<?=$row->test_id?>?tab=tests" style="text-decoration: none;">
 				 			<button class="btn-sm btn btn-danger"><i class="fa fa-trash-alt"></i></button>
 				 		</a>
 				 	<?php endif;?>
