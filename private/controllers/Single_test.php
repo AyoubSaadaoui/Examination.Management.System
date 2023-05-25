@@ -29,7 +29,44 @@ class Single_test extends Controller
  		$pager = new Pager($limit);
  		$offset = $pager->offset;
 
-		$page_tab = isset($_GET['tab']) ? $_GET['tab'] : 'view';
+		$page_tab = 'view';
+
+		$results = false;
+
+		$data['row'] 		= $row;
+ 		$data['crumbs'] 	= $crumbs;
+		$data['page_tab'] 	= $page_tab;
+		$data['results'] 	= $results;
+		$data['errors'] 	= $errors;
+		$data['pager'] 		= $pager;
+
+		$this->view('single-test',$data);
+	}
+
+	public function addsubjective($id = '')
+	{
+		// code...
+		$errors = array();
+		if(!Auth::logged_in())
+		{
+			$this->redirect('login');
+		}
+
+		$tests = new tests_model();
+		$row = $tests->whereOne('test_id',$id);
+
+		$crumbs[] = ['Dashboard',''];
+		$crumbs[] = ['tests','tests'];
+
+		if($row){
+			$crumbs[] = [$row->test,''];
+		}
+
+		$limit = 10;
+ 		$pager = new Pager($limit);
+ 		$offset = $pager->offset;
+
+		$page_tab = 'add-subjective';
 
 		$results = false;
 
