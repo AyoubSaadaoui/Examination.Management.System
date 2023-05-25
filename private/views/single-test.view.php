@@ -12,7 +12,15 @@
                     <tr>
                         <th>Create By:</th><th class="font-weight-normal"><?=esc($row->user->firstname)?> <?=esc($row->user->lastname)?></th>
                         <th>Date Create:</th><th class="font-weight-normal"><?=esc(get_date($row->date))?></th>
+						<td>
+							<a href="<?=ROOT?>/single_class/<?=$row->class_id?>?tab=tests">
+								<button class="btn btn-sm btn-primary"><i class="fa fa-chevron-right"></i>View class</button>
+							</a>
+						</td>
                     </tr>
+
+					<?php $active = $row->disabled ? "No":"Yes";?>
+					<tr><td><b>Active:</b> <?=$active?></td><td colspan="5"><b>Test Description:</b><br><?=esc($row->description)?></td></tr>
                 </table>
 
             </div>

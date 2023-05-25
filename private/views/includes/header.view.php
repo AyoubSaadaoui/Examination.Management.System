@@ -21,5 +21,17 @@
         .fa{
             margin-right: 4px;
         }
+        a{
+            text-decoration: none;
+        }
+        .addquestion {
+            color: black;
+            text-decoration: none;
+        }
+        .addquestion:hover {
+            color: whith;
+            background-color: FireBrick;
+            text-decoration: none;
+        }
     </style>
     <div style="min-whidth:350;">
