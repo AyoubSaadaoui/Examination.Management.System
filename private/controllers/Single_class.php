@@ -422,12 +422,11 @@ class Single_class extends Controller
 		$this->view('single-class',$data);
 	}
 
-	public function testadd($id = '')
-	{
+	public function testadd($id = '') {
 
 		$errors = array();
-		if(!Auth::logged_in())
-		{
+		if(!Auth::logged_in()) {
+
 			$this->redirect('login');
 		}
 
@@ -475,6 +474,59 @@ class Single_class extends Controller
 		$this->view('single-class',$data);
 	}
 
+	public function testedit($id = '',$test_id = '') {
+
+		$errors = array();
+		if(!Auth::logged_in())
+		{
+			$this->redirect('login');
+		}
+
+		$classes = new Classes_model();
+		$tests = new Tests_model();
+
+		$row = $classes->whereOne('class_id',$id);
+		$test_row = $tests->whereOne('test_id',$test_id);
+
+		$crumbs[] = ['Dashboard',''];
+		$crumbs[] = ['classes','classes'];
+
+		if($row){
+			$crumbs[] = [$row->class,''];
+		}
+
+		$page_tab = 'test-edit';
+		$test_class = new Tests_model();
+
+		$results = false;
+
+		if(count($_POST) > 0)
+		{
+
+ 			if(isset($_POST['test'])){
+
+				$arr = array();
+ 				$arr['test'] 	= $_POST['test'];
+ 				$arr['description'] 	= $_POST['description'];
+				$arr['disabled'] 	= $_POST['disabled'];
+
+				$test_class->update($test_row->id,$arr);
+
+				$this->redirect('single_class/testedit/'.$id.'/'.$test_id.'?tab=test-edit');
+
+			}
+
+		}
+
+		$data['row'] 		= $row;
+		$data['test_row'] 		= $test_row;
+ 		$data['crumbs'] 	= $crumbs;
+		$data['page_tab'] 	= $page_tab;
+		$data['results'] 	= $results;
+		$data['errors'] 	= $errors;
+
+		$this->view('single-class',$data);
+	}
 
 
 }
