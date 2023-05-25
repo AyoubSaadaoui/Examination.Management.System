@@ -66,6 +66,25 @@ class Single_test extends Controller
  		$pager = new Pager($limit);
  		$offset = $pager->offset;
 
+		$quest = new Questions_model();
+
+ 		if(count($_POST) > 0) {
+
+			if($quest->validate($_POST)){
+
+				$_POST['test_id'] = $id;
+				$_POST['date'] = date("Y-m-d H:i:s");
+				$_POST['question_type'] = 'subjective';
+
+				$quest->insert($_POST);
+				$this->redirect('single_test/'.$id);
+
+			}else {
+				//errors
+				$errors = $quest->errors;
+			}
+		}
+
 		$page_tab = 'add-subjective';
 
 		$results = false;
