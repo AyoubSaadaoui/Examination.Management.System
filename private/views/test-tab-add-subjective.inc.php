@@ -26,6 +26,13 @@
 	  <input type="file" name="image" class="form-control" id="inputGroupFile01">
 	</div>
 
+	<?php if(isset($_GET['type']) && $_GET['type'] == 'objective'):?>
+		<div class="input-group mb-3 ">
+			<label class="input-group-text" for="inputGroupFile01">Answer</label>
+			<input type="text" name="answer" class="form-control" id="inputGroupFile011" placeholder="Enter the correct answer here">
+		</div>
+	<?php endif;?>
+
     <a href="<?=ROOT?>/single_test/<?=$row->test_id?>">
 		<button type="button" class="btn btn-primary"><i class="fa fa-chevron-left"></i>Back</button>
 	</a>
