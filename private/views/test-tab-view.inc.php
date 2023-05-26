@@ -8,7 +8,7 @@
     <i class="fa fa-bars"></i>Add
   </button>
   <ul class="dropdown-menu  dropdown-menu-end">
-    <li><a class="dropdown-item addquestion" href="<?=ROOT?>/single_test/addquestion/<?=$row->test_id?>">
+    <li><a class="dropdown-item addquestion" href="<?=ROOT?>/single_test/addquestion/<?=$row->test_id?>?type=multiple">
     	Add Multiple choice Question</a>
 	</li>
     <li><a class="dropdown-item addquestion" href="<?=ROOT?>/single_test/addquestion/<?=$row->test_id?>?type=objective">

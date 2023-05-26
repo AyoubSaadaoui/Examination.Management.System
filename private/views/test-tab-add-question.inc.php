@@ -43,8 +43,72 @@
 		</div>
 	<?php endif;?>
 
+	<?php if(isset($_GET['type']) && $_GET['type'] == "multiple"):?>
+		<div class="card" style="">
+		  <div class="card-header bg-secondary text-white">
+		    Multiple Choice Answers <button onclick="add_choice()" type="button" class="btn btn-warning btn-sm float-end"><i class="fa fa-plus"></i>Add Choice</button>
+		  </div>
+		  <ul class="list-group list-group-flush choice-list">
+
+		    <?php if(isset($_POST['choice0'])):?>
+
+				<?php
+				//check for multiple choice answers	
+		        $num = 0;
+		        $letters = ['A','B','C','D','F','G','H','I','J'];
+		        foreach ($_POST as $key => $value) {
+		            // code...
+		            if(strstr($key, 'choice')){
+ 		                ?>
+		                    <li class="list-group-item">
+						    	<?=$letters[$num]?> : <input type="text" class="form-control" value="<?=$value?>" name="<?=$key?>" placeholder="Type your answer here">
+						    	<label style="cursor: pointer;"><input type="radio" <?= $letters[$num] == $_POST['correct_answer'] ? 'checked' : '';?> value="<?=$letters[$num]?>" name="correct_answer"> Correct answer</label>
+						    </li>
+						<?php
+ 		                $num++;
+		            }
+		        }
+		        ?>
+			<?php else:?>
+			    <li class="list-group-item">
+			    	A : <input type="text" class="form-control" name="choice0" placeholder="Type your answer here">
+			    	<label style="cursor: pointer;"><input type="radio" value="A" name="correct_answer"> Correct answer</label>
+			    </li>
+
+			    <li class="list-group-item">
+			    	B : <input type="text" class="form-control" name="choice1" placeholder="Type your answer here">
+			    	<label style="cursor: pointer;"><input type="radio" value="B" name="correct_answer"> Correct answer</label>
+			    </li>
+			<?php endif;?>
+
+		  </ul>
+		</div><br>
+	<?php endif;?>
+
+
     <a href="<?=ROOT?>/single_test/<?=$row->test_id?>">
 		<button type="button" class="btn btn-primary"><i class="fa fa-chevron-left"></i>Back</button>
 	</a>
     <button class="btn btn-danger float-end">Save Question</button>
 </form>
+
+<script>
+
+	var letters = ['A','B','C','D','F','G','H','I','J'];
+
+	function add_choice()
+	{
+		var choices = document.querySelector(".choice-list");
+
+		if(choices.children.length < letters.length){
+
+			choices.innerHTML += `
+			<li class="list-group-item">
+		    	${letters[choices.children.length]} : <input type="text" class="form-control" name="choice${choices.children.length}" placeholder="Type your answer here">
+		    	<label style="cursor: pointer;"><input type="radio" value="${letters[choices.children.length]}" name="correct_answer"> Correct answer</label>
+		    </li>
+		   `;
+		}
+
+	}
+</script>

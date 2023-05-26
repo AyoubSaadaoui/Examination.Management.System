@@ -85,6 +85,24 @@ class Single_test extends Controller
 
 				$_POST['test_id'] = $id;
 				$_POST['date'] = date("Y-m-d H:i:s");
+
+				if(isset($_GET['type']) && $_GET['type'] == "multiple"){
+					$_POST['question_type'] = 'multiple';
+					//for multiple choice
+					$num = 0;
+					$arr = [];
+				   $letters = ['A','B','C','D','F','G','H','I','J'];
+				   foreach ($_POST as $key => $value) {
+					   // code...
+					   if(strstr($key, 'choice')){
+
+						   $arr[$letters[$num]] = $value;
+						   $num++;
+					   }
+				   }
+
+				   $_POST['choices'] = json_encode($arr);
+				}else
 				if(isset($_GET['type']) && $_GET['type'] == "objective"){
  					$_POST['question_type'] = 'objective';
  				}else{
