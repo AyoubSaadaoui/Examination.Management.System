@@ -77,6 +77,12 @@ class Single_test extends Controller
 
 			if($quest->validate($_POST)){
 
+				//check for files
+				if($myimage = upload_image($_FILES))
+				{
+					$_POST['image'] = $myimage;
+				}
+				
 				$_POST['test_id'] = $id;
 				$_POST['date'] = date("Y-m-d H:i:s");
 				$_POST['question_type'] = 'subjective';
@@ -94,7 +100,7 @@ class Single_test extends Controller
 
 		$results = false;
 
-		$data['questions'] 	= $questions;
+
 		$data['row'] 		= $row;
  		$data['crumbs'] 	= $crumbs;
 		$data['page_tab'] 	= $page_tab;

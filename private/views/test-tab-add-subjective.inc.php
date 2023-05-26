@@ -13,10 +13,15 @@
 		  </span>
 		</div>
     <?php endif;?>
-    
+
     <label>Question:</label>
     <textarea autofocus class="form-control" name="question" placeholder="Type your question here"><?=get_var('question')?></textarea>
-    <div class="input-group mb-3 pt-4">
+    <div class="input-group mb-3 pt-3">
+	  <label class="input-group-text" for="inputGroupFile01">Comment(optional)</label>
+	  <input type="text" name="comment" value="<?=get_var('comment')?>" class="form-control" placeholder="Comment">
+	</div>
+
+	<div class="input-group mb-3 ">
 	  <label class="input-group-text" for="inputGroupFile01"><i class="fa fa-image"></i>image(optional)</label>
 	  <input type="file" name="image" class="form-control" id="inputGroupFile01">
 	</div>

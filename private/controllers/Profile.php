@@ -86,24 +86,9 @@ class Profile extends Controller
 			if($user->validate($_POST,$id))
  			{
  				//check for files
- 				if(count($_FILES) > 0)
+ 				if($myimage = upload_image($_FILES))
  				{
-
- 					//we have an image
- 					$allowed[] = "image/jpeg";
- 					$allowed[] = "image/png";
-
- 					if($_FILES['image']['error'] == 0 && in_array($_FILES['image']['type'], $allowed))
- 					{
- 						$folder = "uploads/";
- 						if(!file_exists($folder)){
- 							mkdir($folder,0777,true);
- 						}
- 						$destination = $folder . $_FILES['image']['name'];
- 						move_uploaded_file($_FILES['image']['tmp_name'], $destination);
- 						$_POST['image'] = $destination;
- 					}
-
+ 					$_POST['image'] = $myimage;
  				}
 
  				if($_POST['rank'] == 'super_admin' && $_SESSION['USER']->rank != 'super_admin')

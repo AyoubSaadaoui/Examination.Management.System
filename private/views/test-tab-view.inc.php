@@ -33,7 +33,10 @@
 			</div>
 			<div class="card-body">
 				<h5 class="card-title"><?=$question->question?></h5>
-				<p class="card-text">1 Point</p>
+				<?php if(file_exists($question->image)):?>
+					<img src="<?=ROOT . '/'.$question->image?>" style="width:50%">
+				<?php endif;?>
+				<p class="card-text"><?=$question->comment?></p>
 				<p class="card-text float-end">
 
 		    	<a href="<?=ROOT?>/single_test/editquestion/<?=$row->test_id?>/<?=$question->id?><?=$type?>">
