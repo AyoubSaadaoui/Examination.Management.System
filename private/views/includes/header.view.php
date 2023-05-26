@@ -31,7 +31,7 @@
         .addquestion:hover {
             color: whith;
             background-color: FireBrick;
-            text-decoration: none;
+            
         }
     </style>
     <div style="min-whidth:350;">

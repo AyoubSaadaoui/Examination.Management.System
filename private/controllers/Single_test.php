@@ -32,11 +32,16 @@ class Single_test extends Controller
 		$page_tab = 'view';
 
 		$results = false;
+		$quest = new Questions_model();
+		$questions = $quest->where('test_id',$id);
+		$total_questions = count($questions);
 
 		$data['row'] 		= $row;
  		$data['crumbs'] 	= $crumbs;
 		$data['page_tab'] 	= $page_tab;
 		$data['results'] 	= $results;
+		$data['questions'] 	= $questions;
+		$data['total_questions'] 	= $total_questions;
 		$data['errors'] 	= $errors;
 		$data['pager'] 		= $pager;
 
@@ -89,6 +94,7 @@ class Single_test extends Controller
 
 		$results = false;
 
+		$data['questions'] 	= $questions;
 		$data['row'] 		= $row;
  		$data['crumbs'] 	= $crumbs;
 		$data['page_tab'] 	= $page_tab;

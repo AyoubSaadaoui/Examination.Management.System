@@ -20,7 +20,8 @@
                     </tr>
 
 					<?php $active = $row->disabled ? "No":"Yes";?>
-					<tr><td><b>Active:</b> <?=$active?></td><td colspan="5"><b>Test Description:</b><br><?=esc($row->description)?></td></tr>
+					<tr><td><b>Active:</b> <?=$active?></td>
+                    <td colspan="5"><b>Test Description:</b><br><?=esc($row->description)?></td></tr>
                 </table>
 
             </div>
