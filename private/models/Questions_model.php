@@ -37,6 +37,16 @@ class Questions_model extends Model
             $this->errors['question'] = "Please add a valid question";
         }
 
+        if(isset($DATA['correct_answer'])) {
+
+            if(empty($DATA['correct_answer'])) {
+
+                $this->errors['correct_answer'] = "Please add a valid answer";
+            }
+
+
+        }
+
         //check for multiple choice answers
         $num = 0;
         $letters = ['A','B','C','D','F','G','H','I','J'];

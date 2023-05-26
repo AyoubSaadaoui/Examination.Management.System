@@ -36,7 +36,10 @@
 				<?php if(file_exists($question->image)):?>
 					<img src="<?=ROOT . '/'.$question->image?>" style="width:50%">
 				<?php endif;?>
-				<p class="card-text"><?=$question->comment?></p>
+				<p class="card-text"><?=esc($question->comment)?></p>
+				<?php if($question->question_type == 'objective'):?>
+					<p class="card-text"><b>Answer: </b><?=esc($question->correct_answer)?></p>
+				<?php endif;?>
 				<p class="card-text float-end">
 
 		    	<a href="<?=ROOT?>/single_test/editquestion/<?=$row->test_id?>/<?=$question->id?><?=$type?>">

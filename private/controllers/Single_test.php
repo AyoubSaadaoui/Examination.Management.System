@@ -82,11 +82,14 @@ class Single_test extends Controller
 				{
 					$_POST['image'] = $myimage;
 				}
-				
+
 				$_POST['test_id'] = $id;
 				$_POST['date'] = date("Y-m-d H:i:s");
-				$_POST['question_type'] = 'subjective';
-
+				if(isset($_GET['type']) && $_GET['type'] == "objective"){
+ 					$_POST['question_type'] = 'objective';
+ 				}else{
+ 					$_POST['question_type'] = 'subjective';
+ 				}
 				$quest->insert($_POST);
 				$this->redirect('single_test/'.$id);
 

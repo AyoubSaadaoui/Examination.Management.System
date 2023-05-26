@@ -29,7 +29,7 @@
 	<?php if(isset($_GET['type']) && $_GET['type'] == 'objective'):?>
 		<div class="input-group mb-3 ">
 			<label class="input-group-text" for="inputGroupFile01">Answer</label>
-			<input type="text" name="answer" class="form-control" id="inputGroupFile011" placeholder="Enter the correct answer here">
+			<input type="text" name="correct_answer" value="<?=get_var('correct_answer')?>" class="form-control" id="inputGroupFile011" placeholder="Enter the correct answer here">
 		</div>
 	<?php endif;?>
 
