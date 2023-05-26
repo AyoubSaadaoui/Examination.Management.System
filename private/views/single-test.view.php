@@ -35,21 +35,15 @@
 
                         break;
 
-                    case 'add-subjective':
+                    case 'add-question':
                         // code...
-                        include(views_path('test-tab-add-subjective'));
+                        include(views_path('test-tab-add-question'));
 
                         break;
 
-                    case 'add-multiple':
+                    case 'edit-question':
                         // code...
-                        include(views_path('test-tab-add-multiple'));
-
-                        break;
-
-                    case 'add-objective':
-                        // code...
-                        include(views_path('test-tab-add-objective'));
+                        include(views_path('test-tab-edit-question'));
 
                         break;
 

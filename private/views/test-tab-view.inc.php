@@ -37,8 +37,15 @@
 					<img src="<?=ROOT . '/'.$question->image?>" style="width:50%">
 				<?php endif;?>
 				<p class="card-text"><?=esc($question->comment)?></p>
-				<?php if($question->question_type == 'objective'):?>
+				<?php
+					$type = '';
+				?>
+				<?php if($question->question_type == 'objective'):
+
+					$type = '?type=objective';
+				?>
 					<p class="card-text"><b>Answer: </b><?=esc($question->correct_answer)?></p>
+
 				<?php endif;?>
 				<p class="card-text float-end">
 

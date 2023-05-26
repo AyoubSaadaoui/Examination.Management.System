@@ -1,4 +1,14 @@
-<center><h5>Add Subjective Question</h5></center>
+<?php
+
+	$quest_type = 'Subjective';
+	if(isset($_GET['type']) && $_GET['type'] == "objective"){
+		$quest_type = 'Objective';
+	}else
+	if(isset($_GET['type']) && $_GET['type'] == "multiple"){
+		$quest_type = 'Multiple Choice';
+	}
+?>
+<center><h5>Add <?=$quest_type?> Question</h5></center>
 
 <form method="post" enctype="multipart/form-data">
 

@@ -99,7 +99,7 @@ class Single_test extends Controller
 			}
 		}
 
-		$page_tab = 'add-subjective';
+		$page_tab = 'add-question';
 
 		$results = false;
 
@@ -110,6 +110,76 @@ class Single_test extends Controller
 		$data['results'] 	= $results;
 		$data['errors'] 	= $errors;
 		$data['pager'] 		= $pager;
+
+		$this->view('single-test',$data);
+	}
+
+	public function editquestion($id = '',$quest_id = '')
+	{
+		// code...
+		$errors = array();
+		if(!Auth::logged_in())
+		{
+			$this->redirect('login');
+		}
+
+		$tests = new Tests_model();
+		$row = $tests->whereOne('test_id',$id);
+
+		$crumbs[] = ['Dashboard',''];
+		$crumbs[] = ['tests','tests'];
+
+		if($row){
+			$crumbs[] = [$row->test,''];
+		}
+
+		$page_tab = 'edit-question';
+
+		$limit = 10;
+ 		$pager = new Pager($limit);
+ 		$offset = $pager->offset;
+
+ 		$quest = new Questions_model();
+ 		$question = $quest->whereOne('id',$quest_id);
+
+ 		if(count($_POST) > 0){
+
+ 			if($quest->validate($_POST))
+ 			{
+
+ 				//check for files
+ 				if($myimage = upload_image($_FILES))
+ 				{
+ 					$_POST['image'] = $myimage;
+ 					if(file_exists($question->image)){
+	 					unlink($question->image);
+	 				}
+ 				}
+
+ 				//check the question type
+			  	$type = '';
+		    	if($question->question_type == 'objective'){
+		    		$type = '?type=objective';
+		    	}
+
+ 				$quest->update($question->id,$_POST);
+ 				$this->redirect('single_test/editquestion/'.$id.'/'.$quest_id.$type);
+ 			}else
+ 			{
+ 				//errors
+ 				$errors = $quest->errors;
+ 			}
+ 		}
+
+		$results = false;
+
+		$data['row'] 		= $row;
+ 		$data['crumbs'] 	= $crumbs;
+		$data['page_tab'] 	= $page_tab;
+		$data['results'] 	= $results;
+		$data['errors'] 	= $errors;
+		$data['pager'] 		= $pager;
+		$data['question'] 	= $question;
 
 		$this->view('single-test',$data);
 	}
