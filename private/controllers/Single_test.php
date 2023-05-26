@@ -48,7 +48,7 @@ class Single_test extends Controller
 		$this->view('single-test',$data);
 	}
 
-	public function addsubjective($id = '')
+	public function addquestion($id = '')
 	{
 		// code...
 		$errors = array();
@@ -168,6 +168,60 @@ class Single_test extends Controller
  			{
  				//errors
  				$errors = $quest->errors;
+ 			}
+ 		}
+
+		$results = false;
+
+		$data['row'] 		= $row;
+ 		$data['crumbs'] 	= $crumbs;
+		$data['page_tab'] 	= $page_tab;
+		$data['results'] 	= $results;
+		$data['errors'] 	= $errors;
+		$data['pager'] 		= $pager;
+		$data['question'] 	= $question;
+
+		$this->view('single-test',$data);
+	}
+
+	public function deletequestion($id = '',$quest_id = '')
+	{
+		// code...
+		$errors = array();
+		if(!Auth::logged_in())
+		{
+			$this->redirect('login');
+		}
+
+		$tests = new Tests_model();
+		$row = $tests->whereOne('test_id',$id);
+
+		$crumbs[] = ['Dashboard',''];
+		$crumbs[] = ['tests','tests'];
+
+		if($row){
+			$crumbs[] = [$row->test,''];
+		}
+
+		$page_tab = 'delete-question';
+
+		$limit = 10;
+ 		$pager = new Pager($limit);
+ 		$offset = $pager->offset;
+
+ 		$quest = new Questions_model();
+ 		$question = $quest->whereOne('id',$quest_id);
+
+ 		if(count($_POST) > 0){
+
+ 			if(Auth::access('teacher'))
+ 			{
+
+ 				$quest->delete($question->id);
+ 				if(file_exists($question->image)){
+ 					unlink($question->image);
+ 				}
+ 				$this->redirect('single_test/'.$id);
  			}
  		}
 

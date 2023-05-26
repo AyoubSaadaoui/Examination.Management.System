@@ -47,6 +47,12 @@
 
                         break;
 
+                    case 'delete-question':
+                        // code...
+                        include(views_path('test-tab-delete-question'));
+
+                        break;
+
                     case 'edit':
                         // code...
                         include(views_path('test-tab-edit'));
