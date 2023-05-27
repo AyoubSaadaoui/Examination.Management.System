@@ -23,6 +23,12 @@ class Take_test extends Controller
 
 		if($row){
 			$crumbs[] = [$row->test,''];
+
+			if(!$row->disabled){
+
+				$query = "update tests set editable = 0 where id = :id limit 1";
+				$tests->query($query,['id'=>$row->id]);
+			}
 		}
 
 		$page_tab = 'view';

@@ -40,7 +40,7 @@ class Single_test extends Controller
 		$quest = new Questions_model();
 		$questions = $quest->where('test_id',$id);
 		$total_questions = is_array($questions) ? count($questions) : 0;
-		
+
 		$data['row'] 		= $row;
  		$data['crumbs'] 	= $crumbs;
 		$data['page_tab'] 	= $page_tab;
@@ -167,7 +167,11 @@ class Single_test extends Controller
 
  		if(count($_POST) > 0){
 
- 			if($quest->validate($_POST))
+			if(!$row->editable){
+				$errors[] = "Editing for this test question is disabled";
+			}
+
+ 			if($quest->validate($_POST) && count($errors) == 0)
  			{
 
  				//check for files
@@ -208,7 +212,7 @@ class Single_test extends Controller
  			}else
  			{
  				//errors
- 				$errors = $quest->errors;
+ 				$errors = array_merge($errors,$quest->errors);
  			}
  		}
 
