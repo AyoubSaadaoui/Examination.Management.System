@@ -35,9 +35,9 @@ class Tests extends Controller
  		}else{
 
  			$test = new Tests_model();
- 			$mytable = "test_students";
+ 			$mytable = "class_students";
  			if(Auth::getRank() == "teacher"){
- 				$mytable = "test_teachers";
+ 				$mytable = "class_teachers";
  			}
 
 			$query = "select * from $mytable where user_id = :user_id && disabled = 0";
@@ -50,13 +50,13 @@ class Tests extends Controller
 	 			$arr['find'] = $find;
 	 		}
 
-			$arr['stud_tests'] = $test->query($query,$arr);
+			$arr['stud_classes'] = $test->query($query,$arr);
 
 			$data = array();
-			if($arr['stud_tests']){
-				foreach ($arr['stud_tests'] as $key => $arow) {
+			if($arr['stud_classes']){
+				foreach ($arr['stud_classes'] as $key => $arow) {
 					// code...
-					$data[] = $test->first('test_id',$arow->test_id);
+					$data[] = $test->whereOne('class_id',$arow->class_id);
 				}
 			}
 
