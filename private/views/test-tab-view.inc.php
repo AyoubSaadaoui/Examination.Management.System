@@ -77,13 +77,17 @@
 
 				<p class="card-text float-end">
 
-		    	<a href="<?=ROOT?>/single_test/editquestion/<?=$row->test_id?>/<?=$question->id?><?=$type?>">
-		    		<button class="btn btn-info text-white pe-1"><i class="fa fa-edit"></i></button>
-		    	</a>
-		    	<a href="<?=ROOT?>/single_test/deletequestion/<?=$row->test_id?>/<?=$question->id?><?=$type?>">
-		    		<button class="btn btn-danger text-white text-white pe-1"><i class="fa fa-trash-alt"></i></button>
-		    	</a>
-		    </p>
+					<?php if($row->editable):?>
+
+						<a href="<?=ROOT?>/single_test/editquestion/<?=$row->test_id?>/<?=$question->id?><?=$type?>">
+							<button class="btn btn-info text-white pe-1"><i class="fa fa-edit"></i></button>
+						</a>
+						<a href="<?=ROOT?>/single_test/deletequestion/<?=$row->test_id?>/<?=$question->id?><?=$type?>">
+							<button class="btn btn-danger text-white text-white pe-1"><i class="fa fa-trash-alt"></i></button>
+						</a>
+					<?php endif;?>
+					
+		    	</p>
 			</div>
 
 		</div>
