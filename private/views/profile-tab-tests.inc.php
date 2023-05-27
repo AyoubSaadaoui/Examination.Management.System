@@ -9,3 +9,5 @@
     </div>
   </form>
 </nav>
+
+<?php include(views_path('tests'))?>

@@ -47,6 +47,41 @@ class Profile extends Controller
 				}
 			}
 
+		}else
+		if($data['page_tab'] == 'tests' && $row)
+		{
+			$class = new Classes_model();
+ 			$mytable = "class_students";
+ 			if($row->rank == "teacher"){
+ 				$mytable = "class_teachers";
+ 			}
+
+			$query = "select * from $mytable where user_id = :user_id && disabled = 0";
+			$data['stud_classes'] = $class->query($query,['user_id'=>$id]);
+
+			$data['student_classes'] = array();
+			if($data['stud_classes']){
+				foreach ($data['stud_classes'] as $key => $arow) {
+					// code...
+					$data['student_classes'][] = $class->whereOne('class_id',$arow->class_id);
+				}
+			}
+
+			//collect class id's
+			$class_ids = [];
+			foreach ($data['student_classes'] as $key => $class_row) {
+				// code...
+				$class_ids[] = $class_row->class_id;
+			}
+
+			$id_str = "'" . implode("','", $class_ids) . "'";
+			$query = "select * from tests where class_id in ($id_str)";
+
+			$tests_model = new Tests_model();
+			$tests = $tests_model->query($query);
+
+			$data['test_rows'] = $tests;
+
 		}
 
 		$data['row'] = $row;

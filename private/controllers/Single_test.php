@@ -15,6 +15,11 @@ class Single_test extends Controller
 			$this->redirect('login');
 		}
 
+		if(!Auth::access('teacher'))
+		{
+			$this->redirect('access_denied');
+		}
+
 		$tests = new tests_model();
 		$row = $tests->whereOne('test_id',$id);
 

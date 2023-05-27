@@ -103,3 +103,48 @@ function upload_image($FILES)
 
 	return false;
 }
+
+function has_taken_test($test_id)
+{
+
+	return "No";
+}
+
+function can_take_test($my_test_id)
+{
+	$class = new Classes_model();
+	$mytable = "class_students";
+	if(Auth::getRank() != "student"){
+		return false;
+	}
+
+	$query = "select * from $mytable where user_id = :user_id && disabled = 0";
+	$data['stud_classes'] = $class->query($query,['user_id'=>Auth::getUser_id()]);
+
+	$data['student_classes'] = array();
+	if($data['stud_classes']){
+		foreach ($data['stud_classes'] as $key => $arow) {
+			// code...
+			$data['student_classes'][] = $class->whereOne('class_id',$arow->class_id);
+		}
+	}
+
+	//collect class id's
+	$class_ids = [];
+	foreach ($data['student_classes'] as $key => $class_row) {
+		// code...
+		$class_ids[] = $class_row->class_id;
+	}
+
+	$id_str = "'" . implode("','", $class_ids) . "'";
+	$query = "select * from tests where class_id in ($id_str)";
+
+	$tests_model = new Tests_model();
+	$tests = $tests_model->query($query);
+
+	$my_tests = array_column($tests, 'test_id');
+	if(in_array($my_test_id, $my_tests)){
+		return true;
+	}
+	return false;
+}

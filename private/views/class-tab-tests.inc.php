@@ -13,7 +13,7 @@
 	</nav>
 
 		<table class="table table-striped table-hover">
-		<tr><th></th><th>Test Name</th><th>Created by</th><th>Active</th><th>Date</th>
+		<tr><th></th><th>Test Name</th><th>Created by</th><th>Active</th><th>Taken</th><th>Date</th>
 			<th>
 
 			</th>
@@ -29,7 +29,11 @@
 			 		</a>
 			 	</td>
 			 	<?php $active = $row->disabled ? "No":"Yes";?>
-			 	<td><?=$row->test?></td><td><?=$row->user->firstname?> <?=$row->user->lastname?></td><td><?=$active?></td><td><?=get_date($row->date)?></td>
+			 	<td><?=$row->test?></td>
+				<td><?=$row->user->firstname?> <?=$row->user->lastname?></td>
+				<td><?=$active?></td>
+				<td><?=has_taken_test($row->test_id)?></td>
+				<td><?=get_date($row->date)?></td>
 
 			 	<td>
 			 		<?php if(Auth::access('teacher')):?>
