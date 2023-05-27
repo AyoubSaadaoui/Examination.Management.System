@@ -8,6 +8,7 @@
             <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
         </div>
     </form>
+    <?php if(Auth::access('teacher')):?>
     <div>
 
         <a href="<?=ROOT?>/single_class/teacherremove/<?=$row->class_id?>?select=true">
@@ -18,6 +19,7 @@
         </a>
 
     </div>
+    <?php endif;?>
 </nav>
 
 <div class="card-group justify-content-center">

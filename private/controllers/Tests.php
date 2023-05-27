@@ -56,7 +56,10 @@ class Tests extends Controller
 			if($arr['stud_classes']){
 				foreach ($arr['stud_classes'] as $key => $arow) {
 					// code...
-					$data[] = $test->whereOne('class_id',$arow->class_id);
+					$a = $test->where('class_id',$arow->class_id);
+ 					if(is_array($a)){
+ 						$data = array_merge($data,$a);
+ 					}
 				}
 			}
 
@@ -70,125 +73,4 @@ class Tests extends Controller
 			'test_rows'=>$data
 		]);
 	}
-
-	public function add()
-	{
-		// code...
-		if(!Auth::logged_in())
-		{
-			$this->redirect('login');
-		}
-
-		$errors = array();
-		if(count($_POST) > 0)
- 		{
-
-			$tests = new Tests_model();
-			if($tests->validate($_POST))
- 			{
-
- 				$_POST['date'] = date("Y-m-d H:i:s");
-
- 				$tests->insert($_POST);
- 				$this->redirect('tests');
- 			}else
- 			{
- 				//errors
- 				$errors = $tests->errors;
- 			}
- 		}
-
- 		$crumbs[] = ['Dashboard',''];
-		$crumbs[] = ['Tests','tests'];
-		$crumbs[] = ['Add','tests/add'];
-
-		$this->view('tests.add',[
-			'errors'=>$errors,
-			'crumbs'=>$crumbs,
-
-		]);
-	}
-
-	public function edit($id = null)
-	{
-		// code...
-		if(!Auth::logged_in())
-		{
-			$this->redirect('login');
-		}
-
-		$tests = new Tests_model();
-
-		$errors = array();
-		if(count($_POST) > 0 && Auth::access('teacher') && Auth::i_own_content($row))
- 		{
-
-			if($tests->validate($_POST))
- 			{
-
- 				$tests->update($id,$_POST);
- 				$this->redirect('tests');
- 			}else
- 			{
- 				//errors
- 				$errors = $tests->errors;
- 			}
- 		}
-
- 		$row = $tests->where('id',$id);
-
- 		$crumbs[] = ['Dashboard',''];
-		$crumbs[] = ['Tests','tests'];
-		$crumbs[] = ['Edit','tests/edit'];
-
-		if(Auth::access('teacher') && Auth::i_own_content($row)){
-
-			$this->view('tests.edit',[
-				'row'=>$row,
-				'errors'=>$errors,
-				'crumbs'=>$crumbs,
-			]);
-		}else{
-			$this->view('access-denied');
-		}
-	}
-
-	public function delete($id = null)
-	{
-		// code...
-		if(!Auth::logged_in())
-		{
-			$this->redirect('login');
-		}
-
-
-		$tests = new Tests_model();
-
-		$errors = array();
-
-		if(count($_POST) > 0 && Auth::access('teacher') && Auth::i_own_content($row))
- 		{
-
- 			$tests->delete($id);
- 			$this->redirect('tests');
-
- 		}
-
- 		$row = $tests->where('id',$id);
-
- 		$crumbs[] = ['Dashboard',''];
-		$crumbs[] = ['Tests','tests'];
-		$crumbs[] = ['Delete','tests/delete'];
-
-		if(Auth::access('teacher') && Auth::i_own_content($row)){
-
-			$this->view('tests.delete',[
-				'row'=>$row,
-	 			'crumbs'=>$crumbs,
-			]);
-		}else{
-			$this->view('access-denied');
-		}
-	}
-
 }

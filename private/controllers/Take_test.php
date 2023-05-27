@@ -1,26 +1,21 @@
 <?php
 
 /**
- * single test controller
+ * take test controller
  */
-class Single_test extends Controller
+class Take_test extends Controller
 {
 
 	public function index($id = '')
 	{
 		// code...
 		$errors = array();
-		if(!Auth::logged_in())
-		{
-			$this->redirect('login');
-		}
-
-		if(!Auth::access('teacher'))
+		if(!Auth::access('student'))
 		{
 			$this->redirect('access_denied');
 		}
 
-		$tests = new tests_model();
+		$tests = new Tests_model();
 		$row = $tests->whereOne('test_id',$id);
 
 		$crumbs[] = ['Dashboard',''];
@@ -30,27 +25,28 @@ class Single_test extends Controller
 			$crumbs[] = [$row->test,''];
 		}
 
+		$page_tab = 'view';
+
 		$limit = 10;
  		$pager = new Pager($limit);
  		$offset = $pager->offset;
 
-		$page_tab = 'view';
-
 		$results = false;
 		$quest = new Questions_model();
-		$questions = $quest->where('test_id',$id);
+		$questions = $quest->where('test_id',$id,'asc');
+
 		$total_questions = is_array($questions) ? count($questions) : 0;
-		
+
 		$data['row'] 		= $row;
  		$data['crumbs'] 	= $crumbs;
 		$data['page_tab'] 	= $page_tab;
-		$data['results'] 	= $results;
 		$data['questions'] 	= $questions;
 		$data['total_questions'] 	= $total_questions;
+		$data['results'] 	= $results;
 		$data['errors'] 	= $errors;
 		$data['pager'] 		= $pager;
 
-		$this->view('single-test',$data);
+		$this->view('take-test',$data);
 	}
 
 	public function addquestion($id = '')
@@ -62,7 +58,7 @@ class Single_test extends Controller
 			$this->redirect('login');
 		}
 
-		$tests = new tests_model();
+		$tests = new Tests_model();
 		$row = $tests->whereOne('test_id',$id);
 
 		$crumbs[] = ['Dashboard',''];
@@ -72,60 +68,60 @@ class Single_test extends Controller
 			$crumbs[] = [$row->test,''];
 		}
 
+		$page_tab = 'add-question';
+
 		$limit = 10;
  		$pager = new Pager($limit);
  		$offset = $pager->offset;
 
-		$quest = new Questions_model();
+ 		$quest = new Questions_model();
+ 		if(count($_POST) > 0){
 
- 		if(count($_POST) > 0) {
+ 			if($quest->validate($_POST))
+ 			{
 
-			if($quest->validate($_POST)){
+ 				//check for files
+ 				if($myimage = upload_image($_FILES))
+ 				{
+ 					$_POST['image'] = $myimage;
+ 				}
 
-				//check for files
-				if($myimage = upload_image($_FILES))
-				{
-					$_POST['image'] = $myimage;
-				}
+ 				$_POST['test_id'] = $id;
+ 				$_POST['date'] = date("Y-m-d H:i:s");
 
-				$_POST['test_id'] = $id;
-				$_POST['date'] = date("Y-m-d H:i:s");
+ 				if(isset($_GET['type']) && $_GET['type'] == "multiple"){
+ 					$_POST['question_type'] = 'multiple';
+ 					//for multiple choice
+ 					$num = 0;
+ 					$arr = [];
+			        $letters = ['A','B','C','D','F','G','H','I','J'];
+			        foreach ($_POST as $key => $value) {
+			            // code...
+			            if(strstr($key, 'choice')){
 
-				if(isset($_GET['type']) && $_GET['type'] == "multiple"){
-					$_POST['question_type'] = 'multiple';
-					//for multiple choice
-					$num = 0;
-					$arr = [];
-				   $letters = ['A','B','C','D','F','G','H','I','J'];
-				   foreach ($_POST as $key => $value) {
-					   // code...
-					   if(strstr($key, 'choice')){
+			                $arr[$letters[$num]] = $value;
+			                $num++;
+			            }
+			        }
 
-						   $arr[$letters[$num]] = $value;
-						   $num++;
-					   }
-				   }
-
-				   $_POST['choices'] = json_encode($arr);
-				}else
-				if(isset($_GET['type']) && $_GET['type'] == "objective"){
+			        $_POST['choices'] = json_encode($arr);
+ 				}else
+ 				if(isset($_GET['type']) && $_GET['type'] == "objective"){
  					$_POST['question_type'] = 'objective';
  				}else{
  					$_POST['question_type'] = 'subjective';
  				}
-				$quest->insert($_POST);
-				$this->redirect('single_test/'.$id);
 
-			}else {
-				//errors
-				$errors = $quest->errors;
-			}
-		}
-
-		$page_tab = 'add-question';
+ 				$quest->insert($_POST);
+ 				$this->redirect('single_test/'.$id);
+ 			}else
+ 			{
+ 				//errors
+ 				$errors = $quest->errors;
+ 			}
+ 		}
 
 		$results = false;
-
 
 		$data['row'] 		= $row;
  		$data['crumbs'] 	= $crumbs;
@@ -180,25 +176,25 @@ class Single_test extends Controller
  				}
 
  				//check the question type
-				$type = '';
-				if(isset($_GET['type']) && $_GET['type'] == "multiple"){
-					$_POST['question_type'] = 'multiple';
-					//for multiple choice
-					$num = 0;
-					$arr = [];
-					$letters = ['A','B','C','D','F','G','H','I','J'];
-					foreach ($_POST as $key => $value) {
-						// code...
-						if(strstr($key, 'choice')){
+			  	$type = '';
+			  	if(isset($_GET['type']) && $_GET['type'] == "multiple"){
+ 					$_POST['question_type'] = 'multiple';
+ 					//for multiple choice
+ 					$num = 0;
+ 					$arr = [];
+			        $letters = ['A','B','C','D','F','G','H','I','J'];
+			        foreach ($_POST as $key => $value) {
+			            // code...
+			            if(strstr($key, 'choice')){
 
-							$arr[$letters[$num]] = $value;
-							$num++;
-						}
-					}
+			                $arr[$letters[$num]] = $value;
+			                $num++;
+			            }
+			        }
 
-					$_POST['choices'] = json_encode($arr);
-					$type = '?type=multiple';
-				}else
+			        $_POST['choices'] = json_encode($arr);
+			        $type = '?type=multiple';
+ 				}else
 		    	if($question->question_type == 'objective'){
 		    		$type = '?type=objective';
 		    	}
@@ -255,7 +251,7 @@ class Single_test extends Controller
 
  		if(count($_POST) > 0){
 
- 			if(Auth::access('teacher'))
+ 			if(Auth::access('lecturer'))
  			{
 
  				$quest->delete($question->id);
@@ -278,4 +274,7 @@ class Single_test extends Controller
 
 		$this->view('single-test',$data);
 	}
+
+
+
 }

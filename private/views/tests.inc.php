@@ -12,15 +12,18 @@
 
 			 <tr>
 			 	<td>
-			 		<a href="<?=ROOT?>/single_test/<?=$test_row->test_id?>">
-			 			<button class="btn btn-sm btn-primary"><i class="fa fa-chevron-right"></i></button>
-			 		</a>
+				 	<?php if(Auth::access('teacher')):?>
+						<a href="<?=ROOT?>/single_test/<?=$test_row->test_id?>">
+							<button class="btn btn-sm btn-primary"><i class="fa fa-chevron-right"></i></button>
+						</a>
+					<?php endif;?>
 			 	</td>
 			 	<?php $active = $test_row->disabled ? "No":"Yes";?>
 			 	<td><?=$test_row->test?></td><td><?=$test_row->user->firstname?> <?=$test_row->user->lastname?></td><td><?=$active?></td><td><?=get_date($test_row->date)?></td>
 
 			 	<td>
 					<?php if(can_take_test($test_row->test_id)):?>
+						
 						<a href="<?=ROOT?>/take_test/<?=$test_row->test_id?>">
 							<button class="btn btn-sm btn-primary">Take this test</button>
 						</a>

@@ -15,6 +15,11 @@ class Single_class extends Controller
 			$this->redirect('login');
 		}
 
+		if(!Auth::access('student'))
+		{
+			$this->redirect('access_denied');
+		}
+
 		$classes = new Classes_model();
 		$row = $classes->whereOne('class_id',$id);
 

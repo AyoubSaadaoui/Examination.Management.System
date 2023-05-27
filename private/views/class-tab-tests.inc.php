@@ -7,9 +7,11 @@
 	      <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
 	    </div>
 	  </form>
+	  	<?php if(Auth::access('teacher')):?>
 			<a href="<?=ROOT?>/single_class/testadd/<?=$row->class_id?>?tab=test-add">
 				<button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>Add Test</button>
 			</a>
+		<?php endif;?>
 	</nav>
 
 		<table class="table table-striped table-hover">
@@ -24,9 +26,11 @@
 
 			 <tr>
 			 	<td>
-			 		<a href="<?=ROOT?>/single_test/<?=$row->test_id?>">
-			 			<button class="btn btn-sm btn-primary"><i class="fa fa-chevron-right"></i></button>
-			 		</a>
+				 	<?php if(Auth::access('teacher')):?>
+						<a href="<?=ROOT?>/single_test/<?=$row->test_id?>">
+							<button class="btn btn-sm btn-primary"><i class="fa fa-chevron-right"></i></button>
+						</a>
+					<?php endif;?>
 			 	</td>
 			 	<?php $active = $row->disabled ? "No":"Yes";?>
 			 	<td><?=$row->test?></td>
@@ -44,6 +48,12 @@
 				 		<a href="<?=ROOT?>/single_class/testdelete/<?=$row->class_id?>/<?=$row->test_id?>?tab=tests" style="text-decoration: none;">
 				 			<button class="btn-sm btn btn-danger"><i class="fa fa-trash-alt"></i></button>
 				 		</a>
+				 	<?php elseif(Auth::access('student')):?>
+						<?php if(can_take_test($row->test_id)):?>
+							<a href="<?=ROOT?>/take_test/<?=$row->test_id?>">
+								<button class="btn btn-sm btn-primary">Take this test</button>
+							</a>
+			 			<?php endif;?>
 				 	<?php endif;?>
 			 	</td>
 
