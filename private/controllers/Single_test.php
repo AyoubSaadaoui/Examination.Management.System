@@ -175,7 +175,25 @@ class Single_test extends Controller
  				}
 
  				//check the question type
-			  	$type = '';
+				$type = '';
+				if(isset($_GET['type']) && $_GET['type'] == "multiple"){
+					$_POST['question_type'] = 'multiple';
+					//for multiple choice
+					$num = 0;
+					$arr = [];
+					$letters = ['A','B','C','D','F','G','H','I','J'];
+					foreach ($_POST as $key => $value) {
+						// code...
+						if(strstr($key, 'choice')){
+
+							$arr[$letters[$num]] = $value;
+							$num++;
+						}
+					}
+
+					$_POST['choices'] = json_encode($arr);
+					$type = '?type=multiple';
+				}else
 		    	if($question->question_type == 'objective'){
 		    		$type = '?type=objective';
 		    	}

@@ -53,6 +53,51 @@
             </div>
         <?php endif;?>
 
+        <?php if(isset($_GET['type']) && $_GET['type'] == "multiple"):?>
+            <div class="card" style="">
+            <div class="card-header bg-secondary text-white">
+                Multiple Choice Answers <button onclick="add_choice()" type="button" class="btn btn-warning btn-sm float-end"><i class="fa fa-plus"></i>Add Choice</button>
+            </div>
+            <ul class="list-group list-group-flush choice-list">
+
+                <?php if(isset($_POST['choice0'])):?>
+
+                    <?php
+                    //check for multiple choice answers
+                    $num = 0;
+                    $letters = ['A','B','C','D','F','G','H','I','J'];
+                    foreach ($_POST as $key => $value) {
+                        // code...
+                        if(strstr($key, 'choice')){
+                            ?>
+                                <li class="list-group-item">
+                                    <?=$letters[$num]?> : <input type="text" class="form-control" value="<?=$value?>" name="<?=$key?>" placeholder="Type your answer here">
+                                    <label style="cursor: pointer;"><input type="radio" <?= $letters[$num] == $_POST['correct_answer'] ? 'checked' : '';?> value="<?=$letters[$num]?>" name="correct_answer"> Correct answer</label>
+                                </li>
+                            <?php
+                            $num++;
+                        }
+                    }
+                    ?>
+                <?php else:?>
+
+                    <?php $choices = json_decode($question->choices); $num = 0;?>
+
+                    <?php foreach($choices as $letter => $answer):?>
+                        <li class="list-group-item">
+                            <?=$letter?> : <input type="text" class="form-control" name="choice<?=$num?>" placeholder="Type your answer here" value="<?=$answer?>">
+                            <label style="cursor: pointer;">
+                                <input <?= $letter == $question->correct_answer ? 'checked' : '';?> type="radio" value="<?=$letter?>" name="correct_answer"> Correct answer
+                            </label>
+                        </li>
+                    <?php $num++;?>
+                    <?php endforeach;?>
+                <?php endif;?>
+
+            </ul>
+            </div><br>
+        <?php endif;?>
+
         <a href="<?=ROOT?>/single_test/<?=$row->test_id?>">
             <button type="button" class="btn btn-primary"><i class="fa fa-chevron-left"></i>Back</button>
         </a>
