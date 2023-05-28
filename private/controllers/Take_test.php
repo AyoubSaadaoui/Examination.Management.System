@@ -33,6 +33,41 @@ class Take_test extends Controller
 
 		$page_tab = 'view';
 
+		//if something was posted
+		if(count($_POST) > 0)
+		{
+			//save answers to database
+
+			foreach ($_POST as $key => $value) {
+				// code...
+				if(is_numeric($key)){
+
+					//save
+					$arr['user_id']     = Auth::getUser_id();
+			        $arr['question_id'] = $key;
+			        $arr['date']        = date("Y-m-d H:i:s");
+			        $arr['test_id']     = $id;
+			        $arr['answer']      = trim($value);
+
+					//check if answer already exists
+					$query = "select id from answers where user_id = :user_id && test_id = :test_id && question_id = :question_id limit 1";
+					$check = $answers->query($query,[
+						'user_id' => $arr['user_id'],
+						'test_id' => $arr['test_id'],
+						'question_id' => $arr['question_id'],
+					]);
+
+					if(!$check)
+					{
+						$answers->insert($arr);
+
+					}
+				}
+			}
+
+			$this->redirect('take_test/'.$id);
+		}
+
 		$limit = 10;
  		$pager = new Pager($limit);
  		$offset = $pager->offset;
