@@ -51,9 +51,12 @@ class Profile extends Controller
 		if($data['page_tab'] == 'tests' && $row)
 		{
 			$class = new Classes_model();
+
+			$disabled = "disabled = 0 &&";
  			$mytable = "class_students";
- 			if($row->rank == "teacher"){
+ 			if(Auth::access('teacher')){
  				$mytable = "class_teachers";
+ 				$disabled = "";
  			}
 
 			$query = "select * from $mytable where user_id = :user_id && disabled = 0";
@@ -75,7 +78,7 @@ class Profile extends Controller
 			}
 
 			$id_str = "'" . implode("','", $class_ids) . "'";
-			$query = "select * from tests where class_id in ($id_str)";
+			$query = "select * from tests where $disabled class_id in ($id_str)";
 
 			$tests_model = new Tests_model();
 			$tests = $tests_model->query($query);

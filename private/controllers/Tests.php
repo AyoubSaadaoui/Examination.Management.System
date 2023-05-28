@@ -35,9 +35,12 @@ class Tests extends Controller
  		}else{
 
  			$test = new Tests_model();
+
+			$disabled = "disabled = 0 &&";
  			$mytable = "class_students";
- 			if(Auth::getRank() == "teacher"){
+ 			if(Auth::access('teacher')){
  				$mytable = "class_teachers";
+ 				$disabled = "";
  			}
 
 			$query = "select * from $mytable where user_id = :user_id && disabled = 0";
@@ -56,7 +59,9 @@ class Tests extends Controller
 			if($arr['stud_classes']){
 				foreach ($arr['stud_classes'] as $key => $arow) {
 					// code...
-					$a = $test->where('class_id',$arow->class_id);
+					//$a = $test->where('class_id',$arow->class_id);
+					$query = "select * from tests where $disabled class_id = :class_id";
+					$a = $tests->query($query,['class_id'=>$arow->class_id]);
  					if(is_array($a)){
  						$data = array_merge($data,$a);
  					}

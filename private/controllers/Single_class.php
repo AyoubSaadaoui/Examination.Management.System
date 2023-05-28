@@ -60,10 +60,17 @@ class Single_class extends Controller
 		if($page_tab == 'tests'){
 
 			//display tests
-			$query = "select * from tests where class_id = :class_id order by id desc limit $limit offset $offset";
+			$disabled = "&& disabled = 0 ";
+ 			if(Auth::access('teacher')){
+
+ 				$disabled = "";
+ 			}
+
+			$query = "select * from tests where class_id = :class_id $disabled order by id desc limit $limit offset $offset";
 			$tests = $teach->query($query,['class_id'=>$id]);
 
 			$data['tests'] 		   = $tests;
+
 
 		}
 
