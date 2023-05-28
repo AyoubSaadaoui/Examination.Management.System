@@ -125,7 +125,30 @@ class Take_test extends Controller
 		return '';
 	}
 
-	
+	public function get_answer_percentage($questions,$saved_answers)
+	{
+
+		$total_answer_count = 0;
+		if(!empty($questions))
+		{
+			foreach ($questions as $quest) {
+				// code...
+				$answer = $this->get_answer($saved_answers,$quest->id);
+				if(trim($answer) != ""){
+					$total_answer_count++;
+				}
+			}
+		}
+
+		if($total_answer_count > 0)
+		{
+			$total_questions = count($questions);
+
+			return ($total_answer_count / $total_questions) * 100;
+		}
+
+		return 0;
+	}
 
 
 

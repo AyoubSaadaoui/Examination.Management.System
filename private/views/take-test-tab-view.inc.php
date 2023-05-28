@@ -1,3 +1,10 @@
+<?php $percentage = $this->get_answer_percentage($questions,$saved_answers)?>
+
+<div class="container-fluid text-center">
+	<div class="text-danger"><p><b class="text-dark h5">Percentage:</b> <?=$percentage?>% Answered</p></div>
+	<div class="bg-primary" style="width: <?=$percentage?>%;height: 5px;"></div>
+</div>
+
 <nav class="navbar">
 	<center>
 		<h5>Test Questions</h5>
