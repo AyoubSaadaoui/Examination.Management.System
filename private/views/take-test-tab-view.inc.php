@@ -14,6 +14,12 @@
 
 	<?php $num = 0?>
 	<?php foreach($questions as $question): $num++?>
+
+	    	<?php
+
+	    		$myanswer = $this->get_answer($saved_answers,$question->id);
+	    	?>
+
 		<div class="card mb-4 ">
 		  <div class="card-header">
 		    <span  class="bg-primary p-1 text-white rounded">Question #<?=$num?></span> <span class="badge bg-primary float-end p-2"><?=date("F jS, Y H:i:s a",strtotime($question->date))?></span>
@@ -50,7 +56,7 @@
 						  	<?php foreach($choices as $letter => $answer):?>
 						    	<li class="list-group-item"><?=$letter?>: <?=$answer?>
 
-						    	<input class="float-end" style="transform: scale(1.5);cursor: pointer;" type="radio" name="<?=$question->id?>" value="<?=$letter?>">
+						    	<input class="float-end" style="transform: scale(1.5);cursor: pointer;" type="radio" name="<?=$question->id?>" <?=$myanswer == $letter ? ' checked ':''?> value="<?=$letter?>" >
 
 						    </li>
 						    <?php endforeach;?>
@@ -62,7 +68,9 @@
 		    	<?php endif;?>
 
 		    <?php if($question->question_type != 'multiple'):?>
-  				<input type="text" class="form-control" name="<?=$question->id?>" placeholder="Type your answer here">
+
+	  			<input type="text" value="<?=$myanswer?>" class="form-control" name="<?=$question->id?>" placeholder="Type your answer here">
+
   			<?php endif;?>
 		  </div>
 
