@@ -15,9 +15,26 @@ class Model extends Database {
         }
     }
 
-    public function where($column, $value, $order = 'DESC') {
+    protected function get_primary_key($table)
+	{
 
-        $query = "SELECT * FROM $this->table WHERE $column = :value ORDER BY id $order";
+		$query = "SHOW KEYS from $table WHERE Key_name = 'PRIMARY' ";
+		$db = new Database();
+		$data = $db->query($query);
+
+		if(!empty($data[0]))
+		{
+			return $data[0]->Column_name;
+		}
+		return 'id';
+	}
+
+    public function where($column, $value, $orderby = 'DESC') {
+
+        $column = addslashes($column);
+		$primary_key = $this->get_primary_key($this->table);
+
+		$query = "select * from $this->table where $column = :value ORDER BY $primary_key $orderby";
         $data =  $this->query($query, ['value'=>$value]);
 
         if(is_array($data)) {
@@ -33,9 +50,11 @@ class Model extends Database {
         return $data;
     }
 
-    public function findAll($order = 'DESC') {
+    public function findAll($orderby = 'DESC') {
 
-        $query = "SELECT * FROM $this->table ORDER BY id $order";
+        $primary_key = $this->get_primary_key($this->table);
+
+        $query = "SELECT * FROM $this->table ORDER BY $primary_key $orderby";
         $data = $this->query($query);
 
         // run functions after select
@@ -108,7 +127,7 @@ class Model extends Database {
 			}
 		}
 
-		
+
         $str = "";
         foreach($data as $key => $value){
             // ".=" will concatenate strings
@@ -129,9 +148,11 @@ class Model extends Database {
         return $this->query($query, $data);
     }
 
-    public function whereOne($column, $value, $order = 'DESC') {
+    public function whereOne($column, $value, $orderby = 'DESC') {
 
-        $query = "SELECT * FROM $this->table WHERE $column = :value  ORDER BY id $order";
+        $primary_key = $this->get_primary_key($this->table);
+
+        $query = "SELECT * FROM $this->table WHERE $column = :value  ORDER BY $primary_key $orderby";
         $data =  $this->query($query, ['value'=>$value]);
 
         if(is_array($data)) {
