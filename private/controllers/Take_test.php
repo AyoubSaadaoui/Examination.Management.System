@@ -18,6 +18,13 @@ class Take_test extends Controller
 		$tests = new Tests_model();
 		$row = $tests->whereOne('test_id',$id);
 
+		$answers = new Answers_model();
+		$query = "select question_id,answer from answers where user_id = :user_id && test_id = :test_id ";
+		$saved_answers = $answers->query($query,[
+			'user_id' => Auth::getUser_id(),
+			'test_id' => $id,
+		]);
+
 		$crumbs[] = ['Dashboard',''];
 		$crumbs[] = ['tests','tests'];
 
@@ -61,6 +68,16 @@ class Take_test extends Controller
 					{
 						$answers->insert($arr);
 
+					}else
+					{
+						$answer_id = $check[0]->id;
+
+						unset($arr['user_id']);
+				        unset($arr['question_id']);
+				        unset($arr['date']);
+				        unset($arr['test_id']);
+
+						$answers->update($answer_id,$arr);
 					}
 				}
 			}
@@ -86,6 +103,7 @@ class Take_test extends Controller
 		$data['results'] 	= $results;
 		$data['errors'] 	= $errors;
 		$data['pager'] 		= $pager;
+		$data['saved_answers'] 		= $saved_answers;
 
 		$this->view('take-test',$data);
 	}
