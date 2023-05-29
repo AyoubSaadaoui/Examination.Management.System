@@ -39,11 +39,25 @@ class Take_test extends Controller
 		}
 
 		$page_tab = 'view';
+		$db = new database();
 
 		//if something was posted
 		if(count($_POST) > 0)
 		{
 			//save answers to database
+			$arr1['user_id'] = Auth::getUser_id();
+			$arr1['test_id'] = $id;
+
+			$check = $db->query("select id from answered_tests where user_id = :user_id && test_id = :test_id limit 1",$arr1);
+
+			if(!$check){
+
+				$arr1['date'] = date("Y-m-d H:i:s");
+
+				$query = "insert into answered_tests (user_id,test_id,date) values (:user_id,:test_id,:date)";
+				$db->query($query,$arr1);
+			}
+
 
 			foreach ($_POST as $key => $value) {
 				// code...
@@ -115,6 +129,6 @@ class Take_test extends Controller
 		$this->view('take-test',$data);
 	}
 
-	
+
 
 }
