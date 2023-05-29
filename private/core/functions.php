@@ -167,27 +167,78 @@ function get_answer($saved_answers,$id)
 	return '';
 }
 
-function get_answer_percentage($questions,$saved_answers)
+function convertPercentage($percentage) {
+    // Remove the percentage sign and convert the value to a float
+    $value = floatval(trim($percentage, '%'));
+
+    // Round the value to the nearest integer
+    $roundedValue = round($value);
+
+    return $roundedValue;
+}
+
+function get_answer_percentage1($questions,$saved_answers)
 {
 
-	$total_answer_count = 0;
-	if(!empty($questions))
-	{
-		foreach ($questions as $quest) {
-			// code...
-			$answer = get_answer($saved_answers,$quest->id);
-			if(trim($answer) != ""){
-				$total_answer_count++;
-			}
-		}
-	}
+    $total_answer_count = 0;
+    if(!empty($questions))
+    {
+        foreach ($questions as $quest) {
+            // code...
+            $answer = get_answer($saved_answers,$quest->id);
+            if(trim($answer) != ""){
+                $total_answer_count++;
+            }
+        }
+    }
 
-	if($total_answer_count > 0)
-	{
-		$total_questions = count($questions);
+    if($total_answer_count > 0)
+    {
+        $total_questions = count($questions);
 
-		return ($total_answer_count / $total_questions) * 100;
-	}
+        $percentage = ($total_answer_count / $total_questions) * 100;
+		$convertedPercentage = convertPercentage($percentage);
 
-	return 0;
+		return $convertedPercentage;
+    }
+
+    return 0;
+}
+
+function get_answer_percentage($test_id,$user_id)
+{
+
+	$quest = new Questions_model();
+	$questions = $quest->query('select * from test_questions where test_id = :test_id',['test_id'=>$test_id]);
+
+	$answers = new Answers_model();
+	$query = "select question_id,answer from answers where user_id = :user_id && test_id = :test_id ";
+	$saved_answers = $answers->query($query,[
+		'user_id' => $user_id,
+		'test_id' => $test_id,
+	]);
+
+    $total_answer_count = 0;
+    if(!empty($questions))
+    {
+        foreach ($questions as $quest) {
+            // code...
+            $answer = get_answer($saved_answers,$quest->id);
+            if(trim($answer) != ""){
+                $total_answer_count++;
+            }
+        }
+    }
+
+    if($total_answer_count > 0)
+    {
+        $total_questions = count($questions);
+
+        $percentage = ($total_answer_count / $total_questions) * 100;
+		$convertedPercentage = convertPercentage($percentage);
+
+		return $convertedPercentage;
+    }
+
+    return 0;
 }

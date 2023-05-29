@@ -1,4 +1,4 @@
-<?php $percentage = get_answer_percentage($all_questions,$saved_answers)?>
+<?php $percentage = get_answer_percentage($row->test_id,Auth::getUser_id())?>
 
 <div class="container-fluid text-center">
 	<div class="text-danger"><p><b class="text-dark h5">Percentage:</b> <?=$percentage?>% Answered</p></div>

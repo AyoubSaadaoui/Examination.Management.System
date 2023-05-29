@@ -48,13 +48,14 @@ class Profile extends Controller
 			}
 
 		}else
+
 		if($data['page_tab'] == 'tests' && $row)
 		{
 			$class = new Classes_model();
 
 			$disabled = "disabled = 0 &&";
  			$mytable = "class_students";
- 			if(Auth::access('teacher')){
+ 			if($row->rank == "teacher"){
  				$mytable = "class_teachers";
  				$disabled = "";
  			}
