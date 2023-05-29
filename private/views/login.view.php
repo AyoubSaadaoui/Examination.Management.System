@@ -20,7 +20,7 @@
                 <?php endif; ?>
 
                 <input class="form-control mb-4" type="email" name="email" value="<?=get_var('email')?>"  placeholder="Email" autofocus >
-                <input class="form-control" type="password" name="password" value="<?=get_var('password')?>"  placeholder="Password" autofocus>
+                <input class="form-control" type="password" name="password" value="12345678"  placeholder="Password" autofocus>
                 <br>
                 <button class="btn mybtn btn-primary col-8 d-flex justify-content-center mx-5">Login</button>
             </div>

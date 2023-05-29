@@ -29,12 +29,12 @@ class Model extends Database {
 		return 'id';
 	}
 
-    public function where($column, $value, $orderby = 'DESC') {
+    public function where($column, $value, $orderby = 'DESC',$limit = 10,$offset = 0) {
 
         $column = addslashes($column);
 		$primary_key = $this->get_primary_key($this->table);
 
-		$query = "select * from $this->table where $column = :value ORDER BY $primary_key $orderby";
+		$query = "select * from $this->table where $column = :value ORDER BY $primary_key $orderby limit $limit offset $offset";
         $data =  $this->query($query, ['value'=>$value]);
 
         if(is_array($data)) {
@@ -50,11 +50,11 @@ class Model extends Database {
         return $data;
     }
 
-    public function findAll($orderby = 'DESC') {
+    public function findAll($orderby = 'DESC',$limit = 100,$offset = 0) {
 
         $primary_key = $this->get_primary_key($this->table);
 
-        $query = "SELECT * FROM $this->table ORDER BY $primary_key $orderby";
+        $query = "SELECT * FROM $this->table ORDER BY $primary_key $orderby limit $limit offset $offset";
         $data = $this->query($query);
 
         // run functions after select

@@ -84,6 +84,13 @@
 		</div>
 	<?php endforeach;?>
 
-	<center><button class="btn btn-primary">Save Your Answers</button></center>
+	<center>
+		<small>Click save answers before moving to another page to save your answers</small><br>
+		<button class="btn btn-primary">Save Answers</button>
+	</center>
 	</form>
 <?php endif;?>
+
+<?php $pager->display()?>
+
+
