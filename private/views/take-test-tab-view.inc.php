@@ -3,6 +3,17 @@
 <div class="container-fluid text-center">
 	<div class="text-danger"><p><b class="text-dark h5">Percentage:</b> <?=$percentage?>% Answered</p></div>
 	<div class="bg-primary" style="width: <?=$percentage?>%;height: 5px;"></div>
+	<?php if($answered_test_row):?>
+		<?php if($answered_test_row->submitted):?>
+			<div class="text-success">This test has been submitted</div>
+		<?php else:?>
+			<div class="text-danger">
+				This test has not yet been submitted<br>
+
+			</div>
+		<?php endif;?>
+
+	<?php endif;?>
 </div>
 
 <nav class="navbar">
@@ -19,7 +30,7 @@
 
 <form method="post">
 
-	<?php $num = 0?>
+	<?php $num = $pager->offset;?>
 	<?php foreach($questions as $question): $num++?>
 
 	    	<?php
@@ -92,5 +103,6 @@
 <?php endif;?>
 
 <?php $pager->display()?>
+
 
 

@@ -115,6 +115,17 @@ class Take_test extends Controller
 
 		$total_questions = is_array($all_questions) ? count($all_questions) : 0;
 
+		//get answered tests row
+		$arr1 = [];
+		$arr1['user_id'] = Auth::getUser_id();
+		$arr1['test_id'] = $id;
+		$data['answered_test_row'] = $db->query("select * from answered_tests where user_id = :user_id && test_id = :test_id limit 1",$arr1);
+		
+		if(is_array($data['answered_test_row']))
+		{
+			$data['answered_test_row'] = $data['answered_test_row'][0];
+		}
+
 		$data['row'] 		= $row;
  		$data['crumbs'] 	= $crumbs;
 		$data['page_tab'] 	= $page_tab;
