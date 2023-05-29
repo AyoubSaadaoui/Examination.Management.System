@@ -1,4 +1,4 @@
-<?php $percentage = $this->get_answer_percentage($questions,$saved_answers)?>
+<?php $percentage = get_answer_percentage($all_questions,$saved_answers)?>
 
 <div class="container-fluid text-center">
 	<div class="text-danger"><p><b class="text-dark h5">Percentage:</b> <?=$percentage?>% Answered</p></div>
@@ -24,7 +24,7 @@
 
 	    	<?php
 
-	    		$myanswer = $this->get_answer($saved_answers,$question->id);
+	    		$myanswer = get_answer($saved_answers,$question->id);
 	    	?>
 
 		<div class="card mb-4 ">

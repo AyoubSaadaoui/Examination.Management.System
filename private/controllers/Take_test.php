@@ -82,7 +82,12 @@ class Take_test extends Controller
 				}
 			}
 
-			$this->redirect('take_test/'.$id);
+			$page_number = "&page=1";
+			if(!empty($_GET['page']))
+			{
+				$page_number = "&page=".$_GET['page'];
+			}
+			$this->redirect('take_test/'.$id.$page_number);
 		}
 
 		$limit = 2;
@@ -92,14 +97,16 @@ class Take_test extends Controller
 		$results = false;
 		$quest = new Questions_model();
 		$questions = $quest->where('test_id',$id,'asc', $limit, $offset);
+		$all_questions = $quest->query('select * from test_questions where test_id = :test_id',['test_id'=>$id]);
 
-		$total_questions = is_array($questions) ? count($questions) : 0;
+		$total_questions = is_array($all_questions) ? count($all_questions) : 0;
 
 		$data['row'] 		= $row;
  		$data['crumbs'] 	= $crumbs;
 		$data['page_tab'] 	= $page_tab;
 		$data['questions'] 	= $questions;
 		$data['total_questions'] 	= $total_questions;
+		$data['all_questions'] 	= $all_questions;
 		$data['results'] 	= $results;
 		$data['errors'] 	= $errors;
 		$data['pager'] 		= $pager;
@@ -108,48 +115,6 @@ class Take_test extends Controller
 		$this->view('take-test',$data);
 	}
 
-	protected function get_answer($saved_answers,$id)
-	{
-
-		if(!empty($saved_answers)){
-
-			foreach ($saved_answers as $row) {
-				// code...
-				if($id == $row->question_id)
-				{
-					return $row->answer;
-				}
-			}
-		}
-
-		return '';
-	}
-
-	protected function get_answer_percentage($questions,$saved_answers)
-	{
-
-		$total_answer_count = 0;
-		if(!empty($questions))
-		{
-			foreach ($questions as $quest) {
-				// code...
-				$answer = $this->get_answer($saved_answers,$quest->id);
-				if(trim($answer) != ""){
-					$total_answer_count++;
-				}
-			}
-		}
-
-		if($total_answer_count > 0)
-		{
-			$total_questions = count($questions);
-
-			return ($total_answer_count / $total_questions) * 100;
-		}
-
-		return 0;
-	}
-
-
+	
 
 }
