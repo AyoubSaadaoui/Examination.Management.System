@@ -1,15 +1,25 @@
 <?php $percentage = get_answer_percentage($row->test_id,Auth::getUser_id())?>
 
 <div class="container-fluid text-center">
-	<div class="text-danger"><p><b class="text-dark h5">Percentage:</b> <?=$percentage?>% Answered</p></div>
-	<div class="bg-primary" style="width: <?=$percentage?>%;height: 5px;"></div>
+	<div class="alert alert-dark" role="alert">
+		<div class="text-danger "><p><b class="text-dark h5">Percentage:</b> <?=$percentage?>% Answered</p></div>
+		<div class="bg-white pt-1 pb-3" style="width: 100%;height: 10px;">
+			<div class="bg-primary" style="width: <?=$percentage?>%;height: 12px;"></div>
+		</div>
+
 	<?php if($answered_test_row):?>
 		<?php if($answered_test_row->submitted):?>
-			<div class="text-success">This test has been submitted</div>
-		<?php else:?>
-			<div class="text-danger">
-				This test has not yet been submitted<br>
 
+			<div class="text-success m-1"><b>This test has been submitted</b></div>
+		</div>
+		<?php else:?>
+
+			<div class="text-danger  m-1">
+				<b>This test has not yet been submitted</b><br>
+		</div>
+				<a onclick="submit_test(event)" href="<?=ROOT?>/take_test/<?=$row->test_id?>/?submit=true">
+					<button class="btn btn-danger float-end mt-5 ">Submit Test</button>
+				</a>
 			</div>
 		<?php endif;?>
 
@@ -40,7 +50,7 @@
 
 		<div class="card mb-4 ">
 		  <div class="card-header">
-		    <span  class="bg-primary p-1 text-white rounded">Question #<?=$num?></span> <span class="badge bg-primary float-end p-2"><?=date("F jS, Y H:i:s a",strtotime($question->date))?></span>
+		    <span  class="bg-warning text-black p-1  rounded">Question #<?=$num?></span> <span class="badge alert alert-dark float-end p-2"><?=date("F jS, Y H:i:s a",strtotime($question->date))?></span>
 		  </div>
 		  <div class="card-body">
 		    <h5 class="card-title"><?=esc($question->question)?></h5>
@@ -105,4 +115,23 @@
 <?php $pager->display()?>
 
 
+<script>
 
+	var percent = <?=$percentage?>;
+
+	function submit_test(e)
+	{
+		if(!confirm("Are you sure you want to submit this test!?")){
+			e.preventDefault();
+			return;
+		}
+
+		if(percent < 100){
+			if(!confirm("You have only answered "+ percent +"% of the test. Are you still sure you want to submit?!")){
+				e.preventDefault();
+				return;
+			}
+		}
+	}
+
+</script>
