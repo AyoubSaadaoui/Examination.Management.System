@@ -3,9 +3,12 @@
 <div class="container-fluid text-center">
 	<div class="alert alert-dark" role="alert">
 		<div class="text-danger "><p><b class="text-dark h5">Percentage:</b> <?=$percentage?>% Answered</p></div>
-		<div class="bg-white pt-1 pb-3" style="width: 100%;height: 10px;">
-			<div class="bg-primary" style="width: <?=$percentage?>%;height: 12px;"></div>
+		<div class="progress">
+			<div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width: <?=$percentage?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+			<?php $percentage = 100 - $percentage?>
+			<div class="progress-bar progress-bar-striped bg-danger progress-bar-animated float-end" role="progressbar" style="width: <?=$percentage?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
+
 
 	<?php if($answered_test_row):?>
 		<?php if($answered_test_row->submitted):?>
@@ -84,9 +87,15 @@
 						  	<?php foreach($choices as $letter => $answer):?>
 						    	<li class="list-group-item"><?=$letter?>: <?=$answer?>
 
-						    	<input class="float-end" style="transform: scale(1.5);cursor: pointer;" type="radio" name="<?=$question->id?>" <?=$myanswer == $letter ? ' checked ':''?> value="<?=$letter?>" >
+								<?php if(!$submitted):?>
+						    		<input class="float-end" style="transform: scale(1.5);cursor: pointer;" type="radio" name="<?=$question->id?>" <?=$myanswer == $letter ? ' checked ':''?> value="<?=$letter?>" >
+						    	<?php else:?>
+							    	<?php if($myanswer == $letter):?>
+							    		<i class="fa fa-check float-end"></i>
+							    	<?php endif;?>
+						    	<?php endif;?>
 
-						    </li>
+						    	</li>
 						    <?php endforeach;?>
 
  						  </ul>
@@ -97,7 +106,11 @@
 
 		    <?php if($question->question_type != 'multiple'):?>
 
-	  			<input type="text" value="<?=$myanswer?>" class="form-control" name="<?=$question->id?>" placeholder="Type your answer here">
+				<?php if(!$submitted):?>
+					<input type="text" value="<?=$myanswer?>" class="form-control" name="<?=$question->id?>" placeholder="Type your answer here">
+				<?php else:?>
+					<div>Answer: <?=$myanswer?></div>
+				<?php endif;?>
 
   			<?php endif;?>
 		  </div>
@@ -105,11 +118,13 @@
 		</div>
 	<?php endforeach;?>
 
-	<center>
-		<small>Click save answers before moving to another page to save your answers</small><br>
-		<button class="btn btn-primary">Save Answers</button>
-	</center>
-	</form>
+	<?php if(!$submitted):?>
+		<center>
+			<small>Click save answers before moving to another page to save your answers</small><br>
+			<button class="btn btn-primary">Save Answers</button>
+		</center>
+		</form>
+	<?php endif;?>
 <?php endif;?>
 
 <?php $pager->display()?>

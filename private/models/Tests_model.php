@@ -93,6 +93,21 @@ class Tests_model extends Model {
         return $data;
     }
 
+    public function get_answered_test($test_id,$user_id)
+    {
+
+        $db = new Database();
+        $arr = ['test_id'=>$test_id,'user_id'=>$user_id];
+
+        $res = $db->query("select * from answered_tests where test_id = :test_id && user_id = :user_id limit 1",$arr);
+
+        if(is_array($res))
+        {
+            return $res[0];
+        }
+        return false;
+    }
+
 
 
 
