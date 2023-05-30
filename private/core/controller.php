@@ -5,6 +5,11 @@
  */
 class Controller {
 
+    function controller_name() {
+        
+		return get_class($this);
+	}
+
     function view($view, $data = array()) {
 
         extract($data);

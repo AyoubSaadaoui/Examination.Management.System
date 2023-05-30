@@ -15,6 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral|Rubik">
 </head>
 <body>
     <style>
@@ -31,7 +32,7 @@
         .addquestion:hover {
             color: whith;
             background-color: FireBrick;
-            
+
         }
     </style>
     <div style="min-whidth:350;">
