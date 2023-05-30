@@ -7,8 +7,12 @@
 
         <?php if($row && !($row->disabled && Auth::access('student'))) :?>
             <div class="row">
-                <center><h4><?=esc(ucwords($row->test))?></h4></center>
-                <center><h5>From: <?=$row->class->class?> students</h5></center>
+                <center><h3><b><?=esc(ucwords($row->test))?></b></h3></center>
+                <center class="row mt-2">
+                    <h5 class="col"><b>Class:</b> <?=$row->class->class?></h5>
+                    <h5 class="col">S<b>tudent:</b> <?=$student_row->firstname?> <?=$student_row->lastname?></h5>
+                </center>
+
                 <table class="table table-hover table-striped table-porder">
                     <tr>
                         <th>Create By:</th><th class="font-weight-normal"><?=esc($row->user->firstname)?> <?=esc($row->user->lastname)?></th>

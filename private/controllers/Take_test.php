@@ -135,6 +135,11 @@ class Take_test extends Controller
 			$data['submitted'] = true;
 		}
 
+		//get student information
+		$user = new User();
+		$data['student_row'] = $user->whereOne('user_id',$data['answered_test_row']->user_id);
+
+
 		$data['row'] 		= $row;
  		$data['crumbs'] 	= $crumbs;
 		$data['page_tab'] 	= $page_tab;
