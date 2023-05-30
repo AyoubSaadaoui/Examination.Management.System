@@ -83,14 +83,17 @@ class To_mark extends Controller
 					}
 			}
 		}
+		$class = $to_mark[0]->test_details->class->class;
 
 		$crumbs[] = ['Dashboard',''];
 		$crumbs[] = ['To Mark','to_mark'];
 
 		$this->view('to-mark',[
 			'crumbs'=>$crumbs,
-			'test_rows'=>$to_mark
+			'class'=>$class,
+			'test_rows'=>$to_mark,
 		]);
+
 
     }
 }
