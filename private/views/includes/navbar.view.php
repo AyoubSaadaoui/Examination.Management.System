@@ -52,8 +52,15 @@
       </li>
 
       <?php if(Auth::access('teacher')):?>
-        <li class="nav-item" style="position: relative;">
-          <a class="nav-link" href="<?=ROOT?>/to_mark">TO MARK</a>
+         <li class="nav-item" style="position: relative;">
+          <a class="nav-link  " href="<?=ROOT?>/to_mark">TO MARK
+            <?php
+              $to_mark_count = (new Tests_model())->get_to_mark_count();
+            ?>
+            <?php if($to_mark_count):?>
+              <span class="badge bg-danger text-white" style="position: absolute;top:0px;right:0px"><?=$to_mark_count?></span>
+            <?php endif;?>
+          </a>
         </li>
 
         <li class="nav-item">

@@ -69,6 +69,7 @@ class Marked extends Controller
 
  		//get all submitted tests
 		$marked = array();
+		$class = array();
 		if(count($data) > 0){
 			foreach ($data as $key => $arow) {
 				// code...
@@ -80,6 +81,8 @@ class Marked extends Controller
 						$a[0]->test_details = $test_details;
 
 						$marked = array_merge($marked,$a);
+						$class = $marked[0]->test_details->class->class;
+
 					}
 			}
 		}
@@ -87,8 +90,9 @@ class Marked extends Controller
 		$crumbs[] = ['Dashboard',''];
 		$crumbs[] = ['Marked','marked'];
 
-		$this->view('to-mark',[
+		$this->view('marked',[
 			'crumbs'=>$crumbs,
+			'class'=>$class,
 			'test_rows'=>$marked
 		]);
 

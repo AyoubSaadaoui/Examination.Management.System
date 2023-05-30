@@ -2,7 +2,14 @@
 
 <div class="table-responsive container-fluid p-0" >
 	<table class="table table-striped table-hover">
-		<tr><th></th><th>Test Name</th><th>Student</th><th>Date Submitted</th><th>Marked by</th><th>Date Marked</th>
+		<tr>
+			<th></th>
+			<th>Class</th>
+			<th>Test</th>
+			<th>Student</th>
+			<th>Date Submitted</th>
+			<th>Marked by</th>
+			<th>Date Marked</th>
 			<th>Answered</th>
 			<th></th>
 		</tr>
@@ -12,12 +19,13 @@
 
 			 <tr>
 			 	<td>
-			 		<?php if(Auth::access('lecturer')):?>
+			 		<?php if(Auth::access('teacher')):?>
 			 		<a href="<?=ROOT?>/single_test/<?=$test_row->test_id?>">
 			 			<button class="btn btn-sm btn-primary">View <i class="fa fa-chevron-right"></i></button>
 			 		</a>
 			 		<?php endif;?>
 			 	</td>
+				 <td><?= $class?></td>
 			 	<td><?=$test_row->test_details->test?></td>
 			 	<td><?=$test_row->user->firstname?> <?=$test_row->user->lastname?></td>
 			 	<td><?=get_date($test_row->submitted_date)?></td>

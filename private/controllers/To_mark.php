@@ -18,6 +18,7 @@ class To_mark extends Controller
 		}
 
         $test = new Tests_model();
+		// $to_mark_count = $test->get_to_mark_count();
 
 		$school_id = Auth::getSchool_id();
 
@@ -69,6 +70,7 @@ class To_mark extends Controller
 
  		//get all submitted tests
 		$to_mark = array();
+		$class = array();
 		if(count($data) > 0){
 			foreach ($data as $key => $arow) {
 				// code...
@@ -80,10 +82,11 @@ class To_mark extends Controller
 						$a[0]->test_details = $test_details;
 
 						$to_mark = array_merge($to_mark,$a);
+						$class = $to_mark[0]->test_details->class->class;
 					}
 			}
 		}
-		$class = $to_mark[0]->test_details->class->class;
+
 
 		$crumbs[] = ['Dashboard',''];
 		$crumbs[] = ['To Mark','to_mark'];
