@@ -40,7 +40,7 @@
       <li class="nav-item">
         <a class="nav-link" href="<?=ROOT?>/classes">CLASSES</a>
       </li>
-      
+
       <?php if(Auth::access('reception')):?>
         <li class="nav-item">
           <a class="nav-link" href="<?=ROOT?>/students">STUDENTS</a>
@@ -50,6 +50,16 @@
       <li class="nav-item">
         <a class="nav-link" href="<?=ROOT?>/tests">TESTS</a>
       </li>
+
+      <?php if(Auth::access('teacher')):?>
+        <li class="nav-item" style="position: relative;">
+          <a class="nav-link" href="<?=ROOT?>/to_mark">TO MARK</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link "href="<?=ROOT?>/marked">MARKED</a>
+        </li>
+      <?php endif;?>
     </ul>
     <ul class="navbar-nav ms-auto">
       <li class="nav-item dropdown">

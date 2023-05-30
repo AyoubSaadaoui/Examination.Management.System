@@ -86,8 +86,11 @@ class Tests_model extends Model {
         $class = new Classes_model();
         foreach ($data as $key => $row) {
             // code...
-            $result = $class->where('class_id',$row->class_id);
-            $data[$key]->class = is_array($result) ? $result[0] : false;
+            if(!empty($row->class_id)){
+
+                $result = $class->where('class_id',$row->class_id);
+                $data[$key]->class = is_array($result) ? $result[0] : false;
+            }
         }
 
         return $data;
