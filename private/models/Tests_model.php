@@ -118,7 +118,7 @@ class Tests_model extends Model {
         if(Auth::access('admin')){
 
             $query = "select * from tests where school_id = :school_id order by id desc";
-            $arr['school_id'] = $school_id;
+            $arr['school_id'] = Auth::getSchool_id();
 
             if(isset($_GET['find']))
             {

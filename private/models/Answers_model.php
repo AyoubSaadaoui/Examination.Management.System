@@ -13,6 +13,8 @@ class Answers_model extends Model
         'date',
         'test_id',
         'answer',
+        'answer_mark',
+        'answer_comment',
     ];
 
     protected $beforeInsert = [];
