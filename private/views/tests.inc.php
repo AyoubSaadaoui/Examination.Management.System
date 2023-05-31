@@ -45,7 +45,7 @@
 
  			<?php endforeach;?>
 			<?php else:?>
-				<tr><td colspan="5"><center>No tests were found at this time</center></td></tr>
+				<tr><td colspan="10"><center>No tests were found at this time</center></td></tr>
 			<?php endif;?>
 
 	</table>
