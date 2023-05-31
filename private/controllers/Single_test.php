@@ -40,6 +40,7 @@ class Single_test extends Controller
 			}
 			$query = "update tests set disabled = $disable where id = :id limit 1";
 			$tests->query($query,['id'=>$row->id]);
+			$this->redirect('single_test/'.$id);
 		}
 
 		$limit = 10;

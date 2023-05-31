@@ -43,7 +43,8 @@ function random_string($length) {
 
 function get_date($date) {
 
-    return date("jS M, Y", strtotime($date));
+    $date = date("m.d.y", strtotime($date));
+    return str_replace(".", "-", $date);
 }
 
 // for testing
