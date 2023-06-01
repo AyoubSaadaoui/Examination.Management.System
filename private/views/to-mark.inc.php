@@ -25,7 +25,7 @@
 			 		</a>
 			 		<?php endif;?>
 			 	</td>
-                <td><?= $class?></td>
+                <td><?= $test_row->test_details->class->class?></td>
 			 	<td><?=$test_row->test_details->test?></td>
 			 	<td><?=$test_row->user->firstname?> <?=$test_row->user->lastname?></td>
 			 	<td><?=get_date($test_row->submitted_date)?></td>
@@ -41,7 +41,7 @@
 			 		<?php $marked_percentage = get_mark_percentage($test_row->test_id,$test_row->user_id)?>
 			 		<?=$marked_percentage?>%
 			 	</td>
-				
+
 				<td>
 			 		<?php if(can_take_test($test_row->test_id)):?>
 			 		<a href="<?=ROOT?>/take_test/<?=$test_row->test_id?>">

@@ -43,7 +43,7 @@ class Tests extends Controller
  				$disabled = "";
  			}
 
-			$query = "select * from $mytable where user_id = :user_id && disabled = 0";
+			$query = "select * from $mytable where user_id = :user_id && disabled = 0 order by id desc";
  			$arr['user_id'] = Auth::getUser_id();
 
 			$arr['stud_classes'] = $tests->query($query,$arr);
