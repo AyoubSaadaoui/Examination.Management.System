@@ -111,13 +111,16 @@ class Mark_test extends Controller
 		//if its set as marked
 		if(isset($_GET['set_marked']) && (get_mark_percentage($id,$user_id) >= 100)){
 
-			$query = "update answered_tests set marked = 1,marked_by = :marked_by,marked_date = :mark_date where test_id = :test_id && user_id = :user_id limit 1";
+			$query = "update answered_tests set marked = 1,marked_by = :marked_by,marked_date = :mark_date, score = :score where test_id = :test_id && user_id = :user_id limit 1";
 			$tests->query($query,[
 				'test_id'=>$id,
 				'user_id'=>$user_id,
 				'marked_by'=>Auth::getUser_id(),
 				'mark_date'=>date("Y-m-d H:i:s"),
+				'score'=>get_score_percentage($id,$user_id),
 			]);
+
+			$this->redirect('mark_test/'.$id.'/'.$user_id);
 		}
 
 

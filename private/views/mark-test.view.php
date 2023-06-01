@@ -13,7 +13,7 @@
 	 		<h5 class="col">Student: <?=$student_row->firstname?> <?=$student_row->lastname?></h5>
 	 	</center>
 
-			<table class="table table-hover table-striped table-bordered">
+			<table class="table table-hover table-striped ">
 				<tr>
 					<th>Created by:</th><td><?=esc($row->user->firstname)?> <?=esc($row->user->lastname)?></td>
 					<th>Date Created:</th><td><?=get_date($row->date)?></td>
@@ -22,8 +22,10 @@
 
 				<?php $active = $row->disabled ? "No":"Yes";?>
 				<tr>
-					<td><b>Class:</b> <?=$row->class->class?></td>
-					<td colspan="5"><b>Test Description:</b><br><?=esc($row->description)?></td></tr>
+					<td colspan="5">
+						<b>Class:</b> <?=$row->class->class?><br>
+						<b>Test Description:</b> <?=esc($row->description)?></td>
+					</tr>
 			</table>
  		</div>
 

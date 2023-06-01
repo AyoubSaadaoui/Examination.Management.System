@@ -55,13 +55,24 @@ class Classes extends Controller
 
 			$arr['stud_classes'] = $class->query($query,$arr);
 
+			//get class ids from classes that dont already have members
+			$classes_i_own = $class->where('user_id',Auth::getUser_id());
+			if($classes_i_own && $arr['stud_classes'])
+			{
+				 $arr['stud_classes'] = array_merge($classes_i_own, $arr['stud_classes']);
+			}
+
 			$data = array();
 
 			if($arr['stud_classes']){
 
-				foreach ($arr['stud_classes'] as $key => $arow) {
+				// Without repeating when get classes for teacher
+				$all_classes = array_column($arr['stud_classes'], 'class_id');
+				$all_classes = array_unique($all_classes);
 
-					$data[] = $class->whereOne('class_id',$arow->class_id);
+				foreach ($all_classes as $class_id) {
+
+					$data[] = $class->whereOne('class_id',$class_id);
 				}
 			}
 

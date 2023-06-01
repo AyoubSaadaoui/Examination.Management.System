@@ -16,9 +16,9 @@
       font-family: Spectral, serif;
 
     }
-    
+
 </style>
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-4 pb-4 navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-4 pb-4 navbar-dark bg-dark sticky-top shadow">
   <a style="height: 40px;" class="navbar-brand schadow d-flex" href="<?=ROOT?>">
     <img  style="width: 60px;" class="my-auto me-1  rounded-circle bg-white py-1" src="<?=ROOT?>/assets/logo.png" alt="logo">
     <p class="logo text-warning pe-2 text-white pt-1"><?=Auth::getSchool_name()?></p>

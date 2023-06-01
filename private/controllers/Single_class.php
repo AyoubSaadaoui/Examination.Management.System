@@ -466,7 +466,7 @@ class Single_class extends Controller
  				$arr['test'] 	= $_POST['test'];
  				$arr['description'] 	= $_POST['description'];
  				$arr['class_id'] 	= $id;
-				$arr['disabled'] 	= 0;
+				$arr['disabled'] 	= 1;
 				$arr['date'] 		= date("Y-m-d H:i:s");
 
 				$test_class->insert($arr);

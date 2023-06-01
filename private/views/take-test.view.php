@@ -26,8 +26,10 @@
 
 					<?php $active = $row->disabled ? "No":"Yes";?>
 					<tr>
-                        <td><b>Class:</b> <?=$row->class->class?></td>
-                        <td colspan="5"><b>Test Description:</b><br><?=esc($row->description)?></td>
+                        <td colspan="5">
+                            <b>Class:</b> <?=$row->class->class?><br>
+                            <b>Test Description:</b> <?=esc($row->description)?>
+                        </td>
                     </tr>
                 </table>
 

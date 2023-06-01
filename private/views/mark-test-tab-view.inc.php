@@ -3,20 +3,25 @@
 <?php $marked_percentage = get_mark_percentage($row->test_id,$user_id)?>
 
 <div class="container-fluid text-center">
-	
-	<div class="text-danger"><?=$percentage?>% Answered</div>
+
+<div class="alert alert-dark" role="alert">
+
+	<div <?= $percentage == 100 ? "class='text-success ' ":" class='text-danger '"; ?> ><b><?=$percentage?>% Answered</b></div>
 	<div class="progress">
-		<div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width: <?=$percentage?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+		<div class="progress-bar progress-bar-striped bg-success " role="progressbar" style="width: <?=$percentage?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 		<?php $percentage = 100 - $percentage?>
 		<div class="progress-bar progress-bar-striped bg-danger progress-bar-animated float-end" role="progressbar" style="width: <?=$percentage?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 	</div>
 
-	<div class="text-danger"><?=$marked_percentage?>% Marked</div>
-	<div class="bg-primary" style="width: <?=$marked_percentage?>%;height: 5px;"></div>
-
+	<div class="text-danger pt-2"><b><?=$marked_percentage?>% Marked</b></div>
+	<div class="progress">
+		<div class="progress-bar progress-bar-striped bg-warning progress-bar-animated float-end" role="progressbar" style="width: <?=$marked_percentage?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+	</div>
+<?= $marked_percentage == 0 ? "</div>":""; ?>
 	<?php if($answered_test_row):?>
 		<?php if($answered_test_row->submitted && !$marked):?>
-			<div class="text-success">This test has been submitted</div>
+			<div class="text-success ">This test has been submitted</div>
+<?= $marked_percentage == 0 ? "":" </div>"; ?>
 			<a onclick="unsubmit_test(event)" href="<?=ROOT?>/mark_test/<?=$row->test_id?>/<?=$answered_test_row->user_id?>/?unsubmit=true">
 				<button class="btn mx-1 btn-danger float-end">unSubmit Test</button>
 			</a>
@@ -37,7 +42,7 @@
 
 <?php if($marked):?>
 <center>
-	<?php $score_percentage = get_score_percentage($row->test_id,$user_id)?>
+	<?php $score_percentage = round(get_score_percentage($row->test_id,$user_id))?>
 	<small style="font-size:20px">Test Score:<br></small> <div style="font-size: 60px;margin-top: -20px;"><?=$score_percentage?>%</div>
 </center>
 <?php endif;?>
@@ -67,7 +72,7 @@
 
 		<div class="card mb-4 ">
 		  <div class="card-header">
-		    <span  class="bg-primary p-1 text-white rounded">Question #<?=$num?></span> <span class="badge bg-primary float-end p-2"><?=date("F jS, Y H:i:s a",strtotime($question->date))?></span>
+		    <span  class="bg-warning p-1 text-black rounded float-start">Question #<?=$num?></span> <span class="badge bg-primary float-end p-2"><?=date("F jS, Y H:i:s a",strtotime($question->date))?></span>
 		  </div>
 		  <div class="card-body">
 		    <h5 class="card-title"><?=esc($question->question)?></h5>

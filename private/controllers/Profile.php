@@ -105,16 +105,15 @@ class Profile extends Controller
 						$test_details = $tests->whereOne('test_id',$answered_tests[$key]->test_id);
 						$answered_tests[$key]->test_details = $test_details;
 
-						$marked = array_merge($marked,$answered_tests);
 					}
 
 				}
 
-				if(count($marked)){
-					$data['class'] = $marked[0]->test_details->class->class;
+				if(count($answered_tests)){
+					$data['class'] = $answered_tests[0]->test_details->class->class;
 				}
 
-				$data['test_rows'] = $marked;
+				$data['test_rows'] = $answered_tests;
 
 			}
 		}

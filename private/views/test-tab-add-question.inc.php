@@ -36,6 +36,9 @@
 	  <input type="file" name="image" class="form-control" id="inputGroupFile01">
 	</div>
 
+	<!-- Image selected -->
+	<div id="imagePreview"></div>
+
 	<?php if(isset($_GET['type']) && $_GET['type'] == 'objective'):?>
 		<div class="input-group mb-3 ">
 			<label class="input-group-text" for="inputGroupFile01">Answer</label>
@@ -53,7 +56,7 @@
 		    <?php if(isset($_POST['choice0'])):?>
 
 				<?php
-				//check for multiple choice answers	
+				//check for multiple choice answers
 		        $num = 0;
 		        $letters = ['A','B','C','D','F','G','H','I','J'];
 		        foreach ($_POST as $key => $value) {
@@ -92,7 +95,20 @@
     <button class="btn btn-danger float-end">Save Question</button>
 </form>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+	// display the image
+	$(document).ready(function() {
+	$('#inputGroupFile01').change(function() {
+		var file = this.files[0];
+		var reader = new FileReader();
+		reader.onload = function(e) {
+		$('#imagePreview').html('<img src="' + e.target.result + '" alt="Selected Image">');
+		};
+		reader.readAsDataURL(file);
+	});
+	});
 
 	var letters = ['A','B','C','D','F','G','H','I','J'];
 
