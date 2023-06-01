@@ -3,15 +3,23 @@
 <?php $marked_percentage = get_mark_percentage($row->test_id,$user_id)?>
 
 <div class="container-fluid text-center">
-	<div class="text-danger"><?=$percentage?>% Answered</div>
-	<div class="bg-primary" style="width: <?=$percentage?>%;height: 5px;"></div>
 
-	<div class="text-danger"><?=$marked_percentage?>% Marked</div>
-	<div class="bg-primary" style="width: <?=$marked_percentage?>%;height: 5px;"></div>
+<div class="alert alert-dark" role="alert">
+
+	<div <?= $percentage == 100 ? "class='text-success ' ":" class='text-danger '"; ?> ><b><?=$percentage?>% Answered</b></div>
+	<div class="progress">
+		<div class="progress-bar progress-bar-striped bg-success " role="progressbar" style="width: <?=$percentage?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+	</div>
+
+	<div class="text-danger pt-2"><b><?=$marked_percentage?>% Marked</b></div>
+	<div class="progress">
+		<div class="progress-bar progress-bar-striped bg-warning  float-end" role="progressbar" style="width: <?=$marked_percentage?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+	</div>
 
 	<?php if($answered_test_row):?>
 		<?php if($answered_test_row->submitted && !$marked):?>
 			<div class="text-success">This test has been submitted</div>
+</div>
 			<a onclick="unsubmit_test(event)" href="<?=ROOT?>/mark_test/<?=$row->test_id?>/<?=$answered_test_row->user_id?>/?unsubmit=true">
 				<button class="btn mx-1 btn-danger float-end">unSubmit Test</button>
 			</a>
@@ -35,6 +43,7 @@
 	<?php $score_percentage = get_score_percentage($row->test_id,$user_id)?>
 	<small style="font-size:20px">Test Score:<br></small> <div style="font-size: 60px;margin-top: -20px;"><?=$score_percentage?>%</div>
 </center>
+</div>
 <?php endif;?>
 
 <nav class="navbar">
