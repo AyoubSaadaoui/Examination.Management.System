@@ -48,6 +48,12 @@ class Single_test extends Controller
  		$offset = $pager->offset;
 
 		$page_tab = 'view';
+		$student_scores = false;
+		if(isset($_GET['tab']) && $_GET['tab'] == "scores")
+		{
+			$page_tab = 'scores';
+			
+		}
 
 		$results = false;
 		$quest = new Questions_model();
