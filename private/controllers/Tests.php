@@ -21,8 +21,9 @@ class Tests extends Controller
 
 		if(Auth::access('admin')){
 
-			$query = "select * from tests where school_id = :school_id order by id desc";
+			$query = "select * from tests where school_id = :school_id && year(date) = :school_year order by id desc";
 			$arr['school_id'] = $school_id;
+			$arr['school_year'] = !empty($_SESSION['SCHOOL_YEAR']->year) ? $_SESSION['SCHOOL_YEAR']->year : date("Y",time());
 
 			if(isset($_GET['find']))
 	 		{
@@ -34,8 +35,6 @@ class Tests extends Controller
 			$data = $tests->query($query,$arr);
  		}else{
 
-
-
 			$disabled = "disabled = 0 &&";
  			$mytable = "class_students";
  			if(Auth::access('teacher')){
@@ -43,32 +42,18 @@ class Tests extends Controller
  				$disabled = "";
  			}
 
-			$query = "select * from $mytable where user_id = :user_id && disabled = 0 order by id desc";
+			 $query = "select * from tests where $disabled class_id in (select class_id from $mytable where user_id = :user_id && disabled = 0) && year(date) = :school_year order by id desc";
  			$arr['user_id'] = Auth::getUser_id();
+ 			$arr['school_year'] = !empty($_SESSION['SCHOOL_YEAR']->year) ? $_SESSION['SCHOOL_YEAR']->year : date("Y",time());
 
-			$arr['stud_classes'] = $tests->query($query,$arr);
+ 			if(isset($_GET['find']))
+	 		{
+	 			$find = '%' . $_GET['find'] . '%';
+	 			$query = "select * from tests where $disabled class_id in (select class_id from $mytable where user_id = :user_id && disabled = 0) && test like :find && year(date) = :school_year order by id desc";
+	 			$arr['find'] = $find;
+	 		}
 
-			$data = array();
-			$arr2 = array();
-			if($arr['stud_classes']){
-				foreach ($arr['stud_classes'] as $key => $arow) {
-					// code...
- 					$query = "select * from tests where $disabled class_id = :class_id";
- 					$arr2['class_id'] = $arow->class_id;
-
-					if(isset($_GET['find']))
-			 		{
-			 			$find = '%' . $_GET['find'] . '%';
-			 			$query = "select * from tests where $disabled class_id = :class_id && test like :find ";
-			 			$arr2['find'] = $find;
-			 		}
-
- 					$a = $tests->query($query,$arr2);
- 					if(is_array($a)){
- 						$data = array_merge($data,$a);
- 					}
-				}
-			}
+ 			$data = $tests->query($query,$arr);
 
  		}
 
@@ -77,7 +62,8 @@ class Tests extends Controller
 
 		$this->view('tests',[
 			'crumbs'=>$crumbs,
-			'test_rows'=>$data
+			'test_rows'=>$data,
+			// 'unsubmitted'=>get_unsubmitted_test_rows(),
 		]);
 	}
 }
