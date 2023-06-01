@@ -17,7 +17,7 @@ class Marked extends Controller
 			$this->redirect('access-denied');
 		}
 
-        $test = new Tests_model();
+        $tests = new Tests_model();
 
 		$school_id = Auth::getSchool_id();
 
@@ -33,7 +33,7 @@ class Marked extends Controller
 	 			$arr['find'] = $find;
 	 		}
 
-			$data = $test->query($query,$arr);
+			$data = $tests->query($query,$arr);
  		}else{
 
  			$mytable = "class_teachers";
@@ -48,7 +48,7 @@ class Marked extends Controller
 	 			$arr['find'] = $find;
 	 		}
 
-			$arr['stud_classes'] = $test->query($query,$arr);
+			$arr['stud_classes'] = $tests->query($query,$arr);
 
 			//read all tests from the selectd classes
 			$data = array();
@@ -56,7 +56,7 @@ class Marked extends Controller
 				foreach ($arr['stud_classes'] as $key => $arow) {
 					// code...
  					$query = "select * from tests where class_id = :class_id";
- 					$a = $test->query($query,['class_id'=>$arow->class_id]);
+ 					$a = $tests->query($query,['class_id'=>$arow->class_id]);
  					if(is_array($a)){
  						$data = array_merge($data,$a);
  					}
@@ -69,22 +69,28 @@ class Marked extends Controller
 
  		//get all submitted tests
 		$marked = array();
-		$class = array();
 		if(count($data) > 0){
-			foreach ($data as $key => $arow) {
+
+			$all_tests = array_column($data, 'test_id');
+			$all_tests_string = "'".implode("','", $all_tests)."'";
+
 				// code...
-					$query = "select * from answered_tests where test_id = :test_id && submitted = 1 && marked = 1 limit 1";
-					$a = $test->query($query,['test_id'=>$arow->test_id]);
+					$query = "select * from answered_tests where test_id in ($all_tests_string) && submitted = 1 && marked = 1 order by id desc";
 
-					if(is_array($a)){
-						$test_details = $test->whereOne('test_id',$a[0]->test_id);
-						$a[0]->test_details = $test_details;
+					$marked = $tests->query($query);
 
-						$marked = array_merge($marked,$a);
-						$class = $marked[0]->test_details->class->class;
+					if(is_array($marked)){
+
+						foreach ($marked as $key => $value) {
+							// code...
+							$test_details = $tests->whereOne('test_id',$marked[$key]->test_id);
+							$marked[$key]->test_details = $test_details;
+
+
+						}
 
 					}
-			}
+
 		}
 
 		$crumbs[] = ['Dashboard',''];
@@ -92,7 +98,6 @@ class Marked extends Controller
 
 		$this->view('marked',[
 			'crumbs'=>$crumbs,
-			'class'=>$class,
 			'test_rows'=>$marked
 		]);
 

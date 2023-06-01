@@ -25,7 +25,7 @@
 			 		</a>
 			 		<?php endif;?>
 			 	</td>
-				<td><?= $class?></td>
+				<td><?= $test_row->test_details->class->class?></td>
 			 	<td><?=$test_row->test_details->test?></td>
 			 	<td class="col-md-2"><?=$test_row->user->firstname?> <?=$test_row->user->lastname?></td>
 			 	<td><?=get_date($test_row->submitted_date)?></td>
