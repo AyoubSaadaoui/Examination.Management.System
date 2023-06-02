@@ -19,11 +19,7 @@
 
 			 <tr>
 			 	<td>
-			 		<?php if(Auth::access('teacher')):?>
-			 		<a href="<?=ROOT?>/marked_single/<?=$test_row->test_id?>/<?=$test_row->user->user_id?>">
-			 			<button class="btn btn-sm btn-primary d-flex ">View  <i class="fa fa-chevron-right ps-1 pt-1"></i></button>
-			 		</a>
-			 		<?php endif;?>
+
 			 	</td>
 				<td><?= $test_row->test_details->class->class?></td>
 			 	<td><?=$test_row->test_details->test?></td>
@@ -53,11 +49,10 @@
 			 		<?= get_score_percentage($test_row->test_details->test_id,$test_row->user->user_id)?>%
 			 	</td>
 				<td>
-			 		<?php if(can_take_test($test_row->test_id)):?>
-			 		<a href="<?=ROOT?>/take_test/<?=$test_row->test_id?>">
-			 		 <button class="btn btn-sm btn-primary">Take this test</button>
+
+					<a href="<?=ROOT?>/marked_single/<?=$test_row->test_id?>/<?=$test_row->user->user_id?>">
+			 			<button class="btn btn-sm btn-primary">View <i class="fa fa-chevron-right"></i></button>
 			 		</a>
-			 		<?php endif;?>
 
 			 	</td>
 
