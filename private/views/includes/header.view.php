@@ -15,6 +15,22 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script >
+        $(function(){
+        var str = '#len'; //increment by 1 up to 1-nelemnts
+        $(document).ready(function(){
+        var i, stop;
+        i = 1;
+        stop = 9; //num elements
+        setInterval(function(){
+                if (i > stop){
+                return;
+                }
+                $('#len'+(i++)).toggleClass('bounce');
+        }, 500)
+        });
+        });
+    </script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral|Rubik">
 </head>
 <body>
