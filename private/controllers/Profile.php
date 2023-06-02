@@ -62,31 +62,20 @@ class Profile extends Controller
 	 				$disabled = "";
 	 			}
 
-				$query = "select * from $mytable where user_id = :user_id && disabled = 0";
-				$data['stud_classes'] = $class->query($query,['user_id'=>$id]);
+				$tests = new Tests_model();
 
-				$data['student_classes'] = array();
-				if($data['stud_classes']){
-					foreach ($data['stud_classes'] as $key => $arow) {
-						// code...
-						$data['student_classes'][] = $class->whereOne('class_id',$arow->class_id);
-					}
-				}
+	 			$query = "select * from tests where $disabled class_id in (select class_id from $mytable where user_id = :user_id && disabled = 0) && year(date) = :school_year order by id desc";
+	 			$arr['user_id'] = Auth::getUser_id();
+	 			$arr['school_year'] = !empty($_SESSION['SCHOOL_YEAR']->year) ? $_SESSION['SCHOOL_YEAR']->year : date("Y",time());
 
-				//collect class id's
-				$class_ids = [];
-				foreach ($data['student_classes'] as $key => $class_row) {
-					// code...
-					$class_ids[] = $class_row->class_id;
-				}
+	 			if(isset($_GET['find']))
+		 		{
+		 			$find = '%' . $_GET['find'] . '%';
+		 			$query = "select * from tests where $disabled class_id in (select class_id from $mytable where user_id = :user_id && disabled = 0) && test like :find && year(date) = :school_year order by id desc";
+		 			$arr['find'] = $find;
+		 		}
 
-				$id_str = "'" . implode("','", $class_ids) . "'";
-				$query = "select * from tests where $disabled class_id in ($id_str)";
-
-				$tests_model = new Tests_model();
-				$tests = $tests_model->query($query);
-
-				$data['test_rows'] = $tests;
+	 			$data['test_rows'] = $tests->query($query,$arr);
 
 			}else{
 
