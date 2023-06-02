@@ -136,7 +136,7 @@ class Classes extends Controller
 		$classes = new Classes_model();
 
 		$errors = array();
-		if(count($_POST) > 0 && Auth::access('teacher') && Auth::i_own_content($row))
+		if(count($_POST) > 0 && Auth::access('teacher'))
  		{
 
 			if($classes->validate($_POST))

@@ -33,11 +33,11 @@ class Classes_model extends Model{
             $this->errors['class'] = "No spaces allowed in class name";
         }
 
-        // // Check if class exists
-        // if($this->where('class', $DATA['class'])) {
+        // Check if class exists
+        if($this->where('class', $DATA['class'])) {
 
-        //     $this->errors['class'] = "This class already exists";
-        // }
+            $this->errors['class'] = "This class already exists";
+        }
 
         if(count($this->errors) == 0) {
             return true;

@@ -18,7 +18,7 @@
 							</a>
 
 							<a href="<?=ROOT?>/single_test/<?=$row->test_id?>?tab=scores">
-                                <button class="btn btn-sm btn-primary"><i class="fa fa-chevron-right"></i>Student scores</button>
+                                <button class="btn btn-sm btn-info"><i class="fa fa-chevron-right"></i>Student scores</button>
                             </a>
 						</td>
                     </tr>

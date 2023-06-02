@@ -7,6 +7,10 @@
 		<?php if($row && $answered_test_row && $answered_test_row->submitted):?>
 
 		<div class="row">
+		<a class="pdf " href="<?=ROOT?>/make_pdf/<?=$row->test_id?>/<?=$student_row->user_id?>?type=test" download>
+			<!-- <button class="btn btn-primary float-end">Save as PDF</button> -->
+			<span>Download</span><span>Save as PDF</span>
+		</a>
 	 	<center><h4><?=esc(ucwords($row->test))?></h4></center>
 	 	<center class="row">
 
@@ -38,8 +42,10 @@
 				<?php $active = $row->disabled ? "No":"Yes";?>
 				<tr>
 					<td><b>Class:</b> <?=$row->class->class?></td>
-					<td colspan="5"><b>Test Description:</b><br><?=esc($row->description)?></td></tr>
+					<td colspan="5"><b>Test Description:</b><br><?=esc($row->description)?></td>
+				</tr>
 			</table>
+
  		</div>
 
 

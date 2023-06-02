@@ -120,7 +120,7 @@ class Tests_model extends Model {
         if(Auth::access('admin')){
 
             $query = "select * from answered_tests where test_id in (select test_id from tests where school_id = :school_id) && submitted = 1 && marked = 0";
-            $arr['school_id'] = $school_id;
+            $arr['school_id'] = Auth::getSchool_id();
 
             $to_mark = $this->query($query,$arr);
         }else{

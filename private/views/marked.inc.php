@@ -1,9 +1,9 @@
 <div class="card-group justify-content-center">
 
 <div class="table-responsive container-fluid p-0" >
-	<table class="table table-striped table-hover border table-bordered">
+	<table class="table table-striped table-hover ">
 		<tr>
-			<th></th>
+
 			<th>Class</th>
 			<th>Test Name</th>
 			<th >Student</th>
@@ -18,9 +18,7 @@
 			<?php foreach ($test_rows as $test_row):?>
 
 			 <tr>
-			 	<td>
-
-			 	</td>
+			 	
 				<td><?= $test_row->test_details->class->class?></td>
 			 	<td><?=$test_row->test_details->test?></td>
 			 	<td class="col-md-2"><?=$test_row->user->firstname?> <?=$test_row->user->lastname?></td>

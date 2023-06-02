@@ -9,7 +9,7 @@
 	  </form>
 	  	<?php if(Auth::access('teacher')):?>
 			<a href="<?=ROOT?>/single_class/testadd/<?=$row->class_id?>?tab=test-add">
-				<button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>Add Test</button>
+				<button class="btn btn-sm btn-outline-success"><i class="fa fa-plus"></i>Add Test</button>
 			</a>
 		<?php endif;?>
 	</nav>

@@ -70,7 +70,7 @@
 
 		<div class="card mb-4 ">
 		  <div class="card-header">
-		    <span  class="bg-primary p-1 text-white rounded">Question #<?=$num?></span> <span class="badge bg-primary float-end p-2"><?=date("F jS, Y H:i:s a",strtotime($question->date))?></span>
+		    <span  class="bg-warning p-1 text-white rounded">Question #<?=$num?></span> <span class="badge bg-primary float-end p-2"><?=date("F jS, Y H:i:s a",strtotime($question->date))?></span>
 		  </div>
 		  <div class="card-body">
 		    <h5 class="card-title"><?=esc($question->question)?></h5>

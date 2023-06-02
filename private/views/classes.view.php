@@ -17,7 +17,7 @@
 
         <?php if(Auth::access('teacher')):?>
           <a href="<?=ROOT?>/classes/add">
-            <button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>Add New</button>
+            <button class="btn btn-sm btn-outline-success"><i class="fa fa-plus"></i>Add New</button>
           </a>
         <?php endif;?>
 

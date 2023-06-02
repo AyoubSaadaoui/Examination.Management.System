@@ -13,10 +13,10 @@
     <div>
 
         <a href="<?=ROOT?>/single_class/studentremove/<?=$row->class_id?>?select=true">
-            <button class="btn btn-sm btn-primary"><i class="fa fa-minus"></i>Remove</button>
+            <button class="btn btn-sm btn-outline-danger"><i class="fa fa-minus"></i>Remove</button>
         </a>
         <a href="<?=ROOT?>/single_class/studentadd/<?=$row->class_id?>?select=true">
-            <button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>Add New</button>
+            <button class="btn btn-sm btn-outline-success"><i class="fa fa-plus"></i>Add New</button>
         </a>
 
     </div>

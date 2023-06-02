@@ -324,3 +324,20 @@ function get_score_percentage($test_id,$user_id)
 		return $convertedPercentage;
     }
 }
+
+function get_unsubmitted_test_rows()
+{
+	if(Auth::getRank() == "student")
+	{
+		$tests_class = new Tests_model();
+		$query = "select test_id from tests where class_id in (select class_id from class_students where user_id = :user_id) and test_id not in (select test_id from answered_tests where user_id = :user_id && submitted = 1)";
+
+		$data = $tests_class->query($query,['user_id'=>Auth::getUser_id()]);
+
+		if($data){
+			return array_column($data,'test_id');
+		}
+	}
+
+	return [];
+}
