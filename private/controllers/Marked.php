@@ -69,28 +69,30 @@ class Marked extends Controller
 
  		//get all submitted tests
 		$marked = array();
-		if(count($data) > 0){
+		if($data){
+			if(count($data) > 0){
 
-			$all_tests = array_column($data, 'test_id');
-			$all_tests_string = "'".implode("','", $all_tests)."'";
+				$all_tests = array_column($data, 'test_id');
+				$all_tests_string = "'".implode("','", $all_tests)."'";
 
-				// code...
-					$query = "select * from answered_tests where test_id in ($all_tests_string) && submitted = 1 && marked = 1 order by id desc";
+					// code...
+						$query = "select * from answered_tests where test_id in ($all_tests_string) && submitted = 1 && marked = 1 order by id desc";
 
-					$marked = $tests->query($query);
+						$marked = $tests->query($query);
 
-					if(is_array($marked)){
+						if(is_array($marked)){
 
-						foreach ($marked as $key => $value) {
-							// code...
-							$test_details = $tests->whereOne('test_id',$marked[$key]->test_id);
-							$marked[$key]->test_details = $test_details;
+							foreach ($marked as $key => $value) {
+								// code...
+								$test_details = $tests->whereOne('test_id',$marked[$key]->test_id);
+								$marked[$key]->test_details = $test_details;
 
+
+							}
 
 						}
 
-					}
-
+			}
 		}
 
 		$crumbs[] = ['Dashboard',''];

@@ -15,7 +15,7 @@
           <th>Date</th>
           <th>
             <a href="<?=ROOT?>/schools/add">
-             <button class="btn btn-sm btn-primary"><i class="fa fa-plus">Add New</i></button>
+             <button class="btn btn-sm btn-outline-success float-right"><i class="fa fa-plus">Add New</i></button>
             </a>
           </th>
         </tr>
@@ -25,11 +25,11 @@
         <tbody>
         <?php foreach($rows as $row):?>
           <tr>
-            <th><button class="btn btn-sm btn-primary">Details </Details><i class="fa fa-chevron-right"></i></button></th>
+            <th><button class="btn btn-sm btn-outline-primary">Details </Details><i class="fa fa-chevron-right"></i></button></th>
             <th class="font-weight-normal"><?=$row->school?></th>
             <th class="font-weight-normal"><?=$row->user->firstname?> <?=$row->user->lastname?></th>
             <th class="font-weight-normal"><?=get_date($row->date)?></th>
-            <th>
+            <th class="float-right">
 
               <a href="<?=ROOT?>/schools/edit/<?=$row->id?>" style="text-decoration: none;">
                 <button class="btn btn-sm btn-warning text-white"><i class="fa fa-edit"></i></button>

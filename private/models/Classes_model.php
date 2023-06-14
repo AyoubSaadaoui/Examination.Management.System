@@ -28,7 +28,7 @@ class Classes_model extends Model{
         $this->errors = array();
 
         // Check for class name
-        if(empty($DATA['class']) || !preg_match('/^[a-zA-Z\w]+$/', $DATA['class']) ) {
+        if(empty($DATA['class']) || !preg_match('/^[a-zA-Z\w ]+$/', $DATA['class']) ) {
 
             $this->errors['class'] = "No spaces allowed in class name";
         }

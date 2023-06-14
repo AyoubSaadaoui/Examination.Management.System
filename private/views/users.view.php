@@ -13,7 +13,7 @@
           </div>
       </form>
       <a href="<?=ROOT?>/signup/?mode=user">
-        <button class="btn btn-sm btn-primary"><i class="fa fa-plus ">Add New</i></button>
+        <button class="btn btn-sm btn-outline-success"><i class="fa fa-plus ">Add New</i></button>
       </a>
   </nav>
 

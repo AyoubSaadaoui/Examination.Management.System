@@ -64,9 +64,9 @@ class Profile extends Controller
 
 				$tests = new Tests_model();
 
-	 			$query = "select * from tests where $disabled class_id in (select class_id from $mytable where user_id = :user_id && disabled = 0) && year(date) = :school_year order by id desc";
+	 			$query = "select * from tests where $disabled class_id in (select class_id from $mytable where user_id = :user_id && disabled = 0) && user_id = :user_id order by id desc";
 	 			$arr['user_id'] = Auth::getUser_id();
-	 			$arr['school_year'] = !empty($_SESSION['SCHOOL_YEAR']->year) ? $_SESSION['SCHOOL_YEAR']->year : date("Y",time());
+	 			// $arr['school_year'] = Auth::getUser_id();
 
 	 			if(isset($_GET['find']))
 		 		{

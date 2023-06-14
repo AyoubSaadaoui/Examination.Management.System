@@ -85,7 +85,8 @@
 
 						  	<?php $choices = json_decode($question->choices);?>
 						  	<?php foreach($choices as $letter => $answer):?>
-						    	<li class="list-group-item"><?=$letter?>: <?=$answer?>
+						    	<li class="list-group-item ">
+									<span class="float-start"><?=$letter?>: <?=$answer?></span>
 
 								<?php if(!$submitted):?>
 						    		<input class="float-end" style="transform: scale(1.5);cursor: pointer;" type="radio" name="<?=$question->id?>" <?=$myanswer == $letter ? ' checked ':''?> value="<?=$letter?>" >

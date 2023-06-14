@@ -43,8 +43,8 @@ function random_string($length) {
 
 function get_date($date) {
 
-    $date = date("m.d.y", strtotime($date));
-    return str_replace(".", "-", $date);
+    $date = date("d.m.y", strtotime($date));
+    return str_replace(".", "/", $date);
 }
 
 // for testing
@@ -358,4 +358,8 @@ function get_unsubmitted_test_rows()
 	}
 
 	return [];
+}
+
+function count_($array) {
+    return is_array($array) ? count($array) : 0;
 }

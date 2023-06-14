@@ -1,16 +1,26 @@
 <style>
 
+    .navb{
+
+      background-color: #0a1457 !important;
+      padding: 0rem 1rem;
+
+    }
+    .dropmenu:hover{
+
+      background-color: #0a1457 !important;
+      color: white;
+      font-weight: 500;
+
+    }
+
     nav ul li a:hover{
         wisth: 110px;
         text-align: center;
-        /* background-color: rgba(0,0,0,1)!important; */
-        /* border-left: solid thin #eee; */
-        /* border-right: solid thin #fff; */
-    }
-    nav ul li a:hover{
-        /* background-color: black; */
+        font-weight: 500;
 
     }
+
     .logo{
       font-family: Rubik, sans-serif;
       font-size: 26px;
@@ -95,7 +105,7 @@
 
 
 </style>
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-4 pb-4 navbar-dark bg-dark sticky-top shadow">
+<nav class="navb navbar navbar-expand-lg navbar-light bg-light px-4 pb-4 navbar-dark  sticky-top shadow">
   <a style="height: 40px;" class="navbar-brand schadow d-flex" href="<?=ROOT?>">
     <img  style="width: 60px;" class="my-auto me-1  rounded-circle bg-white py-1" src="<?=ROOT?>/assets/logo.png" alt="logo">
     <p class="logo text-warning pe-2 text-white pt-1"><?=Auth::getSchool_name()?></p>
@@ -132,8 +142,10 @@
         </li>
       <?php endif;?>
 
+      <?php if(Auth::getRank() != "reception"):?>
       <li class="nav-item"  style="position: relative;">
         <a id="len6" class="hoverable nav-link <?=($this->controller_name() == 'Tests') ? ' active ':''?> " href="<?=ROOT?>/tests"> TESTS
+
 
         <?php
           $unsubmitted_count = get_unsubmitted_tests();
@@ -144,7 +156,7 @@
 
         </a>
       </li>
-
+      <?php endif;?>
       <?php if(Auth::access('teacher')):?>
          <li class="nav-item" style="position: relative;">
           <a id="len7" class="hoverable nav-link <?=($this->controller_name() == 'To_mark') ? ' active ':''?>   " href="<?=ROOT?>/to_mark">TO MARK
@@ -162,16 +174,19 @@
         </li>
       <?php endif;?>
     </ul>
-    <ul class="navbar-nav ms-auto">
-      <li class="nav-item dropdown">
+    <ul class="navbar-nav ms-auto ">
+      <li class="nav-item dropdown py-auto">
         <a id="len9" class="hoverable nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <?php if(isset($_SESSION['USER'])):?>
+           <img src="<?=get_image($_SESSION['USER']->image, $_SESSION['USER']->gender)?>" width="40" height="40" class="rounded-circle">
+          <?php endif;?>
           <?=Auth::getFirstname()?>
         </a>
         <div class="dropdown-menu dropdown-menu-end " aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="<?=ROOT?>/profile">Profile</a>
-          <a class="dropdown-item" href="<?=ROOT?>">Dashboard</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="<?=ROOT?>/logout">Logout</a>
+          <a class="dropmenu dropdown-item" href="<?=ROOT?>/profile">Profile</a>
+          <a class="dropmenu dropdown-item" href="<?=ROOT?>">Dashboard</a>
+          <div classdropmenu ="dropdown-divider"></div>
+          <a class="dropmenu dropdown-item" href="<?=ROOT?>/logout">Logout</a>
         </div>
       </li>
     </ul>

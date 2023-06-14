@@ -68,7 +68,7 @@
 				<div class="card-footer">View all classes</div>
 				</a>
 			</div>
-
+			<?php if(!Auth::access('reception')):?>
 			<div class="card col-3 shadow rounded m-4 p-0 border">
 				<a href="<?=ROOT?>/tests">
 				<div class="card-header">TESTS</div>
@@ -78,28 +78,8 @@
 				<div class="card-footer">View all tests</div>
 				</a>
 			</div>
-
-			<?php if(Auth::access('admin')):?>
-				<div class="card col-3 shadow rounded m-4 p-0 border">
-					<a href="<?=ROOT?>/statistics">
-					<div class="card-header">STATISTICS</div>
-					<h1 class="text-center">
-						<i class="fa fa-chart-pie"></i>
-					</h1>
-					<div class="card-footer">View student statistics</div>
-					</a>
-				</div>
-
-				<div class="card col-3 shadow rounded m-4 p-0 border">
-					<a href="<?=ROOT?>/settings">
-					<div class="card-header">SETTINGS</div>
-					<h1 class="text-center">
-						<i class="fa fa-cogs"></i>
-					</h1>
-					<div class="card-footer">View app settings</div>
-					</a>
-				</div>
 			<?php endif;?>
+
 
 			<div class="card col-3 shadow rounded m-4 p-0 border">
 				<a href="<?=ROOT?>/profile">
@@ -108,16 +88,6 @@
 					<i class="fa fa-id-card"></i>
 				</h1>
 				<div class="card-footer">View your profile</div>
-				</a>
-			</div>
-
-			<div class="card col-3 shadow rounded m-4 p-0 border">
-				<a href="<?=ROOT?>/logout">
-				<div class="card-header">LOGOUT</div>
-				<h1 class="text-center">
-					<i class="fa fa-sign-out-alt"></i>
-				</h1>
-				<div class="card-footer">Logout from the system</div>
 				</a>
 			</div>
 

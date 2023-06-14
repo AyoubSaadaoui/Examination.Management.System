@@ -41,9 +41,7 @@
 		<br>
 		<div class="container-fluid">
 			<ul class="nav nav-tabs">
-			  <li class="nav-item">
-			    <a class="nav-link <?=$page_tab=='info' ? 'active':'';?>" href="<?=ROOT?>/profile/<?=$row->user_id?>">Basic Info</a>
-			  </li>
+
 			  <?php if(Auth::access('teacher') || Auth::i_own_content($row)):?>
 				  <li class="nav-item">
 				    <a class="nav-link <?=$page_tab=='classes' ? 'active':'';?>" href="<?=ROOT?>/profile/<?=$row->user_id?>?tab=classes">My Classes</a>
@@ -59,10 +57,10 @@
 
 				switch ($page_tab) {
 
-					case 'info':
-						// code...
-						include(views_path('profile-tab-info'));
-						break;
+					// case 'info':
+					// 	// code...
+					// 	include(views_path('profile-tab-info'));
+					// 	break;
 
 					case 'classes':
 						// code...

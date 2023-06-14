@@ -9,7 +9,7 @@
         </div>
     </form>
 
-    <?php if(Auth::access('teacher')):?>
+    <?php if(Auth::access('reception')):?>
     <div>
 
         <a href="<?=ROOT?>/single_class/studentremove/<?=$row->class_id?>?select=true">

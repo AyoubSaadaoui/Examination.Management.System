@@ -8,7 +8,7 @@
             <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
         </div>
     </form>
-    <?php if(Auth::access('teacher')):?>
+    <?php if(Auth::access('reception')):?>
     <div>
 
         <a href="<?=ROOT?>/single_class/teacherremove/<?=$row->class_id?>?select=true">

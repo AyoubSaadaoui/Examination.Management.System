@@ -8,14 +8,17 @@
 			<th>Created by</th>
 			<th>Active</th>
 			<th>Date</th>
+			<?php if($_SESSION['USER']->rank != 'teacher'):?>
 			<th>Answered</th>
 			<th></th>
+			<?php endif;?>
 		</tr>
+
 		<?php if(isset($test_rows) && $test_rows):?>
 
 			<?php foreach ($test_rows as $test_row):?>
 
-			 <tr style="<?=(in_array($test_row->test_id, $unsubmitted)) ? 'background-color:#eebebe':''?>">
+			 <tr >
 			 	<td>
 				 	<?php if(Auth::access('teacher')):?>
 						<a href="<?=ROOT?>/single_test/<?=$test_row->test_id?>">
@@ -26,21 +29,25 @@
 			 	<?php $active = $test_row->disabled ? "No":"Yes";?>
 			 	<td><?=$test_row->test?></td><td><?=$test_row->user->firstname?> <?=$test_row->user->lastname?></td><td><?=$active?></td><td><?=get_date($test_row->date)?></td>
 
-			 	<td>
-			 		<?php
-			 			$myid = get_class($this) == "Profile" ? $row->user_id : Auth::getUser_id();
-			 			$percentage = get_answer_percentage($test_row->test_id,$myid);
-			 		?>
- 					<?=$percentage?>%
-			 	</td>
-				<td>
-			 		<?php if(can_take_test($test_row->test_id)):?>
-			 		<a href="<?=ROOT?>/take_test/<?=$test_row->test_id?>">
-			 		 <button class="btn btn-sm btn-primary">Take this test</button>
-			 		</a>
-			 		<?php endif;?>
+				<?php if($_SESSION['USER']->rank != 'teacher'):?>
+					<td>
 
-			 	</td>
+							<?php
+								$myid = get_class($this) == "Profile" ? $row->user_id : Auth::getUser_id();
+								$percentage = get_answer_percentage($test_row->test_id,$myid);
+							?>
+							<?=$percentage?>%
+
+					</td>
+					<td>
+						<?php if(can_take_test($test_row->test_id)):?>
+						<a href="<?=ROOT?>/take_test/<?=$test_row->test_id?>">
+						<button class="btn btn-sm btn-primary">Take this test</button>
+						</a>
+						<?php endif;?>
+
+					</td>
+				<?php endif;?>
 			 </tr>
 
  			<?php endforeach;?>

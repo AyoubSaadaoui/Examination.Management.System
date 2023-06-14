@@ -133,7 +133,9 @@ class Tests_model extends Model {
 
         }
 
-        return count($to_mark);
+        if($to_mark){
+            return count($to_mark);
+        }
     }
 
 }
