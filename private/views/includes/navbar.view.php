@@ -142,7 +142,7 @@
         </li>
       <?php endif;?>
 
-      <?php if(Auth::getRank() != "reception"):?>
+      <?php if(Auth::getRank() != "reception" && Auth::getRank() != "super_admin"):?>
       <li class="nav-item"  style="position: relative;">
         <a id="len6" class="hoverable nav-link <?=($this->controller_name() == 'Tests') ? ' active ':''?> " href="<?=ROOT?>/tests"> TESTS
 
@@ -157,7 +157,7 @@
         </a>
       </li>
       <?php endif;?>
-      <?php if(Auth::access('teacher')):?>
+      <?php if(Auth::access('teacher') && Auth::getRank() != "super_admin"):?>
          <li class="nav-item" style="position: relative;">
           <a id="len7" class="hoverable nav-link <?=($this->controller_name() == 'To_mark') ? ' active ':''?>   " href="<?=ROOT?>/to_mark">TO MARK
             <?php
